@@ -4,7 +4,7 @@ import { Box } from "@element-plus/icons-vue";
 
 const routes = [
   {
-    path: "/",
+    path: "/login",
     name: "login",
     component: () => import("@/views/login/login.vue"),
   },

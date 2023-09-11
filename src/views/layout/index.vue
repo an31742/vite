@@ -14,7 +14,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Home from "../home";
 import Mymue from "./myMue";
 export default {
@@ -31,7 +31,7 @@ export default {
 
 <style scoped>
 .el-header {
-  background-color: #f0f0f0;
+  background-color: #333;
 }
 .el-aside {
   background-color: #545c64;

@@ -1,6 +1,5 @@
 <template>
   <div class="front-main">
-  
   </div>
 </template>
 
@@ -44,10 +43,9 @@ export default defineComponent({
 
 
 .front-main {
-  background: url("../assets/bgLogin.webp") no-repeat 100% 100%;
-   width: 100%;
+  width: 100%;
   height: 100%;
-
+  background: url("../assets/bgLogin.webp")  100% 100%;
 }
 
 body > .el-container {
