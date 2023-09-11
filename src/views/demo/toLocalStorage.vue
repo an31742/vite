@@ -20,7 +20,7 @@
 import { defineComponent, reactive,ref ,nextTick} from "vue";
 export default defineComponent({
   setup() {
-    let content = reactive([
+    let content = ref([
       {
         id: 1,
         data: '文章很好!'
@@ -31,7 +31,7 @@ export default defineComponent({
       },
     ])
 
-  let contentData:string=JSON.stringify(content)
+  let contentData:string=JSON.stringify(content.value)
   localStorage.setItem('ts-demo1',contentData)
 
 
@@ -54,7 +54,7 @@ export default defineComponent({
      if(localJson !==null){
 
     
-        content = JSON.parse(localJson)           
+        content.value = JSON.parse(localJson)           
        
       console.log("content",content)
       return JSON.parse(localJson)
