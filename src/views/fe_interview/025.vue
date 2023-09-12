@@ -5,8 +5,7 @@
       <template #header>
         <div class="card-header">
           <a href="https://github.com/haizlin/fe-interview/issues/78">
-            说说 script script async 和 script defer的区别？</a
-          >
+            说说 script script async 和 script defer的区别？</a>
         </div>
       </template>
       <div class="text item">
@@ -49,24 +48,20 @@
     <el-card class="box-card">
       <template #header>
         <div class="card-header">
-          <span
-            ><a href="https://github.com/haizlin/fe-interview/issues/79">
-              在页面中的应该使用奇数还是偶数的字体？为什么呢?</a
-            ></span
-          >
+          <span><a href="https://github.com/haizlin/fe-interview/issues/87">
+              在页面中的应该使用奇数还是偶数的字体</a></span>
         </div>
       </template>
       <div class="text item">
         <div v-highlight>
           <pre>
                             <code>
-```
-常用偶数号字体,但奇数号字体也没关系,例如 知乎正文使用15px字体,豆瓣电影使用13px字体UI设计师导出的设计稿一般都是偶数号字体
+常用偶数号字体,但奇数号字体也没关系,例如 知乎正文使用15px字体,豆瓣电影使用13px字体
+UI设计师导出的设计稿一般都是偶数号字体
 偶数字号容易和页面其他标签的其他属性形成比例关系
 Windows 自带的点阵宋体（中易宋体）从 Vista 开始只提供 12、14、16 px 这三个大小的点阵，
 而 13、15、17 px 时用的是小一号的点阵（即每个字占的空间大了 1 px，但点阵没变），于是略显稀
 疏。(没试过)
-```
                             </code>
                             </pre>
         </div>
@@ -76,12 +71,8 @@ Windows 自带的点阵宋体（中易宋体）从 Vista 开始只提供 12、14
     <el-card class="box-card">
       <template #header>
         <div class="card-header">
-          <span
-            ><a href="https://github.com/haizlin/fe-interview/issues/80">
-              0.1 + 0.2、0.1 + 0.3和0.1 * 0.2分别等于多少？并解释下为什么？
-              #80</a
-            ></span
-          >
+          <span><a href="https://github.com/haizlin/fe-interview/issues/88">
+              写一个判断设备来源的方法</a></span>
         </div>
       </template>
       <div class="text item">
@@ -89,20 +80,28 @@ Windows 自带的点阵宋体（中易宋体）从 Vista 开始只提供 12、14
           <pre>
                                 <code>
                                   ```
- function checkPlatform() {
-    let userAgentInfo = navigator.userAgent;
-    const Agents = ['Android', 'iPhone', 'SysbianOS', 'Windows Phone', 'iPad', 'iPod'];
-
-    for (let i = 0; i &lt; Agents.length; i++) {
-        if (userAgentInfo.indexOf(Agents[i]) > 0) {
-            return alert('当前为移动端设备，机型为：' + Agents[i]);
-        }
-    }
-    return alert('当前为PC端');
+function getDeviceSource() {
+  const userAgent = navigator.userAgent.toLowerCase();
+  
+  if (userAgent.includes("android")) {
+    return "Android";
+  } else if (userAgent.includes("iphone") || userAgent.includes("ipad") || userAgent.includes("ipod")) {
+    return "iOS";
+  } else if (userAgent.includes("windows phone")) {
+    return "Windows Phone";
+  } else if (userAgent.includes("macintosh") || userAgent.includes("mac os x")) {
+    return "Mac";
+  } else if (userAgent.includes("windows")) {
+    return "Windows";
+  } else {
+    return "Unknown";
+  }
 }
 
-checkPlatform();
-                                  ```
+// 示例用法
+const deviceSource = getDeviceSource();
+console.log(deviceSource); // 输出设备来源
+```
                                 </code>
                             </pre>
         </div>
@@ -112,11 +111,8 @@ checkPlatform();
     <el-card class="box-card">
       <template #header>
         <div class="card-header">
-          <span
-            ><a href="https://github.com/haizlin/fe-interview/issues/89">
-              说说你工作中遇到过比较难的技术问题是什么？是如何解决的</a
-            ></span
-          >
+          <span><a href="https://github.com/haizlin/fe-interview/issues/89">
+              说说你工作中遇到过比较难的技术问题是什么？是如何解决的</a></span>
         </div>
       </template>
       <div class="text item">
@@ -142,7 +138,7 @@ checkPlatform();
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {};
 </script>
 

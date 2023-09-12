@@ -138,7 +138,7 @@ console.log(arr);// [ 1, 3, 5, 2, 4 ]
   </div>
 </template>
 
-<script>
+ <script lang="ts">
 export default {};
 </script>
 
