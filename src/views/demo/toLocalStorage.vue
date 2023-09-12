@@ -1,12 +1,14 @@
 <template>
   <div class="show-viewcom">
     <p>评论:</p>
-    <div class="context" >
-       <ul v-for="item in content" :key="item.id">
-         <li >{{ item.data }} 
-          <el-icon style="float: right;" @click="handleDelete"><DeleteFilled /></el-icon>
+    <div class="context">
+      <ul v-for="item, index in content" :key="item.id">
+        <li style="display: block">{{ item.data }}
+          <el-icon style="float: right;" @click="handleDelete(index)">
+            <DeleteFilled />
+          </el-icon>
         </li>
-       </ul>
+      </ul>
     </div>
   </div>
   <div class="show-viewcom cont">
@@ -17,7 +19,7 @@
 
 <script  lang="ts">
 
-import { defineComponent, reactive,ref ,nextTick} from "vue";
+import { defineComponent, reactive, ref, nextTick } from "vue";
 export default defineComponent({
   setup() {
     let content = ref([
@@ -31,67 +33,60 @@ export default defineComponent({
       },
     ])
 
-  let contentData:string=JSON.stringify(content.value)
-  localStorage.setItem('ts-demo1',contentData)
+    let contentData: string = JSON.stringify(content.value)
+    localStorage.setItem('ts-demo1', contentData)
 
 
-   let  jsonKey=ref('ts-demo1')
-   let contId=ref('')
-   let contentWrite=ref('')
-
-   console.log("contentWrite",contentWrite.value)
-  
-  const handleDelete =(id:number|string)=>{
-          let copyId= contId
-      let arr:any=readData()
-      let index=arr.findIndex(e =>e[copyId.value]==id )
-  }
-
-
-  //取值
-  const readData=()=>{
-    let localJson:string|null=localStorage.getItem(jsonKey.value)
-     if(localJson !==null){
-
-    
-        content.value = JSON.parse(localJson)           
-       
-      console.log("content",content)
-      return JSON.parse(localJson)
-     }
-  }   
-    
-    
-    
+    let jsonKey = ref('ts-demo1')
+    let contId = ref('')
+    let contentWrite = ref('')
+    console.log("contentWrite", contentWrite.value)
+    const handleDelete = (id: number | string) => {
+      let arr: any = readData()
+      //  使用aplice
+      arr.splice(id, 1)
+      // content.value=arr.filter((item,index)=>index !== id)
+      //使用slice
+      content.value = arr
+      setData(arr)
+    }
 
 
-  const setData=(arrData:object[]):void=>{
-       //存值
-      let localJson:string|null =JSON.stringify(arrData)
-      localStorage.setItem(jsonKey.value,localJson)   
-      
-  }
-
-
-  const handlerAdd=()=>{
-      //1.拿到本地数据
-      let arr:any = readData()
-      //3自动生成主键id
-      let newId=arr.length > 0 ? arr.length+1:1
-      let newObj:any={
-        "data":contentWrite.value,
-        'id':newId
+    //取值
+    const readData = () => {
+      let localJson: string | null = localStorage.getItem(jsonKey.value)
+      if (localJson !== null) {
+        content.value = JSON.parse(localJson)
+        return JSON.parse(localJson)
       }
-     //4将对象新增到数组中
-     arr.push(newObj)
-     //5 保存新的数组
-     setData(arr)
-    
-     nextTick(()=>{
-      readData()
-     })
-      
-  }
+    }
+
+    //存值
+    const setData = (arrData: object[]): void => {
+      let localJson: string | null = JSON.stringify(arrData)
+      localStorage.setItem(jsonKey.value, localJson)
+    }
+
+
+    const handlerAdd = () => {
+      //1.拿到本地数据
+      let arr: any = readData()
+      //3自动生成主键id
+      let newId = arr.length > 0 ? arr.length + 1 : 1
+      let newObj: any = {
+        "data": contentWrite.value,
+        'id': newId
+      }
+      //4将对象新增到数组中
+      arr.push(newObj)
+      //5 保存新的数组
+      setData(arr)
+
+      nextTick(() => {
+        readData()
+      })
+      contentWrite.value = ''
+    }
 
     return {
       content,
@@ -110,6 +105,7 @@ export default defineComponent({
   margin: 26px;
   padding: 10px;
   border: 1px solid red;
+  overflow: auto;
 }
 
 p {
