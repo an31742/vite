@@ -42,28 +42,28 @@
 
 5. **作者**：
    ```html
-   <meta name="author" content="作者名">
+   meta name="author" content="作者名"
    ```
    这个标签用于指定网页的作者。
 
 6. **刷新**：
    ```html
-   <meta http-equiv="refresh" content="5;url=https://example.com">
+   meta http-equiv="refresh" content="5;url=https://example.com"
    ```
    这个标签会在指定的时间间隔后自动刷新页面，可用于实现页面定时跳转。
 
 7. **X-UA-Compatible**：
    ```html
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   meta http-equiv="X-UA-Compatible" content="IE=edge"
    ```
    这个标签用于告诉 Internet Explorer 使用最新的渲染引擎。
 
 8. **Open Graph（社交媒体分享）**：
    ```html
-   <meta property="og:title" content="标题">
-   <meta property="og:description" content="描述">
-   <meta property="og:image" content="图片链接">
-   <meta property="og:url" content="网页链接">
+   meta property="og:title" content="标题"
+   meta property="og:description" content="描述"
+   meta property="og:image" content="图片链接"
+   meta property="og:url" content="网页链接"
    ```
    这些标签提供了在社交媒体分享时显示的元信息，包括标题、描述、图片等。
 
@@ -126,7 +126,7 @@
 对于密码字段，可以将其类型设置为password，这样Chrome不会自动填充密码
 
 ```
-<input type="password" name="password">
+input type="password" name="password"
 ```
 
 你也可以结合使用上述方法，以达到更好的效果
@@ -138,9 +138,9 @@ input[type="password"]:-webkit-autofill {
 ```
 
 ```
-<form autocomplete="off">
-  <input type="password" name="password">
-</form>
+form autocomplete="off"
+  input type="password" name="password"
+/form
 
 ```
 ```
@@ -259,8 +259,8 @@ input[type="password"]:-webkit-autofill {
   </div>
 </template>
 
-<script lang="ts">
-export default {};
+<script lang="ts" setup>
+
 </script>
 
 <style lang="less" scoped></style>
