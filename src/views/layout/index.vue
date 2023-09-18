@@ -15,8 +15,8 @@
 </template>
 
 <script lang="ts">
-import Home from "../home";
-import Mymue from "./myMue";
+import Home from "../home.vue";
+import Mymue from "./myMue.vue";
 export default {
   name: "",
   components: {

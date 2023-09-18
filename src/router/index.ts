@@ -10,6 +10,10 @@ const routes = [
   },
   {
     path: "/",
+    redirect: "layout",
+  },
+  {
+    path: "/layout",
     name: "layout",
     component: () => import("@/views/layout/index.vue"),
     asideVisible: false,
@@ -17,7 +21,7 @@ const routes = [
       title: "首页",
       icon: markRaw(Box),
       activeMenu: "layout",
-      anchors: "",
+      anchors: "layout",
     },
   },
   {
@@ -29,7 +33,6 @@ const routes = [
       title: "demo",
       icon: markRaw(Box),
       activeMenu: "demo",
-      anchors: "",
     },
     children: [
       {
@@ -40,7 +43,7 @@ const routes = [
           title: "toLocalStorage",
           icon: markRaw(Box),
           activeMenu: "toLocalStorage",
-          anchors: "",
+          anchors: "management",
         },
       },
 
@@ -52,7 +55,7 @@ const routes = [
           title: "demoLayOut",
           icon: markRaw(Box),
           activeMenu: "demoLayOut",
-          anchors: "",
+          anchors: "management",
         },
       },
       {
@@ -64,7 +67,7 @@ const routes = [
           title: "vue3",
           icon: markRaw(Box),
           activeMenu: "vue3",
-          anchors: "",
+          anchors: "management",
         },
       },
     ],
@@ -74,14 +77,18 @@ const routes = [
     name: "fe_interview",
     component: () => import("@/views/fe_interview/index.vue"),
     asideVisible: false,
+    anchors: "fe_interview",
     meta: {
       title: "fe_interview",
       icon: markRaw(Box),
       activeMenu: "fe_interview",
-      anchors: "",
     },
-   
+  
   },
+  {
+    path: '/:pathMatch(.*)',
+    redirect: '/'
+}
 ];
 const router = createRouter({
   history: createWebHashHistory(),
@@ -114,7 +121,8 @@ router.beforeEach((to, from) => {
   // if (to.path.indexOf("/home") !== -1) {
   //   return "/login"
   // }
-
+  const document: any = window.document
+  document.title = to.meta.title
   if (to.path !== "/login") {
     const token = window.localStorage.getItem("token");
     if (!token) {

@@ -34,7 +34,7 @@ export default {
       window.localStorage.setItem("token", "why");
 
       router.push({
-        path: "/layout",
+        path: "/",
       });
     };
 

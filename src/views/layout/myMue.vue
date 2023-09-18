@@ -47,9 +47,11 @@
 
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { useCounter } from '@/store/index.ts'
+import {storeToRefs} from 'pinia'
 
+const counterStore: any = useCounter()
 const router = useRouter()
-
 
 // options.routes
 const {
@@ -68,6 +70,24 @@ const handleClose = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)
 }
 
+const getUserResourceApi = () => {
+
+  console.log("routes",routes)
+  const arr = [
+    {
+      serverId: 106,
+      anchors: ['super-management', 'management']
+    },
+    {
+      serverId: 10,
+      anchors: ['management']
+    }
+  ]
+  counterStore.setUserResourceTree(routes)
+  counterStore.getRoutes(routes)
+}
+
+getUserResourceApi()
 </script>
 
 <style scope lang="less">

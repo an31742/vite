@@ -1,6 +1,6 @@
 //常用的工具方法
 import { isArray } from "@/utils/is";
-​
+​import {useCounter} from '@/store/index.ts'
 /**
  * @description 获取localStorage
  * @param {String} key Storage名称
@@ -168,3 +168,18 @@ export function filterEnum(callValue: any, enumData: any, searchProps?: { [key: 
     return filterData ? filterData[label] : "--";
 }
 ​
+
+
+export const checkRole = (roleId: string) => {
+    const counterStore = useCounter()
+    
+    if (!roleId) return true
+    const roleTree: any = counterStore.userResourceTree
+    if (!roleTree) return true
+    for (let i = 0; i < roleTree.length; i++) {
+        if (roleTree[i].anchors.includes(roleId)) {
+            return true
+        }
+    }
+    return false
+  }

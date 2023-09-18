@@ -20,7 +20,7 @@ export default defineConfig({
  //配置别名
  resolve: {
   alias: {
-   "@": resolve("src"),
+    "@": path.resolve(__dirname, 'src'),
    comps: resolve("src/components"),
    service: resolve("src/service"),
    views: resolve("src/views"),

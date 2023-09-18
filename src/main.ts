@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router/index.ts'
-// import { createPinia } from "pinia"
+import piniaStore from './store/index.ts'
 // import SvgIcon from './components/SvgIcon/index.vue'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import "element-plus/dist/index.css"
@@ -13,6 +13,6 @@ Object.keys(ElementPlusIconsVue).forEach(key => {
     app.component(key, ElementPlusIconsVue[key as keyof typeof ElementPlusIconsVue]);
 });
 app.use(router)
-// app.use(createPinia())
+app.use(piniaStore)
 // app.component('svg-icon', SvgIcon)
-    app.mount('#app')
+app.mount('#app')
