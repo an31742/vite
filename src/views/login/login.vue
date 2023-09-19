@@ -21,18 +21,21 @@
 <script lang="ts">
 import { useRouter } from "vue-router";
 import { reactive } from "vue";
+import {useCounter} from  '@/store/index.ts'
 
 export default {
   setup() {
+    const store= useCounter()
     const router = useRouter();
     const ruleForm = reactive({
       name: "admin",
       password: 12345,
     });
 
-    const submitForm = () => {
-      window.localStorage.setItem("token", "why");
 
+    const submitForm = () => {
+      store.getUserInfo(ruleForm)
+      // window.localStorage.setItem("token", "why");
       router.push({
         path: "/",
       });

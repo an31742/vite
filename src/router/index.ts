@@ -1,13 +1,17 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import { markRaw } from "vue";
-import { Box } from "@element-plus/icons-vue";
-
+import { Box, Flag } from "@element-plus/icons-vue";
+import Error from "./modules/error.ts";
+import Demo from './modules/demo.ts'
+import FeInterview from './modules/feInterview.ts'
 const routes = [
   {
     path: "/login",
     name: "login",
+    hidde: true,
     component: () => import("@/views/login/login.vue"),
   },
+
   {
     path: "/",
     redirect: "layout",
@@ -15,81 +19,21 @@ const routes = [
   {
     path: "/layout",
     name: "layout",
+    hidde: false,
     component: () => import("@/views/layout/index.vue"),
     asideVisible: false,
     meta: {
       title: "首页",
       icon: markRaw(Box),
       activeMenu: "layout",
-      anchors: "layout",
     },
   },
-  {
-    path: "/demo",
-    name: "demo",
-    component: () => import("@/views/demo/index.vue"),
-    asideVisible: true,
-    meta: {
-      title: "demo",
-      icon: markRaw(Box),
-      activeMenu: "demo",
-    },
-    children: [
-      {
-        path: "/demo/toLocalStorage",
-        component: () => import("@/views/demo/toLocalStorage.vue"),
-        asideVisible: false,
-        meta: {
-          title: "toLocalStorage",
-          icon: markRaw(Box),
-          activeMenu: "toLocalStorage",
-          anchors: "management",
-        },
-      },
-
-      {
-        path: "/demo/layOut",
-        component: () => import("@/views/demo/layOut.vue"),
-        asideVisible: false,
-        meta: {
-          title: "demoLayOut",
-          icon: markRaw(Box),
-          activeMenu: "demoLayOut",
-          anchors: "management",
-        },
-      },
-      {
-        path: "/demo/vue3",
-        name: "vue3",
-        component: () => import("@/views/demo/vue3.vue"),
-        asideVisible: false,
-        meta: {
-          title: "vue3",
-          icon: markRaw(Box),
-          activeMenu: "vue3",
-          anchors: "management",
-        },
-      },
-    ],
-  },
-  {
-    path: "/fe_interview3+1",
-    name: "fe_interview",
-    component: () => import("@/views/fe_interview/index.vue"),
-    asideVisible: false,
-    anchors: "fe_interview",
-    meta: {
-      title: "fe_interview",
-      icon: markRaw(Box),
-      activeMenu: "fe_interview",
-    },
-  
-  },
-  {
-    path: '/:pathMatch(.*)',
-    redirect: '/'
-}
+  Demo,
+  FeInterview,
+  Error,
 ];
+
+
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
@@ -99,12 +43,11 @@ for (let i = 0; i < 100; i++) {
   // 添加二级路由对象
   router.addRoute("fe_interview", {
     path: `/fe_interview3+1/${i + 1 < 100 ? "0" + i : i}`,
-    name:   JSON.stringify(i+ 1 < 100 ? "0" + i : i)  ,
+    name: JSON.stringify(i + 1 < 100 ? "0" + i : i),
     component: () =>
       import(`@/views/fe_interview/${i + 1 < 100 ? "0" + i : 1}.vue`),
   });
 }
-
 // 导航守卫beforeEach
 let counter = 0;
 // to: Route对象, 即将跳转到的Route对象
@@ -116,11 +59,14 @@ let counter = 0;
  *    3.字符串: 路径, 跳转到对应的路径中
  *    4.对象: 类似于 router.push({path: "/login", query: ....})
  */
+
+let whiteList = ["/login", "/401", "/404"];
+
+
+
 router.beforeEach((to, from) => {
+  // console.log("whiteList",form)
   console.log(`进行了${++counter}路由跳转${from}`);
-  // if (to.path.indexOf("/home") !== -1) {
-  //   return "/login"
-  // }
   const document: any = window.document
   document.title = to.meta.title
   if (to.path !== "/login") {
