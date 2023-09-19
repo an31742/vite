@@ -20,25 +20,16 @@ export const useCounter = defineStore("user", {
   actions: {
     // 定义 actions 的方法
     getUserInfo(payload: any) {
-      return new Promise((resolve, reject) => {
-        try {
-          if (Object.keys(payload).length === 0) {
-            payload = {
-              name: "admin",
-              password: 12345,
-            };
-          }
 
-          setTimeout(() => {
-            payload.roles = ["admin"];
-            localStorage.setItem("userInfo", JSON.stringify(payload));
-            this.userInfo = payload;
-            resolve(payload);
-          });
-        } catch (error) {
-          reject(error);
-        }
-      });
+      if (Object.keys(payload).length === 0) {
+        payload = {
+          name: "admin",
+          password: 12345,
+        };
+      }
+      payload.roles = ["admin"];
+      localStorage.setItem("userInfo", JSON.stringify(payload));
+      this.userInfo = payload;
     },
     setUserResourceTree(payload: any) {
       this.userResourceTree = payload;

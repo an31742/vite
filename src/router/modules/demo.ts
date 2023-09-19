@@ -49,7 +49,7 @@ const routes =
         title: "vue3",
         icon: markRaw(Box),
         activeMenu: "vue3",
-        anchors: ["admin"],
+        anchors: ["admin",'super-management'],
       },
     },
   ],

@@ -40,9 +40,6 @@
         </el-icon>
         <span>{{ item.meta.title }}</span>
       </el-menu-item>
-
-
-
     </el-menu>
   </div>
 </template>

@@ -35,7 +35,7 @@ export default {
 
     const submitForm = () => {
       store.getUserInfo(ruleForm)
-      // window.localStorage.setItem("token", "why");
+      window.localStorage.setItem("token", "an31742");
       router.push({
         path: "/",
       });

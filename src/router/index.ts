@@ -65,7 +65,7 @@ let whiteList = ["/login", "/401", "/404"];
 
 
 router.beforeEach((to, from) => {
-  // console.log("whiteList",form)
+  console.log("whiteList",to)
   console.log(`进行了${++counter}路由跳转${from}`);
   const document: any = window.document
   document.title = to.meta.title

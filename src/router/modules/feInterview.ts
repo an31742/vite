@@ -13,7 +13,7 @@ const routes =
   meta: {
     title: "fe_interview",
     icon: markRaw(Box),
-    anchors: ["admin"],
+    anchors: ["super-management"],
   },
 }
 
