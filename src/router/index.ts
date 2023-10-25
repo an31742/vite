@@ -4,6 +4,11 @@ import { Box, Flag } from "@element-plus/icons-vue";
 import Error from "./modules/error.ts";
 import Demo from './modules/demo.ts'
 import FeInterview from './modules/feInterview.ts'
+import { ElMessage } from 'element-plus'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+
+NProgress.configure({ showSpinner: false });
 const routes = [
   {
     path: "/login",
@@ -64,17 +69,28 @@ let whiteList = ["/login", "/401", "/404"];
 
 
 
-router.beforeEach((to, from) => {
+router.beforeEach((to, from,) => {
   console.log("whiteList",to)
   console.log(`进行了${++counter}路由跳转${from}`);
   const document: any = window.document
-  document.title = to.meta.title
+  NProgress.start()
+  document.title = to.meta.title ?? "vite+ts"
   if (to.path !== "/login") {
     const token = window.localStorage.getItem("token");
     if (!token) {
       return "/login";
     }
   }
+  //写一个方法这个方法是从后端拿到所有当前用户的所有权限，通过与前端对应判断是否有权限没有就进入默认首页
+  // 这个方法一般在utils并使用
+  // if (!checkRole(to.meta.anchors)) {
+  //   ElMessage.error('暂无权限')
+  //   return next('/')
+  // }
 });
 
+
+router.afterEach(() => {
+  NProgress.done()
+})
 export default router;

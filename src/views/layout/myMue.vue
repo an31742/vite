@@ -1,3 +1,10 @@
+<!--
+ * @Author: maxiangan
+ * @Date: 2023-09-11 10:38:59
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2023-10-25 11:37:35
+ * @Description: 请填写简介
+-->
 <template>
   <div v-for="item in routesData" :key="item.name">
     <el-menu active-text-color="#ffd04b" background-color="#545c64" class="el-menu-vertical-demo"
@@ -34,6 +41,7 @@
       </el-sub-menu>
 
       <!-- 二级节点没有子集 -->
+      <!-- 在这个菜单加一个公用方法这个公用方法是判断菜单是否展示，不展示代表没有权限 -->
       <el-menu-item :index="item.path" v-if="item.asideVisible === false && !item.hidde">
         <el-icon>
           <setting />
@@ -50,6 +58,8 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useCounter } from '../../store/index.ts'
 import {storeToRefs} from 'pinia'
+
+
 
 const counterStore: any = useCounter()
 const router = useRouter()

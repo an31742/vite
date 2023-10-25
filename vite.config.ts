@@ -4,8 +4,7 @@ import path from "path";
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-import ElementPlus from 'unplugin-element-plus/vite'
-const resolve = (dir: string) => path.join(__dirname, dir);
+
 export default defineConfig({
   plugins: [
   vue(),
@@ -21,12 +20,8 @@ export default defineConfig({
  resolve: {
   alias: {
     "@": path.resolve(__dirname, 'src'),
-   comps: resolve("src/components"),
-   service: resolve("src/service"),
-   views: resolve("src/views"),
-   route: resolve("src/route"),
    },
-   extensions: ['.vue', '.js'],
+   extensions: ['.vue', '.js','ts'],
    
   },
  // css:{
@@ -40,7 +35,7 @@ export default defineConfig({
  server: {
   // 配置前端服务地址和端口
   //服务器主机名
-  host: "127.0.0.1",
+  host: '0.0.0.0',
   //端口号
   port: 3088,
   //设为 true 时若端口已被占用则会直接退出，而不是尝试下一个可用端口

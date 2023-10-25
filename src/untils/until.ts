@@ -1,6 +1,6 @@
 //常用的工具方法
-import { isArray } from "@/utils/is";
-​import {useCounter} from '@/store/index.ts'
+import { isArray } from "@/untils/is/index";
+
 /**
  * @description 获取localStorage
  * @param {String} key Storage名称
@@ -107,8 +107,8 @@ export function getTabPane<T, U>(menuList: any[], path: U): T {
  * @param {Array} newArr 菜单的一维数组
  * @return array
  */
-export function handleRouter(routerList: Menu.MenuOptions[], newArr: string[] = []) {
-    routerList.forEach((item: Menu.MenuOptions) => {
+export function handleRouter(routerList: any, newArr: string[] = []) {
+    routerList.forEach((item: any) => {
         typeof item === "object" && item.path && newArr.push(item.path);
         item.children && item.children.length && handleRouter(item.children, newArr);
     });
@@ -170,16 +170,3 @@ export function filterEnum(callValue: any, enumData: any, searchProps?: { [key: 
 ​
 
 
-export const checkRole = (roleId: string) => {
-    const counterStore = useCounter()
-    
-    if (!roleId) return true
-    const roleTree: any = counterStore.userResourceTree
-    if (!roleTree) return true
-    for (let i = 0; i < roleTree.length; i++) {
-        if (roleTree[i].anchors.includes(roleId)) {
-            return true
-        }
-    }
-    return false
-  }
