@@ -1,5 +1,14 @@
+/*
+ * @Author: maxiangan
+ * @Date: 2023-09-19 16:08:24
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2023-10-25 16:06:25
+ * @Description: 请填写简介
+ */
 import { markRaw } from "vue";
 import { Box } from "@element-plus/icons-vue";
+
+
 
 const routes = 
 {
@@ -12,7 +21,7 @@ const routes =
     title: "demo",
     icon: markRaw(Box),
     activeMenu: "demo",
-    anchors: ["admin", "super-management"],
+    anchors: "admin", 
   },
   children: [
     {
@@ -24,7 +33,7 @@ const routes =
         title: "toLocalStorage",
         icon: markRaw(Box),
         activeMenu: "toLocalStorage",
-        anchors: ["admin", "super-management"],
+        anchors: "admin", 
       },
     },
     {
@@ -36,7 +45,7 @@ const routes =
         title: "demoLayOut",
         icon: markRaw(Box),
         activeMenu: "demoLayOut",
-        anchors: ["admin", "super-management"],
+        anchors: "admin"
       },
     },
     {
@@ -49,7 +58,7 @@ const routes =
         title: "vue3",
         icon: markRaw(Box),
         activeMenu: "vue3",
-        anchors: ["admin",'super-management'],
+        anchors: 'management',
       },
     },
   ],

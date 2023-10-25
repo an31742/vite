@@ -21,7 +21,7 @@ export default defineConfig({
   alias: {
     "@": path.resolve(__dirname, 'src'),
    },
-   extensions: ['.vue', '.js','ts'],
+   extensions: ['.vue', '.js','.ts'],
    
   },
  // css:{

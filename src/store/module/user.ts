@@ -1,5 +1,10 @@
-import { error } from "console";
-import { defineStore } from "pinia";
+/*
+ * @Author: maxiangan
+ * @Date: 2023-08-27 21:46:32
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2023-10-25 16:33:24
+ * @Description: 请填写简介
+ */import { defineStore } from "pinia";
 
 interface UserStore {
   userInfo: any;
@@ -27,9 +32,10 @@ export const useCounter = defineStore("user", {
           password: 12345,
         };
       }
-      payload.roles = ["admin"];
+      payload.roles = ["admin","super-management"];
       localStorage.setItem("userInfo", JSON.stringify(payload));
       this.userInfo = payload;
+      
     },
     setUserResourceTree(payload: any) {
       this.userResourceTree = payload;
