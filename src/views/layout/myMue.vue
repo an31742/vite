@@ -2,7 +2,7 @@
  * @Author: maxiangan
  * @Date: 2023-09-11 10:38:59
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-10-26 13:45:58
+ * @LastEditTime: 2023-10-26 14:29:27
  * @Description: 请填写简介
 -->
 <template>
@@ -69,8 +69,9 @@ const {
   options: { routes }
 } = router;
 
-// console.log("routes", routes)
-const routesData = JSON.parse(JSON.stringify(routes));
+const routesData:any =  ref([])  
+routesData.value=JSON.parse(JSON.stringify(routes));
+// const routesData = JSON.parse(JSON.stringify(routes));
 
 const paths = ref("");
 

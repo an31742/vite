@@ -2,7 +2,7 @@
  * @Author: maxiangan
  * @Date: 2023-08-27 21:46:32
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-10-26 13:54:07
+ * @LastEditTime: 2023-10-26 14:25:30
  * @Description: 请填写简介
  */import { defineStore } from "pinia";
 
@@ -10,13 +10,17 @@ interface UserStore {
   userInfo: any;
   isCollapse: boolean;
   userResourceTree: any;
-  routes: never[];
+  routes: any;
+  roles:any
 }
 
 export const useCounter = defineStore("user", {
   state: (): UserStore => ({
     // 初始化 state 属性的值
-    userInfo: {},
+    userInfo: {
+    },
+    roles :["admin","super-management"],
+
     isCollapse: false,
     userResourceTree: null,
     routes: [],
@@ -33,11 +37,8 @@ export const useCounter = defineStore("user", {
         };
       }
       payload.roles = ["admin","super-management"];
-      let newData=  JSON.parse(JSON.stringify(payload)) 
-       
       localStorage.setItem("userInfo", JSON.stringify(payload));
-      this.userInfo = newData;
-      
+    
     },
     setUserResourceTree(payload: any) {
       this.userResourceTree = payload;

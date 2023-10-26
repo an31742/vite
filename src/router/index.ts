@@ -9,6 +9,7 @@ import { ElMessage } from 'element-plus'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
+
 NProgress.configure({ showSpinner: false });
 const routes: any = [
   {
@@ -80,13 +81,11 @@ router.beforeEach((to, from, next) => {
     if (!token) {
       return "/login";
     }
-
   }
 
   if (whiteList.includes(to.path)) {
     return next()
-  }
-
+  }   
   if (to.matched.length === 0) {
     from.name ? next({
       name: from.name
@@ -101,10 +100,6 @@ router.beforeEach((to, from, next) => {
       next(); //如果匹配到正确跳转
     }
   }
-
-
-
-
   return next()
 });
 
