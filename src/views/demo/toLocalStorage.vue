@@ -40,7 +40,6 @@ export default defineComponent({
     let jsonKey = ref('ts-demo1')
     let contId = ref('')
     let contentWrite = ref('')
-    console.log("contentWrite", contentWrite.value)
     const handleDelete = (id: number | string) => {
       let arr: any = readData()
       //  使用aplice

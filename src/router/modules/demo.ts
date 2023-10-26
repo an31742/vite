@@ -2,7 +2,7 @@
  * @Author: maxiangan
  * @Date: 2023-09-19 16:08:24
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-10-25 16:06:25
+ * @LastEditTime: 2023-10-26 13:41:59
  * @Description: 请填写简介
  */
 import { markRaw } from "vue";
@@ -26,6 +26,7 @@ const routes =
   children: [
     {
       path: "/demo/toLocalStorage",
+      name: "toLocalStorage",
       component: () => import("@/views/demo/toLocalStorage.vue"),
       asideVisible: false,
       hidde: false,
@@ -37,7 +38,8 @@ const routes =
       },
     },
     {
-      path: "/demo/layOut",
+      path: "/demo/demoLayOut",
+      name: "demoLayOut",
       component: () => import("@/views/demo/layOut.vue"),
       asideVisible: false,
       hidde: false,

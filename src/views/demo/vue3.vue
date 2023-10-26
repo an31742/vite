@@ -38,10 +38,6 @@ import {
 import { useRoute, useRouter } from "vue-router";
 export default defineComponent({
   setup(props, { attrs, slots, emit }) {
-    console.log(props.message); //父组件的参数
-    console.log(attrs.id, attrs.class);
-    console.log(slots); //插槽
-    console.log(emit); //自组件的值
     const router = useRouter();
     const route = useRoute();
     //ref的使用
@@ -99,11 +95,9 @@ export default defineComponent({
     };
     //当大于某个点就符合某个条件再调用就停止了
     const stop = watchEffect((onInvalidate) => {
-      console.log("name", name.value);
-      console.log("age", age.value);
+  
 
       const timer = setTimeout(() => {
-        console.log("使用异步");
       }, 200);
       //可以使用stop清楚副作用
       // 根据name和age两个变量发送网络请求
@@ -111,7 +105,6 @@ export default defineComponent({
         // 在这个函数中清除额外的副作用
         // request.cancel()
         clearTimeout(timer);
-        console.log("onInvalidate");
       });
     });
 

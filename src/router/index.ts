@@ -10,7 +10,7 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
 NProgress.configure({ showSpinner: false });
-const routes:any = [
+const routes: any = [
   {
     path: "/login",
     name: "login",
@@ -72,7 +72,6 @@ let whiteList = ["/login", "/401", "/404", '/layout', '/'];
 
 
 router.beforeEach((to, from, next) => {
-  console.log(`进行了${++counter}路由跳转${from}`);
   const document: any = window.document
   NProgress.start()
   document.title = to.meta.title ?? "vite+ts"
@@ -81,17 +80,31 @@ router.beforeEach((to, from, next) => {
     if (!token) {
       return "/login";
     }
+
   }
 
   if (whiteList.includes(to.path)) {
     return next()
   }
-  //写一个方法这个方法是从后端拿到所有当前用户的所有权限，通过与前端对应判断是否有权限没有就进入默认首页
-  // 这个方法一般在utils并使用
-  if (!checkRole(to.meta.anchors)) {
-    ElMessage.error('暂无权限')
-    return next('/')
+
+  if (to.matched.length === 0) {
+    from.name ? next({
+      name: from.name
+    }) : next('/404');
+  } else {
+    //写一个方法这个方法是从后端拿到所有当前用户的所有权限，通过与前端对应判断是否有权限没有就进入默认首页
+    // 这个方法一般在utils并使用
+    if (!checkRole(to.meta.anchors)) {
+      ElMessage.error('暂无权限')
+      return next('/401');
+    } else {
+      next(); //如果匹配到正确跳转
+    }
   }
+
+
+
+
   return next()
 });
 
