@@ -136,30 +136,7 @@ function toggleZeroOne(num) {
       </div>
     </el-card>
 
-    <el-card class="box-card">
-      <template #header>
-        <div class="card-header">
-          <span><a href="https://github.com/haizlin/fe-interview/issues/109">
-            解释下CRLF是什么</a></span>
-        </div>
-      </template>
-      <div class="text item">
-        <div v-highlight>
-          <pre>
-               <code>
-CRLF 是一个缩写，代表“Carriage Return Line Feed”，它是两个特殊字符的组合
-Carriage Return (CR)：代表回车符，ASCII 码为 13。它的作用是将光标移动到当前行的开头。
 
-Line Feed (LF)：代表换行符，ASCII 码为 10。它的作用是将光标移动到下一行的开头
-
-在Windows系统中，文本文件的行结束符通常是CRLF（\r\n）。
-在Unix/Linux系统中，文本文件的行结束符通常是LF（\n）。
-在老式的Mac OS中，文本文件的行结束符通常是CR（\r）
-               </code>
-               </pre>
-        </div>
-      </div>
-    </el-card>
   </div>
 </template>
 
