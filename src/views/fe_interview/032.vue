@@ -2,7 +2,7 @@
  * @Author: maxiangan
  * @Date: 2023-11-02 17:25:27
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-11-02 17:39:01
+ * @LastEditTime: 2023-11-13 16:26:42
  * @Description: 请填写简介
 -->
 <!-- eslint-disable no-irregular-whitespace -->
@@ -68,7 +68,7 @@ div{
     <el-card class="box-card">
       <template #header>
         <div class="card-header">
-          <span><a href="https://github.com/haizlin/fe-interview/issues/117">
+          <span><a href="https://github.com/haizlin/fe-interview/issues/116">
             造成内存泄漏的操作有哪些</a></span>
         </div>
       </template>
