@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .slide {
+      min-width: 100%;
+      box-sizing: border-box;
+    }
+
+    button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      border: none;
+      background-color: transparent;
+      color: white;
+      outline: none;
+    }
+
+    #prev {
+      left: 0;
+    }
+
+    #next {
+      right: 0;
+    }
+  </style>
+</head>
+<body>
+
+<div class="slides">
+  <div class="slide" style="background-color: #ff8080;">Slide 1</div>
+  <div class="slide" style="background-color: #80ff80;">Slide 2</div>
+  <div class="slide" style="background-color: #8080ff;">Slide 3</div>
+</div>
+
+<button id="prev" onclick="changeSlide(-1)">❮111111</button>
+<button id="next" onclick="changeSlide(1)">111111❯</button>
+
+<script>
+  let currentIndex = 0;
+
+  function changeSlide(n) {
+    currentIndex += n;
+    showSlide();
+  }
+
+  function showSlide() {
+    const slides = document.querySelector('.slides');
+    const totalSlides = document.querySelectorAll('.slide').length;
+
+    if (currentIndex > totalSlides - 1) {
+      currentIndex = 0;
+    } else if (currentIndex < 0) {
+      currentIndex = totalSlides - 1;
+    }
+
+    const transformValue = -currentIndex * 100 + '%';
+    slides.style.transform = 'translateX(' + transformValue + ')';
+  }
+</script>
+
+</body>
+</html>

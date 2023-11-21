@@ -80,7 +80,7 @@
       <template #header>
         <div class="card-header">
           <span><a href="https://github.com/haizlin/fe-interview/issues/130">
-             谈一谈你知道的前端性能优化方案有哪些 </a></span>
+            为什么10.toFixed(10)会报错 </a></span>
         </div>
       </template>
       <div class="text item">
