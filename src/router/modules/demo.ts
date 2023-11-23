@@ -2,7 +2,7 @@
  * @Author: maxiangan
  * @Date: 2023-09-19 16:08:24
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-10-26 13:41:59
+ * @LastEditTime: 2023-11-23 09:54:55
  * @Description: 请填写简介
  */
 import { markRaw } from "vue";
@@ -60,7 +60,20 @@ const routes =
         title: "vue3",
         icon: markRaw(Box),
         activeMenu: "vue3",
-        anchors: 'management',
+        anchors: 'management',  //设计前端权限
+      },
+    },
+    {
+      path: "/demo/cascader",
+      name: "cascader",
+      hidde: false,
+      component: () => import("@/views/demo/cascader.vue"),
+      asideVisible: false,
+      meta: {
+        title: "cascader",
+        icon: markRaw(Box),
+        activeMenu: "cascader",
+        anchors: 'admin',
       },
     },
   ],

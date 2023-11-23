@@ -160,7 +160,7 @@ left: -2500px;
     <el-card class="box-card">
       <template #header>
         <div class="card-header">
-          <span><a href="https://github.com/haizlin/fe-interview/issues/131">
+          <span><a href="https://github.com/haizlin/fe-interview/issues/135">
               谈一谈你知道的前端性能优化方案有哪些 </a></span>
         </div>
       </template>
