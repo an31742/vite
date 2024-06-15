@@ -22,7 +22,6 @@ const routes: any = [
   {
     path: "/",
     redirect: "layout",
-    component: () => import("@/views/layout/index.vue"),
   },
   {
     path: "/layout",
@@ -68,7 +67,7 @@ let counter = 0;
  *    4.对象: 类似于 router.push({path: "/login", query: ....})
  */
 
-let whiteList = ["/login", "/401", "/404", '/layout', '/'];
+let whiteList = ["/login", "/401", "/404", '/layout'];
 
 
 
@@ -77,15 +76,18 @@ router.beforeEach((to, from, next) => {
   NProgress.start()
   document.title = to.meta.title ?? "vite+ts"
   if (to.path !== "/login") {
+
     const token = window.localStorage.getItem("token");
     if (!token) {
-      return "/login";
+      return next('/login')
     }
   }
 
+  console.log('to.path: ', to.path);
   if (whiteList.includes(to.path)) {
     return next()
-  }   
+  }
+  console.log('to.matched.length: ', to.matched.length);
   if (to.matched.length === 0) {
     from.name ? next({
       name: from.name
@@ -93,6 +95,7 @@ router.beforeEach((to, from, next) => {
   } else {
     //写一个方法这个方法是从后端拿到所有当前用户的所有权限，通过与前端对应判断是否有权限没有就进入默认首页
     // 这个方法一般在utils并使用
+    console.log('to.meta.anchors: ', to.meta.anchors);
     if (!checkRole(to.meta.anchors)) {
       ElMessage.error('暂无权限')
       return next('/401');
