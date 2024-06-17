@@ -34,11 +34,34 @@ import Home from "../home.vue";
 import Mymue from "./myMue.vue";
 import { ElMessage } from "element-plus";
 import { reactive } from "vue";
+import useCurrentInstance from "@/utils/useCurrentInstance";
 const obj = reactive({
   url: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
 });
+const { proxy } = useCurrentInstance();
 const handleCommand = (command: string | number | object) => {
-  ElMessage(`click on item ${command}`);
+  // ElMessage(`click on item ${command}`);
+  if (command === "loginOut") {
+    // ElMessage.warning(`是否退出登录吗`);
+    proxy
+      .$confirm("您确定要执行此操作吗?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+      .then(() => {
+        ElMessage({
+          type: "success",
+          message: "操作成功!",
+        });
+      })
+      .catch(() => {
+        ElMessage({
+          type: "info",
+          message: "已取消操作",
+        });
+      });
+  }
 };
 </script>
 

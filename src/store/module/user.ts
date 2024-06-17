@@ -23,7 +23,7 @@ export const useCounter = defineStore("user", {
 
     isCollapse: false,
     userResourceTree: null,
-    routes: [],
+    routes: ["admin", "super-management"],
   }),
 
   actions: {

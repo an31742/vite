@@ -4,7 +4,7 @@ import { Box, Flag } from "@element-plus/icons-vue";
 import Error from "./modules/error.ts";
 import Demo from './modules/demo.ts'
 import FeInterview from './modules/feInterview.ts'
-import { checkRole } from '@/untils/permission.ts'
+import { checkRole } from '@/utils/permission.ts'
 import { ElMessage } from 'element-plus'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
