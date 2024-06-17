@@ -23,7 +23,7 @@ export const useCounter = defineStore("user", {
 
     isCollapse: false,
     userResourceTree: null,
-    routes: ["admin", "super-management"],
+    routes: [],
   }),
 
   actions: {
@@ -40,7 +40,9 @@ export const useCounter = defineStore("user", {
        * 掉接口返回一个数组这个数组就是告诉前端当前页面返回的是管理员权限还是哪些权限
        * 前端在各个路由限制 每个都会有对应的权限如果没有路由就不会展示
        */
+
       payload.roles = ["admin", "super-management"];
+      this.roles = payload.roles
       localStorage.setItem("userInfo", JSON.stringify(payload));
 
     },

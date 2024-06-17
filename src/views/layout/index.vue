@@ -32,24 +32,29 @@
 <script lang="ts" setup>
 import Home from "../home.vue";
 import Mymue from "./myMue.vue";
-import { ElMessage } from "element-plus";
+import { ElMessage, ElMessageBox } from "element-plus";
 import { reactive } from "vue";
-import useCurrentInstance from "@/utils/useCurrentInstance";
+import { useRouter } from "vue-router";
+// import useCurrentInstance from "@/utils/useCurrentInstance";
+// const { proxy } = useCurrentInstance();
+const router = useRouter();
+
 const obj = reactive({
   url: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
 });
-const { proxy } = useCurrentInstance();
+
 const handleCommand = (command: string | number | object) => {
   // ElMessage(`click on item ${command}`);
   if (command === "loginOut") {
     // ElMessage.warning(`是否退出登录吗`);
-    proxy
-      .$confirm("您确定要执行此操作吗?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      })
+    ElMessageBox.confirm("您确定要退出登录吗?", "提示", {
+      confirmButtonText: "确定",
+      cancelButtonText: "取消",
+      type: "warning",
+    })
       .then(() => {
+        router.push("/login");
+        localStorage.clear();
         ElMessage({
           type: "success",
           message: "操作成功!",
