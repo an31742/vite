@@ -11,7 +11,7 @@
     <el-card class="box-card">
       <template #header>
         <div class="card-header">
-          <a href="https://github.com/haizlin/fe-interview/issues/118">
+          <a href="https://github.com/haizlin/fe-interview/issues/122">
             Standards模式和Quirks模式有什么区别</a>
         </div>
       </template>
@@ -32,8 +32,8 @@ MDN 答案
     <el-card class="box-card">
       <template #header>
         <div class="card-header">
-          <span><a href="https://github.com/haizlin/fe-interview/issues/119">
-              用CSS绘制一个三角形</a></span>
+          <span><a href="https://github.com/haizlin/fe-interview/issues/123">
+             浏览器是怎样判断元素是否和某个CSS选择器匹配</a></span>
         </div>
       </template>
       <div class="text item">
