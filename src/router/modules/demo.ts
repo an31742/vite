@@ -10,7 +10,7 @@ import { Box } from "@element-plus/icons-vue";
 
 
 
-const routes = 
+const routes =
 {
   path: "/demo",
   name: "demo",
@@ -21,7 +21,7 @@ const routes =
     title: "demo",
     icon: markRaw(Box),
     activeMenu: "demo",
-    anchors: "admin", 
+    anchors: "admin",
   },
   children: [
     {
@@ -34,7 +34,7 @@ const routes =
         title: "toLocalStorage",
         icon: markRaw(Box),
         activeMenu: "toLocalStorage",
-        anchors: "admin", 
+        anchors: "admin",
       },
     },
     {
@@ -76,6 +76,32 @@ const routes =
         anchors: 'admin',
       },
     },
+    {
+      path: "/demo/vue3",
+      name: "vue3",
+      hidde: false,
+      component: () => import("@/views/demo/vue3.vue"),
+      asideVisible: false,
+      meta: {
+        title: "vue3",
+        icon: markRaw(Box),
+        activeMenu: "vue3",
+        anchors: 'management',  //设计前端权限
+      },
+    },
+    {
+      path: "/demo/pcDrag",
+      name: "pcDrag",
+      hidde: false,
+      component: () => import("@/views/demo/pcDrag/index.vue"),
+      asideVisible: false,
+      meta: {
+        title: "pcDrag",
+        icon: markRaw(Box),
+        activeMenu: "pcDrag",
+        anchors: 'admin',  //设计前端权限
+      },
+    },
   ],
 }
 
@@ -83,4 +109,4 @@ const routes =
 
 
 
-export default  routes
+export default routes
