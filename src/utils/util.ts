@@ -6,7 +6,7 @@ import { isArray } from "@/untils/is/index";
  * @param {String} key Storage名称
  * @return string
  */
- export function localGet(key: string) {
+export function localGet(key: string) {
     const value = window.localStorage.getItem(key);
     try {
         return JSON.parse(window.localStorage.getItem(key) as string);
@@ -14,7 +14,7 @@ import { isArray } from "@/untils/is/index";
         return value;
     }
 }
-​
+
 /**
  * @description 存储localStorage
  * @param {String} key Storage名称
@@ -24,7 +24,7 @@ import { isArray } from "@/untils/is/index";
 export function localSet(key: string, value: any) {
     window.localStorage.setItem(key, JSON.stringify(value));
 }
-​
+
 /**
  * @description 清除localStorage
  * @param {String} key Storage名称
@@ -33,7 +33,7 @@ export function localSet(key: string, value: any) {
 export function localRemove(key: string) {
     window.localStorage.removeItem(key);
 }
-​
+
 /**
  * @description 清除所有localStorage
  * @return void
@@ -41,7 +41,7 @@ export function localRemove(key: string) {
 export function localClear() {
     window.localStorage.clear();
 }
-​
+
 /**
  * @description 对象数组深克隆
  * @param {Object} obj 源对象
@@ -63,7 +63,7 @@ export function deepCopy<T>(obj: any): T {
     }
     return newObj;
 }
-​
+
 /**
  * @description 判断数据类型
  * @param {Any} val 需要判断类型的数据
@@ -74,7 +74,7 @@ export function isType(val: any) {
     if (typeof val !== "object") return typeof val;
     else return Object.prototype.toString.call(val).slice(8, -1).toLocaleLowerCase();
 }
-​
+
 /**
  * @description 生成随机数
  * @param {Number} min 最小值
@@ -100,7 +100,7 @@ export function getTabPane<T, U>(menuList: any[], path: U): T {
     }
     return result;
 }
-​
+
 /**
  * @description 使用递归处理路由菜单，生成一维数组
  * @param {Array} menuList 所有菜单列表
@@ -114,7 +114,7 @@ export function handleRouter(routerList: any, newArr: string[] = []) {
     });
     return newArr;
 }
-​
+
 /**
  * @description 扁平化数组对象
  * @param {Array} arr 数组对象
@@ -127,7 +127,7 @@ export function getFlatArr(arr: any) {
         return flatArr;
     }, []);
 }
-​
+
 /**
  * @description 格式化表格单元格默认值
  * @param {Number} row 行
@@ -140,7 +140,7 @@ export function defaultFormat(row: number, col: number, callValue: any) {
     if (isArray(callValue)) return callValue.length ? callValue.join(" / ") : "--";
     return callValue ?? "--";
 }
-​
+
 /**
  * @description 处理无数据情况
  * @param {String} callValue 需要处理的值
@@ -151,7 +151,7 @@ export function formatValue(callValue: any) {
     if (isArray(callValue)) return callValue.length ? callValue.join(" / ") : "--";
     return callValue ?? "--";
 }
-​
+
 /**
  * @description 根据枚举列表查询当需要的数据（如果指定了 label 和 value 的 key值，会自动识别格式化）
  * @param {String} callValue 当前单元格值
@@ -167,6 +167,24 @@ export function filterEnum(callValue: any, enumData: any, searchProps?: { [key: 
     if (type == "tag") return filterData?.tagType ? filterData.tagType : "";
     return filterData ? filterData[label] : "--";
 }
-​
+
+/**
+ * @description 滚动到顶部
+ * @return string
+ * */
+const scrollToTop = () => {
+
+    const c = document.documentElement.scrollTop || document.body.scrollTop;
+
+    if (c > 0) {
+
+        window.requestAnimationFrame(scrollToTop);
+
+        window.scrollTo(0, c - c / 8);
+
+    }
+
+};
+
 
 
