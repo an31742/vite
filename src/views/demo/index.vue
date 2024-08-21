@@ -2,7 +2,6 @@
   <div class="common-layout">
     <el-container>
       <el-main>
-        <router-link to="/layout" style="float: right">返回首页</router-link>
         <router-view></router-view>
       </el-main>
     </el-container>

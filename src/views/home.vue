@@ -1,5 +1,6 @@
 <template>
   <div class="front-main">
+    <router-view></router-view>
   </div>
 </template>
 
@@ -39,18 +40,13 @@ export default defineComponent({
 </script>
 
 <style scoped lang="less">
-
-
-
 .front-main {
   width: 100%;
   height: 100%;
-  background: url("../assets/bgLogin.webp")  100% 100%;
+  background: url("../assets/bgLogin.webp") 100% 100%;
 }
 
 body > .el-container {
   margin-bottom: 40px;
 }
-
-
 </style>

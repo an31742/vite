@@ -18,7 +18,6 @@ const routes: any = [
     hidde: true,
     component: () => import("@/views/login/login.vue"),
   },
-
   {
     path: "/",
     redirect: "layout",
@@ -34,9 +33,13 @@ const routes: any = [
       icon: markRaw(Box),
       activeMenu: "layout",
     },
+    children: [
+      Demo,
+      FeInterview,
+    ],
   },
-  Demo,
-  FeInterview,
+  // Demo,
+  // FeInterview,
   Error,
 ];
 

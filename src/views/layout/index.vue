@@ -22,7 +22,8 @@
           <Mymue></Mymue>
         </el-aside>
         <el-main>
-          <Home></Home>
+          <Home>
+          </Home>
         </el-main>
       </el-container>
     </el-container>
