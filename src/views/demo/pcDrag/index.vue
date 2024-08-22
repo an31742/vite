@@ -1,27 +1,105 @@
 <template>
   <main class="home">
-    <div class="drag"></div>
-    <div class="canvas"></div>
-    <div class="control"></div>
+    <div class="drag">
+      <div class="base-drag">
+        <template v-for="item in baseData" :key="item">
+          <el-button style="margin: 10px; width: 80%">{{ item }}</el-button>
+        </template>
+      </div>
+    </div>
+    <div class="canvas">
+      <div class="itxst" style="display: flex; justify-content: space-around">
+        <div class="col-3">
+          <h3>Draggable 1</h3>
+          <draggable
+            class="dragArea list-group"
+            :list="state.list1"
+            :group="{ name: 'people', pull: 'clone', put: false }"
+            @change="log"
+            item-key="name"
+          >
+            <template #item="{ element }">
+              <div class="list-group-item">
+                {{ element.name }}
+              </div>
+            </template>
+          </draggable>
+        </div>
+
+        <div class="col-3">
+          <h3>Draggable 2</h3>
+          <draggable
+            class="dragArea list-group"
+            :list="state.list2"
+            group="people"
+            @change="log"
+            item-key="name"
+          >
+            <template #item="{ element }">
+              <div class="list-group-item">
+                {{ element.name }}
+              </div>
+            </template>
+          </draggable>
+        </div>
+      </div>
+    </div>
+    <div class="attribute">组件属性</div>
   </main>
 </template>
 
-<script>
-export default {
-  name: "",
-  data() {
-    return {};
-  },
+<script setup lang="ts">
+import { BASE_COMPONENT } from "./base/base";
+import { ref, reactive } from "vue";
+import draggable from "vuedraggable";
+
+const baseData = ref(BASE_COMPONENT);
+
+/*
+draggable 对CSS样式没有什么要求万物皆可拖拽
+:list="state.list"         //需要绑定的数组
+ghost-class="ghost"        //被替换元素的样式
+chosen-class="chosenClass" //选中元素的样式
+animation="300"            //动画效果
+@start="onStart"           //拖拽开始的事件
+@end="onEnd"               //拖拽结束的事件
+*/
+const state = reactive({
+  //需要拖拽的数据，拖拽后数据的顺序也会变化
+  list1: [
+    { name: "John", id: 1 },
+    { name: "Joao", id: 2 },
+    { name: "Jean", id: 3 },
+    { name: "Gerard", id: 4 },
+  ],
+  list2: [
+    { name: "Juan", id: 5 },
+    { name: "Edgard", id: 6 },
+    { name: "Johnson", id: 7 },
+  ],
+});
+
+//拖拽开始的事件
+const onStart = () => {
+  console.log("开始拖拽");
+};
+
+//拖拽结束的事件
+const onEnd = () => {
+  console.log("结束拖拽");
+};
+
+const log = (evt: any) => {
+  console.log(evt);
 };
 </script>
 <style>
 .el-main {
   padding: 0;
   margin: 0;
-}</style>
+}
+</style>
 <style lang="less" scoped>
-
-
 //经典三栏布局多种方法  margin float 方法不可以按照顺序摆放盒子
 //--------------1第一种方法
 // .drag{
@@ -30,7 +108,7 @@ export default {
 //   height: 100vh;
 //   background: #8b8c8d;
 // }
-// .control{
+// .attribute{
 //   float: right;
 //   width: 200px;
 //   height: 100vh;
@@ -54,7 +132,7 @@ export default {
 //   left: 0;
 //   background: #8b8c8d;
 // }
-// .control {
+// .attribute {
 //   width: 200px;
 //   height: 100vh;
 //   position: absolute;
@@ -87,7 +165,7 @@ export default {
 //  min-width: 200px;
 //   background: #c49d9d;
 // }
-// .control{
+// .attribute{
 //   width: 200px;
 //    min-width: 200px;
 //   background:#c49d9d;
@@ -104,46 +182,16 @@ export default {
 .drag {
   width: 200px;
   height: 100vh;
-  background: #c49d9d;
+  background: #fff;
 }
-.control {
+.attribute {
   width: 200px;
   height: 100vh;
-  background: #c49d9d;
+  background: #fff;
 }
 .canvas {
   height: 100vh;
   width: 100%;
-  background: #7e7979;
-  .pc {
-    display: block;
-    margin: auto;
-    background: url("~@/assets/pc-box.png") no-repeat;
-    background-size: cover;
-    height: 700px;
-    width: 100%;
-    // border:1px solid red;
-    padding: 50px 5px;
-    display: flex;
-    flex-direction: column;
-    box-sizing: content-box;
-    p {
-      color: red;
-    }
-    .drag-area {
-      margin: 0 auto;
-      width: 1080px;
-      height: 620px;
-      overflow: auto;
-      // flex: 1;
-      .list-group-item {
-        width: 100%;
-      }
-      .list-layout-item {
-        margin-bottom: 20px;
-        width: 100%;
-      }
-    }
-  }
+  background: #ccc;
 }
 </style>
