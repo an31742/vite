@@ -27,13 +27,14 @@
           v-for="(item, index) in dragBaseData"
           :key="index"
         >
-          <!-- {{ element.baseKey }}
-          {{ dragBaseView }} -->
+          {{ element.baseKey }}
+          {{ dragBaseView }}
         </div>
       </template>
     </draggable>
     <div class="attribute">组件属性</div>
   </main>
+  <component :is="BaseInput"></component>
   <rawDisplayer
     style="margin-top: 40px"
     :value="dragBaseView"
