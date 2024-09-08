@@ -24,11 +24,10 @@
       <template #item="{ element }">
         <div
           class="[ 'drag-item']"
-          v-for="(item, index) in dragBaseData"
+          v-for="(item, index) in dragBaseView"
           :key="index"
         >
-          {{ element.baseKey }}
-          {{ dragBaseView }}
+          <component :is="element.baseKey"></component>
         </div>
       </template>
     </draggable>
