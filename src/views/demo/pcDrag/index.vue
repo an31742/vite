@@ -2,42 +2,35 @@
   <main class="home">
     <div class="drag">
       <div class="base-drag">
-        <template v-for="item in baseData" :key="item">
-          <el-button style="margin: 10px; width: 80%">{{ item }}</el-button>
-        </template>
+        <draggable
+          class="dragArea list-group"
+          :list="dragBaseData"
+          :group="{ name: 'elementKey', pull: 'clone', put: false }"
+          @change="log"
+          item-key="elementKey"
+        >
+          <template #item="{ element }">
+            <el-button style="margin: 10px; width: 80%">{{
+              element.baseKey
+            }}</el-button>
+          </template>
+        </draggable>
       </div>
     </div>
     <div class="canvas">
       <div class="itxst" style="display: flex; justify-content: space-around">
         <div class="col-3">
-          <h3>Draggable 1</h3>
-          <draggable
-            class="dragArea list-group"
-            :list="state.list1"
-            :group="{ name: 'people', pull: 'clone', put: false }"
-            @change="log"
-            item-key="name"
-          >
-            <template #item="{ element }">
-              <div class="list-group-item">
-                {{ element.name }}
-              </div>
-            </template>
-          </draggable>
-        </div>
-
-        <div class="col-3">
           <h3>Draggable 2</h3>
           <draggable
             class="dragArea list-group"
-            :list="state.list2"
-            group="people"
+            :list="dragBaseView"
+            group="elementKey"
             @change="log"
-            item-key="name"
+            item-key="elementKey"
           >
             <template #item="{ element }">
               <div class="list-group-item">
-                {{ element.name }}
+                {{ element.baseKey }}
               </div>
             </template>
           </draggable>
@@ -46,14 +39,20 @@
     </div>
     <div class="attribute">组件属性</div>
   </main>
+  <rawDisplayer
+    style="margin-top: 40px"
+    :value="dragBaseView"
+    :title="`json`"
+  />
 </template>
 
 <script setup lang="ts">
-import { BASE_COMPONENT } from "./base/base";
+import { DRAG_BASE_COMPONENT, DRAG_BASE_VIEW } from "./base/base";
 import { ref, reactive } from "vue";
 import draggable from "vuedraggable";
 
-const baseData = ref(BASE_COMPONENT);
+const dragBaseData = ref(DRAG_BASE_COMPONENT);
+const dragBaseView = ref(DRAG_BASE_VIEW);
 
 /*
 draggable 对CSS样式没有什么要求万物皆可拖拽
@@ -64,20 +63,6 @@ animation="300"            //动画效果
 @start="onStart"           //拖拽开始的事件
 @end="onEnd"               //拖拽结束的事件
 */
-const state = reactive({
-  //需要拖拽的数据，拖拽后数据的顺序也会变化
-  list1: [
-    { name: "John", id: 1 },
-    { name: "Joao", id: 2 },
-    { name: "Jean", id: 3 },
-    { name: "Gerard", id: 4 },
-  ],
-  list2: [
-    { name: "Juan", id: 5 },
-    { name: "Edgard", id: 6 },
-    { name: "Johnson", id: 7 },
-  ],
-});
 
 //拖拽开始的事件
 const onStart = () => {
