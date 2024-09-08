@@ -1,42 +1,37 @@
 <template>
   <main class="home">
     <div class="drag">
-      <div class="base-drag">
-        <draggable
-          class="dragArea list-group"
-          :list="dragBaseData"
-          :group="{ name: 'elementKey', pull: 'clone', put: false }"
-          @change="log"
-          item-key="elementKey"
+      <draggable
+        :list="dragBaseData"
+        :group="{ name: 'elementKey', pull: 'clone', put: false }"
+        @change="log"
+        item-key="elementKey"
+      >
+        <template #item="{ element }">
+          <el-button style="margin: 10px; width: 80%">{{
+            element.baseKey
+          }}</el-button>
+        </template>
+      </draggable>
+    </div>
+    <draggable
+      class="canvas"
+      :list="dragBaseView"
+      group="elementKey"
+      @change="log"
+      item-key="elementKey"
+    >
+      <template #item="{ element }">
+        <div
+          class="[ 'drag-item']"
+          v-for="(item, index) in dragBaseData"
+          :key="index"
         >
-          <template #item="{ element }">
-            <el-button style="margin: 10px; width: 80%">{{
-              element.baseKey
-            }}</el-button>
-          </template>
-        </draggable>
-      </div>
-    </div>
-    <div class="canvas">
-      <div class="itxst" style="display: flex; justify-content: space-around">
-        <div class="col-3">
-          <h3>Draggable 2</h3>
-          <draggable
-            class="dragArea list-group"
-            :list="dragBaseView"
-            group="elementKey"
-            @change="log"
-            item-key="elementKey"
-          >
-            <template #item="{ element }">
-              <div class="list-group-item">
-                {{ element.baseKey }}
-              </div>
-            </template>
-          </draggable>
+          <!-- {{ element.baseKey }}
+          {{ dragBaseView }} -->
         </div>
-      </div>
-    </div>
+      </template>
+    </draggable>
     <div class="attribute">组件属性</div>
   </main>
   <rawDisplayer
@@ -47,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import { DRAG_BASE_COMPONENT, DRAG_BASE_VIEW } from "./base/base";
+import { DRAG_BASE_COMPONENT, DRAG_BASE_VIEW } from "@/components/base/base";
 import { ref, reactive } from "vue";
 import draggable from "vuedraggable";
 
@@ -170,7 +165,7 @@ const log = (evt: any) => {
   background: #fff;
 }
 .attribute {
-  width: 200px;
+  width: 400px;
   height: 100vh;
   background: #fff;
 }

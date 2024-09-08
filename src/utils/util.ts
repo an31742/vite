@@ -1,18 +1,15 @@
-//常用的工具方法
-import { isArray } from "@/untils/is/index";
-
 /**
  * @description 获取localStorage
  * @param {String} key Storage名称
  * @return string
  */
 export function localGet(key: string) {
-    const value = window.localStorage.getItem(key);
-    try {
-        return JSON.parse(window.localStorage.getItem(key) as string);
-    } catch (error) {
-        return value;
-    }
+  const value = window.localStorage.getItem(key);
+  try {
+    return JSON.parse(window.localStorage.getItem(key) as string);
+  } catch (error) {
+    return value;
+  }
 }
 
 /**
@@ -22,7 +19,7 @@ export function localGet(key: string) {
  * @return void
  */
 export function localSet(key: string, value: any) {
-    window.localStorage.setItem(key, JSON.stringify(value));
+  window.localStorage.setItem(key, JSON.stringify(value));
 }
 
 /**
@@ -31,7 +28,7 @@ export function localSet(key: string, value: any) {
  * @return void
  */
 export function localRemove(key: string) {
-    window.localStorage.removeItem(key);
+  window.localStorage.removeItem(key);
 }
 
 /**
@@ -39,7 +36,7 @@ export function localRemove(key: string) {
  * @return void
  */
 export function localClear() {
-    window.localStorage.clear();
+  window.localStorage.clear();
 }
 
 /**
@@ -48,20 +45,20 @@ export function localClear() {
  * @return object
  */
 export function deepCopy<T>(obj: any): T {
-    let newObj: any;
-    try {
-        newObj = obj.push ? [] : {};
-    } catch (error) {
-        newObj = {};
+  let newObj: any;
+  try {
+    newObj = obj.push ? [] : {};
+  } catch (error) {
+    newObj = {};
+  }
+  for (let attr in obj) {
+    if (typeof obj[attr] === "object") {
+      newObj[attr] = deepCopy(obj[attr]);
+    } else {
+      newObj[attr] = obj[attr];
     }
-    for (let attr in obj) {
-        if (typeof obj[attr] === "object") {
-            newObj[attr] = deepCopy(obj[attr]);
-        } else {
-            newObj[attr] = obj[attr];
-        }
-    }
-    return newObj;
+  }
+  return newObj;
 }
 
 /**
@@ -70,9 +67,10 @@ export function deepCopy<T>(obj: any): T {
  * @return string
  */
 export function isType(val: any) {
-    if (val === null) return "null";
-    if (typeof val !== "object") return typeof val;
-    else return Object.prototype.toString.call(val).slice(8, -1).toLocaleLowerCase();
+  if (val === null) return "null";
+  if (typeof val !== "object") return typeof val;
+  else
+    return Object.prototype.toString.call(val).slice(8, -1).toLocaleLowerCase();
 }
 
 /**
@@ -82,8 +80,8 @@ export function isType(val: any) {
  * @return number
  */
 export function randomNum(min: number, max: number): number {
-    let num = Math.floor(Math.random() * (min - max) + max);
-    return num;
+  let num = Math.floor(Math.random() * (min - max) + max);
+  return num;
 }
 /**
  * @description 递归查询当前路由所对应的路由
@@ -92,13 +90,13 @@ export function randomNum(min: number, max: number): number {
  * @return array
  */
 export function getTabPane<T, U>(menuList: any[], path: U): T {
-    let result: any;
-    for (let item of menuList || []) {
-        if (item.path === path) result = item;
-        const res = getTabPane(item.children, path);
-        if (res) result = res;
-    }
-    return result;
+  let result: any;
+  for (let item of menuList || []) {
+    if (item.path === path) result = item;
+    const res = getTabPane(item.children, path);
+    if (res) result = res;
+  }
+  return result;
 }
 
 /**
@@ -108,11 +106,13 @@ export function getTabPane<T, U>(menuList: any[], path: U): T {
  * @return array
  */
 export function handleRouter(routerList: any, newArr: string[] = []) {
-    routerList.forEach((item: any) => {
-        typeof item === "object" && item.path && newArr.push(item.path);
-        item.children && item.children.length && handleRouter(item.children, newArr);
-    });
-    return newArr;
+  routerList.forEach((item: any) => {
+    typeof item === "object" && item.path && newArr.push(item.path);
+    item.children &&
+      item.children.length &&
+      handleRouter(item.children, newArr);
+  });
+  return newArr;
 }
 
 /**
@@ -121,11 +121,12 @@ export function handleRouter(routerList: any, newArr: string[] = []) {
  * @return array
  */
 export function getFlatArr(arr: any) {
-    return arr.reduce((pre: any, current: any) => {
-        let flatArr = [...pre, current];
-        if (current.children) flatArr = [...flatArr, ...getFlatArr(current.children)];
-        return flatArr;
-    }, []);
+  return arr.reduce((pre: any, current: any) => {
+    let flatArr = [...pre, current];
+    if (current.children)
+      flatArr = [...flatArr, ...getFlatArr(current.children)];
+    return flatArr;
+  }, []);
 }
 
 /**
@@ -136,9 +137,10 @@ export function getFlatArr(arr: any) {
  * @return string
  * */
 export function defaultFormat(row: number, col: number, callValue: any) {
-    // 如果当前值为数组,使用 / 拼接（根据需求自定义）
-    if (isArray(callValue)) return callValue.length ? callValue.join(" / ") : "--";
-    return callValue ?? "--";
+  // 如果当前值为数组,使用 / 拼接（根据需求自定义）
+  if (isArray(callValue))
+    return callValue.length ? callValue.join(" / ") : "--";
+  return callValue ?? "--";
 }
 
 /**
@@ -147,9 +149,10 @@ export function defaultFormat(row: number, col: number, callValue: any) {
  * @return string
  * */
 export function formatValue(callValue: any) {
-    // 如果当前值为数组,使用 / 拼接（根据需求自定义）
-    if (isArray(callValue)) return callValue.length ? callValue.join(" / ") : "--";
-    return callValue ?? "--";
+  // 如果当前值为数组,使用 / 拼接（根据需求自定义）
+  if (isArray(callValue))
+    return callValue.length ? callValue.join(" / ") : "--";
+  return callValue ?? "--";
 }
 
 /**
@@ -159,13 +162,19 @@ export function formatValue(callValue: any) {
  * @param {String} type 过滤类型（目前只有 tag）
  * @return string
  * */
-export function filterEnum(callValue: any, enumData: any, searchProps?: { [key: string]: any }, type?: string): string {
-    const value = searchProps?.value ?? "value";
-    const label = searchProps?.label ?? "label";
-    let filterData: any = {};
-    if (Array.isArray(enumData)) filterData = enumData.find((item: any) => item[value] === callValue);
-    if (type == "tag") return filterData?.tagType ? filterData.tagType : "";
-    return filterData ? filterData[label] : "--";
+export function filterEnum(
+  callValue: any,
+  enumData: any,
+  searchProps?: { [key: string]: any },
+  type?: string
+): string {
+  const value = searchProps?.value ?? "value";
+  const label = searchProps?.label ?? "label";
+  let filterData: any = {};
+  if (Array.isArray(enumData))
+    filterData = enumData.find((item: any) => item[value] === callValue);
+  if (type == "tag") return filterData?.tagType ? filterData.tagType : "";
+  return filterData ? filterData[label] : "--";
 }
 
 /**
@@ -173,13 +182,9 @@ export function filterEnum(callValue: any, enumData: any, searchProps?: { [key: 
  * @return string
  * */
 const scrollToTop = () => {
-    const c = document.documentElement.scrollTop || document.body.scrollTop;
-    if (c > 0) {
-        window.requestAnimationFrame(scrollToTop);
-        window.scrollTo(0, c - c / 8);
-    }
-
+  const c = document.documentElement.scrollTop || document.body.scrollTop;
+  if (c > 0) {
+    window.requestAnimationFrame(scrollToTop);
+    window.scrollTo(0, c - c / 8);
+  }
 };
-
-
-
