@@ -1,53 +1,31 @@
 <template>
   <main class="home">
     <div class="drag">
-      <draggable
-        :list="dragBaseData"
-        :group="{ name: 'elementKey', pull: 'clone', put: false }"
-        @change="log"
-        item-key="elementKey"
-      >
+      <draggable :list="dragBaseData" :group="{ name: 'elementKey', pull: 'clone', put: false }" @change="log" item-key="elementKey">
         <template #item="{ element }">
-          <el-button style="margin: 10px; width: 80%">{{
-            element.baseKey
-          }}</el-button>
+          <el-button style="margin: 10px; width: 80%">{{ element.baseKey }}</el-button>
         </template>
       </draggable>
     </div>
-    <draggable
-      class="canvas"
-      :list="dragBaseView"
-      group="elementKey"
-      @change="log"
-      item-key="elementKey"
-    >
+    <draggable class="canvas" :list="dragBaseView" group="elementKey" @change="log" item-key="elementKey">
       <template #item="{ element }">
-        <div
-          class="[ 'drag-item']"
-          v-for="(item, index) in dragBaseView"
-          :key="index"
-        >
+        <div class="[ 'drag-item']" v-for="(item, index) in dragBaseView" :key="index">
           <component :is="element.baseKey"></component>
         </div>
       </template>
     </draggable>
     <div class="attribute">组件属性</div>
   </main>
-  <component :is="BaseInput"></component>
-  <rawDisplayer
-    style="margin-top: 40px"
-    :value="dragBaseView"
-    :title="`json`"
-  />
+  <rawDisplayer style="margin-top: 40px" :value="dragBaseView" :title="`json`" />
 </template>
 
 <script setup lang="ts">
-import { DRAG_BASE_COMPONENT, DRAG_BASE_VIEW } from "@/components/base/base";
-import { ref, reactive } from "vue";
-import draggable from "vuedraggable";
+import { DRAG_BASE_COMPONENT, DRAG_BASE_VIEW } from "@/components/base/base"
+import { ref, reactive } from "vue"
+import draggable from "vuedraggable"
 
-const dragBaseData = ref(DRAG_BASE_COMPONENT);
-const dragBaseView = ref(DRAG_BASE_VIEW);
+const dragBaseData = ref(DRAG_BASE_COMPONENT)
+const dragBaseView = ref(DRAG_BASE_VIEW)
 
 /*
 draggable 对CSS样式没有什么要求万物皆可拖拽
@@ -61,17 +39,17 @@ animation="300"            //动画效果
 
 //拖拽开始的事件
 const onStart = () => {
-  console.log("开始拖拽");
-};
+  console.log("开始拖拽")
+}
 
 //拖拽结束的事件
 const onEnd = () => {
-  console.log("结束拖拽");
-};
+  console.log("结束拖拽")
+}
 
 const log = (evt: any) => {
-  console.log(evt);
-};
+  console.log(evt)
+}
 </script>
 <style>
 .el-main {

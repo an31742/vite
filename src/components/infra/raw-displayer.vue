@@ -1,12 +1,12 @@
 <template>
   <div class="raw-displayer">
     <div class="main">
-      <pre>{{ JSON.stringify(props.value) }}</pre>
+      <pre>{{ JSON.stringify(props.value, null, 2) }}</pre>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-const props = defineProps(["value"]);
+const props = defineProps(["value"])
 </script>
 <style lang="less" scoped>
 .raw-displayer {

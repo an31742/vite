@@ -1,6 +1,3 @@
-export const DRAG_BASE_COMPONENT = [
+export const DRAG_BASE_COMPONENT = [{ baseKey: "BaseInputView", value: 1 }]
 
-  { baseKey: "Input", value: 13 },
-];
-
-export const DRAG_BASE_VIEW = [];
+export const DRAG_BASE_VIEW = []
