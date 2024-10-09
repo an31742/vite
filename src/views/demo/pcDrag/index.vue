@@ -9,12 +9,14 @@
     </div>
     <draggable class="canvas" :list="dragBaseView" group="elementKey" @change="log" item-key="elementKey">
       <template #item="{ element }">
-        <div class="[ 'drag-item']" v-for="(item, index) in dragBaseView" :key="index">
+        <div class="canvas-item">
           <component :is="element.baseKey"></component>
         </div>
       </template>
     </draggable>
-    <div class="attribute">组件属性</div>
+    <div class="attribute">组件属性
+      
+    </div>
   </main>
   <rawDisplayer style="margin-top: 40px" :value="dragBaseView" :title="`json`" />
 </template>
@@ -151,5 +153,13 @@ const log = (evt: any) => {
   height: 100vh;
   width: 100%;
   background: #ccc;
+}
+
+
+.canvas-item{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin-top: 10px;
 }
 </style>
