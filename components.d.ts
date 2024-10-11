@@ -7,7 +7,8 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    BaseInput: typeof import('./src/components/base/components/base-input.vue')['default']
+    BaseInput: typeof import('./src/components/base/draggableComponents/base-input.vue')['default']
+    BaseInputEdit: typeof import('./src/components/base/draggableComponentsEdit/base-input-edit.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']

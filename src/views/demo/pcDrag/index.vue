@@ -14,8 +14,12 @@
         </div>
       </template>
     </draggable>
-    <div class="attribute">组件属性
-      
+    <div class="attribute">
+      组件属性
+      <div class="canvas-item">
+        <!-- <component :is="BaseInputViewEdit"></component> -->
+         <BaseInputViewEdit></BaseInputViewEdit>
+      </div>
     </div>
   </main>
   <rawDisplayer style="margin-top: 40px" :value="dragBaseView" :title="`json`" />
@@ -155,11 +159,10 @@ const log = (evt: any) => {
   background: #ccc;
 }
 
-
-.canvas-item{
-  display:flex;
-  justify-content:center;
-  align-items:center;
+.canvas-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-top: 10px;
 }
 </style>
