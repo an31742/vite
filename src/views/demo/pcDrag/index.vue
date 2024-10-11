@@ -16,10 +16,8 @@
     </draggable>
     <div class="attribute">
       组件属性
-      <div class="canvas-item">
-        <!-- <component :is="BaseInputViewEdit"></component> -->
-         <BaseInputViewEdit></BaseInputViewEdit>
-      </div>
+      <!-- <component :is="BaseInputViewEdit"></component> -->
+      <BaseInputViewEdit></BaseInputViewEdit>
     </div>
   </main>
   <rawDisplayer style="margin-top: 40px" :value="dragBaseView" :title="`json`" />

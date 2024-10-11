@@ -11,12 +11,12 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from "vue"
+import { ref, watch, reactive } from "vue"
 import { draggableObj } from "@/store/index.ts"
 
 const storeDraggableObj = draggableObj()
 
-const form: any = ref({
+const form: any = reactive({
   inputName: "",
   inputValue: "",
 })
@@ -24,8 +24,8 @@ const form: any = ref({
 watch(
   () => form,
   (newValue, oldValue) => {
-    console.log("newValue, oldValue: ", newValue, oldValue)
     storeDraggableObj.getInputObj(newValue)
-  }
+  },
+  { deep: true }
 )
 </script>

@@ -1,10 +1,25 @@
 <template>
-  <el-input v-model="inputValue" style="width: 240px" placeholder="Please input" />
+  <div>{{ form.inputName }} :</div>
+  <el-input v-model="form.inputValue" style="width: 240px" placeholder="Please input" />
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from "vue"
-const props = defineProps(["value"])
+import { ref, watch } from "vue"
+import { draggableObj } from "@/store/index.ts"
 
-const inputValue = computed(() => props.value)
+const draggableObjStore = draggableObj()
+
+let form = ref({
+  inputName: "",
+  inputValue: "",
+})
+
+watch(
+  () => draggableObjStore.$state.inputObj,
+  (newValue: any, oldValue: any) => {
+    console.log("newValue, oldValue: ", newValue, oldValue)
+    form.value = { ...newValue }
+  },
+  { deep: true }
+)
 </script>
