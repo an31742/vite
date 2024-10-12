@@ -8,9 +8,9 @@
       </draggable>
     </div>
     <draggable class="canvas" :list="dragBaseView" group="elementKey" @change="log" @end="onEnd" item-key="elementKey">
-      <template #item="{ element }">
-        <div class="canvas-item" @click="handleCanvas(element)">
-          <component :is="element.baseKey"></component>
+      <template #item="{ element, index }">
+        <div class="canvas-item" @click="handleCanvas(element, index)">
+          <component :is="element.baseKey"></component> <el-icon style="margin-left: 10px"><Delete @click="handleDelete(index)" v-if="index === clickFlag" /></el-icon>
         </div>
       </template>
     </draggable>
@@ -35,7 +35,7 @@ const dragBaseView = ref(DRAG_BASE_VIEW)
 // 编辑属性展示组件
 let baseEditKey = ref("")
 // 判断点击哪个组件展示对应的组件属性
-let clickFlag = ref("")
+let clickFlag = ref(0)
 
 /*
 draggable 对CSS样式没有什么要求万物皆可拖拽
@@ -57,11 +57,16 @@ const onEnd = (e: any) => {
   console.log("结束拖拽", e)
 }
 
-const handleCanvas = (data: any) => {
+const handleCanvas = (data: any, index: number) => {
   console.log("data: ", data)
   baseEditKey.value = `${data.baseKey}Edit`
+  clickFlag.value = index
 }
 
+const handleDelete = (index: number) => {
+  console.log("删除", index)
+  dragBaseView.value.splice(index, 1)
+}
 const log = (evt: any) => {
   console.log(898888, evt.added.element.baseKey)
   baseEditKey.value = `${evt.added.element.baseKey}Edit`
