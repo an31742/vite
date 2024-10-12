@@ -7,17 +7,17 @@
         </template>
       </draggable>
     </div>
-    <draggable class="canvas" :list="dragBaseView" group="elementKey" @change="log" item-key="elementKey">
+    <draggable class="canvas" :list="dragBaseView" group="elementKey" @change="log" @end="onEnd" item-key="elementKey">
       <template #item="{ element }">
-        <div class="canvas-item">
+        <div class="canvas-item" @click="handleCanvas(element)">
           <component :is="element.baseKey"></component>
         </div>
       </template>
     </draggable>
     <div class="attribute">
       组件属性
-      <!-- <component :is="BaseInputViewEdit"></component> -->
-      <BaseInputViewEdit></BaseInputViewEdit>
+      <component :is="baseEditKey"></component>
+      <!-- <BaseInputViewEdit></BaseInputViewEdit> -->
     </div>
   </main>
   <rawDisplayer style="margin-top: 40px" :value="dragBaseView" :title="`json`" />
@@ -28,8 +28,14 @@ import { DRAG_BASE_COMPONENT, DRAG_BASE_VIEW } from "@/components/base/base"
 import { ref, reactive } from "vue"
 import draggable from "vuedraggable"
 
+// 基础组件数据
 const dragBaseData = ref(DRAG_BASE_COMPONENT)
+// 拖拽展示数据
 const dragBaseView = ref(DRAG_BASE_VIEW)
+// 编辑属性展示组件
+let baseEditKey = ref("")
+// 判断点击哪个组件展示对应的组件属性
+let clickFlag = ref("")
 
 /*
 draggable 对CSS样式没有什么要求万物皆可拖拽
@@ -47,12 +53,18 @@ const onStart = () => {
 }
 
 //拖拽结束的事件
-const onEnd = () => {
-  console.log("结束拖拽")
+const onEnd = (e: any) => {
+  console.log("结束拖拽", e)
+}
+
+const handleCanvas = (data: any) => {
+  console.log("data: ", data)
+  baseEditKey.value = `${data.baseKey}Edit`
 }
 
 const log = (evt: any) => {
-  console.log(evt)
+  console.log(898888, evt.added.element.baseKey)
+  baseEditKey.value = `${evt.added.element.baseKey}Edit`
 }
 </script>
 <style>

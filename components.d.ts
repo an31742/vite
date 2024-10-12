@@ -7,8 +7,12 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    'Base-': typeof import('./src/components/base/draggableComponents/base-.vue')['default']
     BaseInput: typeof import('./src/components/base/draggableComponents/base-input.vue')['default']
     BaseInputEdit: typeof import('./src/components/base/draggableComponentsEdit/base-input-edit.vue')['default']
+    BaseSwitch: typeof import('./src/components/base/draggableComponents/base-switch.vue')['default']
+    BaseSwitchEdit: typeof import('./src/components/base/draggableComponentsEdit/base-switch-edit.vue')['default']
+    BaseSwitsh: typeof import('./src/components/base/draggableComponents/base-switsh.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
@@ -23,12 +27,14 @@ declare module 'vue' {
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElImag: typeof import('element-plus/es')['ElImag']
     ElImage: typeof import('element-plus/es')['ElImage']
+    ElInpu: typeof import('element-plus/es')['ElInpu']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElMain: typeof import('element-plus/es')['ElMain']
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElMenuItemGroup: typeof import('element-plus/es')['ElMenuItemGroup']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
+    ElSwitch: typeof import('element-plus/es')['ElSwitch']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     RawDisplayer: typeof import('./src/components/infra/raw-displayer.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

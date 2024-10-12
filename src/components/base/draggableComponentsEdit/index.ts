@@ -1,10 +1,5 @@
 // components/index.ts
 import BaseInputViewEdit from "./base-input-edit.vue"
-// import BaseButton from './BaseButton.vue';
-// import BaseCard from './BaseCard.vue';
+import BaseSwitchViewEdit from "./base-switch-edit.vue"
 
-export {
-  BaseInputViewEdit,
-  //   BaseButton,
-  //   BaseCard,
-}
+export { BaseInputViewEdit, BaseSwitchViewEdit }
