@@ -29,6 +29,7 @@ watch(
 </script>
 <style lang="less" scope>
 .input-item {
+  width: 450px;
   border: 1px solid #fff;
 }
 .input-name {

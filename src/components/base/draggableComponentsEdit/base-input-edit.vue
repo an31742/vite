@@ -1,5 +1,5 @@
 <template>
-  <h4>输入框属性编辑</h4>
+  <h4 style="margin-bottom: 20px;">输入框属性编辑</h4>
   <el-form :model="form" label-width="auto" style="max-width: 600px">
     <el-form-item label="输入框名称">
       <el-input v-model="form.inputName" />

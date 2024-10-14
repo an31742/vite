@@ -15,9 +15,10 @@
       </template>
     </draggable>
     <div class="attribute">
-      组件属性
-      <component :is="baseEditKey"></component>
-      <!-- <BaseInputViewEdit></BaseInputViewEdit> -->
+      <p style="margin-top: 15px">组件属性</p>
+      <div class="attribute-item">
+        <component :is="baseEditKey"></component>
+      </div>
     </div>
   </main>
   <rawDisplayer style="margin-top: 40px" :value="dragBaseView" :title="`json`" />
@@ -179,5 +180,8 @@ const log = (evt: any) => {
   justify-content: center;
   align-items: center;
   margin-top: 10px;
+}
+.attribute-item {
+  margin: 10px;
 }
 </style>
