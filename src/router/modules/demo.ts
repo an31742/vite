@@ -5,13 +5,10 @@
  * @LastEditTime: 2023-11-23 09:54:55
  * @Description: 请填写简介
  */
-import { markRaw } from "vue";
-import { Box } from "@element-plus/icons-vue";
+import { markRaw } from "vue"
+import { Box } from "@element-plus/icons-vue"
 
-
-
-const routes =
-{
+const routes = {
   path: "/demo",
   name: "demo",
   component: () => import("@/views/demo/index.vue"),
@@ -47,22 +44,22 @@ const routes =
         title: "demoLayOut",
         icon: markRaw(Box),
         activeMenu: "demoLayOut",
-        anchors: "admin"
+        anchors: "admin",
       },
     },
-    {
-      path: "/demo/vue3",
-      name: "vue3",
-      hidde: false,
-      component: () => import("@/views/demo/vue3.vue"),
-      asideVisible: false,
-      meta: {
-        title: "vue3",
-        icon: markRaw(Box),
-        activeMenu: "vue3",
-        anchors: 'management',  //设计前端权限
-      },
-    },
+    // {
+    //   path: "/demo/vue3",
+    //   name: "vue3",
+    //   hidde: false,
+    //   component: () => import("@/views/demo/vue3.vue"),
+    //   asideVisible: false,
+    //   meta: {
+    //     title: "vue3",
+    //     icon: markRaw(Box),
+    //     activeMenu: "vue3",
+    //     anchors: 'management',  //设计前端权限
+    //   },
+    // },
     {
       path: "/demo/cascader",
       name: "cascader",
@@ -73,20 +70,7 @@ const routes =
         title: "cascader",
         icon: markRaw(Box),
         activeMenu: "cascader",
-        anchors: 'admin',
-      },
-    },
-    {
-      path: "/demo/vue3",
-      name: "vue3",
-      hidde: false,
-      component: () => import("@/views/demo/vue3.vue"),
-      asideVisible: false,
-      meta: {
-        title: "vue3",
-        icon: markRaw(Box),
-        activeMenu: "vue3",
-        anchors: 'management',  //设计前端权限
+        anchors: "admin",
       },
     },
     {
@@ -99,14 +83,38 @@ const routes =
         title: "pcDrag",
         icon: markRaw(Box),
         activeMenu: "pcDrag",
-        anchors: 'admin',  //设计前端权限
+        anchors: "admin", //设计前端权限
       },
+    },
+    {
+      path: "/demo/jsLearn",
+      name: "jsLearn",
+      hidde: false,
+      component: () => import("@/views/demo/jsLearn/down-pull-refresh.vue"),
+      asideVisible: false,
+      meta: {
+        title: "jsLearn",
+        icon: markRaw(Box),
+        activeMenu: "jsLearn",
+        anchors: "admin", //设计前端权限
+      },
+      children: [
+        {
+          path: "/demo/jsLearn/down-pull-refresh",
+          name: "downPullRefresh",
+          hidde: false,
+          component: () => import("@/views/demo/jsLearn/down-pull-refresh.vue"),
+          asideVisible: false,
+          meta: {
+            title: "downPullRefresh",
+            icon: markRaw(Box),
+            activeMenu: "downPullRefresh",
+            anchors: "admin", //设计前端权限
+          },
+        },
+      ],
     },
   ],
 }
-
-
-
-
 
 export default routes
