@@ -90,7 +90,7 @@ const routes = {
       path: "/demo/jsLearn",
       name: "jsLearn",
       hidde: false,
-      component: () => import("@/views/demo/jsLearn/down-pull-refresh.vue"),
+      redirect: "downPullRefresh",
       asideVisible: false,
       meta: {
         title: "jsLearn",
@@ -103,12 +103,25 @@ const routes = {
           path: "/demo/jsLearn/down-pull-refresh",
           name: "downPullRefresh",
           hidde: false,
-          component: () => import("@/views/demo/jsLearn/down-pull-refresh.vue"),
+          component: () => import("@/views/demo/jsLearn/top-pull-refresh.vue"),
           asideVisible: false,
           meta: {
             title: "downPullRefresh",
             icon: markRaw(Box),
             activeMenu: "downPullRefresh",
+            anchors: "admin", //设计前端权限
+          },
+        },
+        {
+          path: "/demo/jsLearn/top-pull-refresh",
+          name: "topPullRefresh",
+          hidde: false,
+          component: () => import("@/views/demo/jsLearn/down-pull-refresh.vue"),
+          asideVisible: false,
+          meta: {
+            title: "topPullRefresh",
+            icon: markRaw(Box),
+            activeMenu: "topPullRefresh",
             anchors: "admin", //设计前端权限
           },
         },
