@@ -1,14 +1,12 @@
 //http.ts
-import axios, { AxiosRequestConfig } from 'axios'
-import NProgress from 'nprogress'
-​
-// 设置请求头和请求路径
-axios.defaults.baseURL = '/api'
+import axios, { AxiosRequestConfig } from "axios"
+import NProgress from "nprogress"
+axios.defaults.baseURL = "/api"
 axios.defaults.timeout = 10000
-axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8'
+axios.defaults.headers.post["Content-Type"] = "application/json;charset=UTF-8"
 axios.interceptors.request.use(
   (config): AxiosRequestConfig<any> => {
-   const token = window.sessionStorage.getItem('token')
+    const token = window.sessionStorage.getItem("token")
     if (token) {
       //@ts-ignore
       config.headers.token = token
@@ -22,12 +20,11 @@ axios.interceptors.request.use(
 // 响应拦截
 axios.interceptors.response.use((res) => {
   if (res.data.code === 111) {
-    sessionStorage.setItem('token', '')
+    sessionStorage.setItem("token", "")
     // token过期操作
   }
   return res
 })
-​
 interface ResType<T> {
   code: number
   data?: T
@@ -40,7 +37,6 @@ interface Http {
   upload<T>(url: string, params: unknown): Promise<ResType<T>>
   download(url: string): void
 }
-​
 const http: Http = {
   get(url, params) {
     return new Promise((resolve, reject) => {
@@ -77,7 +73,7 @@ const http: Http = {
       NProgress.start()
       axios
         .post(url, file, {
-          headers: { 'Content-Type': 'multipart/form-data' },
+          headers: { "Content-Type": "multipart/form-data" },
         })
         .then((res) => {
           NProgress.done()
@@ -90,8 +86,8 @@ const http: Http = {
     })
   },
   download(url) {
-    const iframe = document.createElement('iframe')
-    iframe.style.display = 'none'
+    const iframe = document.createElement("iframe")
+    iframe.style.display = "none"
     iframe.src = url
     iframe.onload = function () {
       document.body.removeChild(iframe)

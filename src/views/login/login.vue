@@ -1,10 +1,5 @@
 <template>
-  <el-form
-    ref="ruleFormRef"
-    :model="ruleForm"
-    label-width="120px"
-    class="demo-ruleForm"
-  >
+  <el-form ref="ruleFormRef" :model="ruleForm" label-width="120px" class="demo-ruleForm">
     <el-form-item label="Confirm">
       <el-input v-model="ruleForm.name" />
     </el-form-item>
@@ -19,36 +14,37 @@
   </el-form>
 </template>
 <script lang="ts">
-import { useRouter } from "vue-router";
-import { reactive } from "vue";
-import {useCounter} from  '@/store/index.ts'
+import { useRouter } from "vue-router"
+import { reactive } from "vue"
+import { useCounter } from "@/store/index.ts"
 
 export default {
   setup() {
-    const store= useCounter()
-    const router = useRouter();
+    const store = useCounter()
+    const router = useRouter()
     const ruleForm = reactive({
       name: "admin",
       password: 12345,
-    });
-
+    })
 
     const submitForm = () => {
       store.getUserInfo(ruleForm)
-      window.localStorage.setItem("token", "an31742");
+      store.getAuthButtonList()
+      window.localStorage.setItem("token", "an31742")
       router.push({
         path: "/",
-      });
-    };
+      })
+    }
+    console.log("🚀 ~ submitForm ~ store.getAuthButtonList():", store.getAuthButtonList())
 
-    const resetForm = () => {};
+    const resetForm = () => {}
     return {
       ruleForm,
       submitForm,
       resetForm,
-    };
+    }
   },
-};
+}
 </script>
 <style scope lang="less">
 .demo-ruleForm {

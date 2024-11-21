@@ -1,13 +1,14 @@
-import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
-import {join} from "path";
-import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-
+import { defineConfig } from "vite"
+import vue from "@vitejs/plugin-vue"
+import { join } from "path"
+import AutoImport from "unplugin-auto-import/vite"
+import Components from "unplugin-vue-components/vite"
+import { ElementPlusResolver } from "unplugin-vue-components/resolvers"
+import vueJsx from "@vitejs/plugin-vue-jsx"
 export default defineConfig({
   plugins: [
     vue(),
+    vueJsx(),
     AutoImport({
       resolvers: [ElementPlusResolver()],
     }),
@@ -19,10 +20,9 @@ export default defineConfig({
   //配置别名
   resolve: {
     alias: {
-      "@": join(__dirname, 'src'),
+      "@": join(__dirname, "src"),
     },
-    extensions: ['.vue', '.js', '.ts'],
-
+    extensions: [".vue", ".js", ".ts"],
   },
   // css:{
   //preprocessorOptions:{
@@ -35,7 +35,7 @@ export default defineConfig({
   server: {
     // 配置前端服务地址和端口
     //服务器主机名
-    host: '0.0.0.0',
+    host: "0.0.0.0",
     //端口号
     port: 3088,
     //设为 true 时若端口已被占用则会直接退出，而不是尝试下一个可用端口
@@ -47,8 +47,8 @@ export default defineConfig({
       "/api": {
         target: "http://localhost:3000", //要代理的本地api地址，也可以换成线上测试地址
         changeOrigin: true, //跨域
-        rewrite: (path) => path.replace('', ""),
+        rewrite: (path) => path.replace("", ""),
       },
     },
   },
-});
+})

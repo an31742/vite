@@ -2,6 +2,7 @@ import { createApp } from "vue"
 import App from "./App.vue"
 import router from "./router/index.ts"
 import piniaStore from "./store/index.ts"
+import directives from "@/directives/index"
 // import SvgIcon from './components/SvgIcon/index.vue'
 import * as ElementPlusIconsVue from "@element-plus/icons-vue"
 import "element-plus/dist/index.css"
@@ -26,8 +27,10 @@ Object.keys(baseComponents).forEach((key) => {
 Object.keys(baseComponentsEdit).forEach((key) => {
   app.component(key, baseComponentsEdit[key])
 })
+
 app.use(vuedraggable)
 app.use(rawDisplayer, "rawDisplayer")
 app.use(router)
+app.use(directives)
 app.use(piniaStore)
 app.mount("#app")

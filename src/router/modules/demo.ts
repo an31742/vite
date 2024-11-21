@@ -47,19 +47,34 @@ const routes = {
         anchors: "admin",
       },
     },
-    // {
-    //   path: "/demo/vue3",
-    //   name: "vue3",
-    //   hidde: false,
-    //   component: () => import("@/views/demo/vue3.vue"),
-    //   asideVisible: false,
-    //   meta: {
-    //     title: "vue3",
-    //     icon: markRaw(Box),
-    //     activeMenu: "vue3",
-    //     anchors: 'management',  //设计前端权限
-    //   },
-    // },
+    {
+      path: "/demo/vue3",
+      name: "vue3",
+      hidde: false,
+      redirect: "authTable",
+      asideVisible: false,
+      meta: {
+        title: "vue3",
+        icon: markRaw(Box),
+        activeMenu: "vue3",
+        anchors: "admin", //设计前端权限
+      },
+      children: [
+        {
+          path: "/demo/vue3/authTable",
+          name: "authTable",
+          hidde: false,
+          component: () => import("@/views/demo/vue3/authTable.vue"),
+          asideVisible: false,
+          meta: {
+            title: "authTable",
+            icon: markRaw(Box),
+            activeMenu: "authTable",
+            anchors: "admin", //设计前端权限
+          },
+        },
+      ],
+    },
     {
       path: "/demo/cascader",
       name: "cascader",
