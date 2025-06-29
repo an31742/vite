@@ -1,3 +1,11 @@
+/*
+ * @Author: an31742 2234170284@qq.com
+ * @Date: 2024-11-21 18:32:56
+ * @LastEditors: an31742 2234170284@qq.com
+ * @LastEditTime: 2025-06-30 02:48:39
+ * @FilePath: /vite/src/main.ts
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 import { createApp } from "vue"
 import App from "./App.vue"
 import router from "./router/index.ts"
@@ -7,6 +15,7 @@ import directives from "@/directives/index"
 import * as ElementPlusIconsVue from "@element-plus/icons-vue"
 import "element-plus/dist/index.css"
 //样式
+import "element-plus/theme-chalk/dark/css-vars.css"
 import "./styles/index.scss"
 import vuedraggable from "vuedraggable"
 import rawDisplayer from "./components/infra/raw-displayer.vue"

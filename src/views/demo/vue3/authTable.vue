@@ -54,7 +54,7 @@ const columns: Column<any>[] = [
         <ElButton size="small" v-auth="edit">
           Edit
         </ElButton>
-        <ElButton size="small" type="danger" v-auth="delete">
+        <ElButton size="small" type="danger" v-auth="add">
           Delete
         </ElButton>
       </>
