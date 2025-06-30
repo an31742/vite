@@ -54,7 +54,7 @@ const columns: Column<any>[] = [
         <ElButton size="small" v-auth="edit">
           Edit
         </ElButton>
-        <ElButton size="small" type="danger" v-auth="add">
+        <ElButton size="small" type="danger" v-auth="delete">
           Delete
         </ElButton>
       </>
@@ -64,5 +64,5 @@ const columns: Column<any>[] = [
   },
 ]
 
-const data = ref(Array.from({ length: 200 }).map(dataGenerator))
+const data = ref(Array.from({ length: 8 }).map(dataGenerator))
 </script>

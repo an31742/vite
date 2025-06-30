@@ -5,7 +5,7 @@ const getAuthButtonListData = {
   data: {
     authButton: ["add", "batchAdd", "export", "batchDelete", "status"],
     useProTable: ["add", "batchAdd", "export", "batchDelete", "status"],
-    authTable: ["add", "edit"],
+    authTable: ["delete", "edit"],
   },
   msg: "成功",
 }
@@ -19,7 +19,5 @@ export default loginApi
 
 // 获取按钮权限
 export const getAuthButtonListApi = () => {
-  // return http.get<Login.ResAuthButtons>(PORT1 + `/auth/buttons`, {}, { noLoading: true });
-  // return authButtonList;
   return getAuthButtonListData
 }

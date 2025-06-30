@@ -14,8 +14,6 @@ const auth: Directive = {
       const hasPermission = value.every((item) => currentPageRoles.includes(item))
       if (!hasPermission) el.remove()
     } else {
-      console.log("🚀 ~ mounted ~ currentPageRoles:", currentPageRoles)
-      console.log("🚀 ~ mounted ~ value:", value)
       if (!currentPageRoles.includes(value)) el.remove()
     }
   },
