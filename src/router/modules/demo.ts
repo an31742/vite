@@ -1,8 +1,8 @@
 /*
  * @Author: maxiangan
  * @Date: 2023-09-19 16:08:24
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-11-23 09:54:55
+ * @LastEditors: an31742 2234170284@qq.com
+ * @LastEditTime: 2025-06-30 20:02:49
  * @Description: 请填写简介
  */
 import { markRaw } from "vue"
@@ -14,6 +14,7 @@ const routes = {
   component: () => import("@/views/demo/index.vue"),
   asideVisible: true,
   hidde: false,
+  redirect: "/demo/toLocalStorage",
   meta: {
     title: "demo",
     icon: markRaw(Box),
@@ -51,7 +52,6 @@ const routes = {
       path: "/demo/vue3",
       name: "vue3",
       hidde: false,
-      redirect: "authTable",
       asideVisible: false,
       meta: {
         title: "vue3",
@@ -59,6 +59,7 @@ const routes = {
         activeMenu: "vue3",
         anchors: "admin", //设计前端权限
       },
+     
       children: [
         {
           path: "/demo/vue3/authTable",

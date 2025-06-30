@@ -7,8 +7,8 @@
 -->
 <template>
   <div v-for="firstRoute in routesData" :key="firstRoute.path">
-    <template v-for="item in firstRoute.children" :key="item.path">
-      <div>
+    <template v-for="item in firstRoute.children?.filter(Boolean)" :key="item.path">
+      <div v-if="item">
         <el-menu
           active-text-color="#ffd04b"
           background-color="#545c64"
@@ -102,7 +102,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { useCounter } from "../../store/index.ts";
+import { useCounter } from "@/store/index.ts";
 import { checkRole } from "@/utils/permission.ts";
 
 const counterStore: any = useCounter();

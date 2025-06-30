@@ -6,7 +6,6 @@
     <el-form-item label="Password">
       <el-input v-model="ruleForm.password" />
     </el-form-item>
-
     <el-form-item>
       <el-button type="primary" @click="submitForm">Submit</el-button>
       <!-- <el-button @click="resetForm(ruleFormRef)">Reset</el-button> -->
@@ -28,8 +27,8 @@ export default {
     })
 
     const submitForm = () => {
-      store.getUserInfo(ruleForm)
-      store.getAuthButtonList()
+      store.getUserInfo(ruleForm)  //在登录的时候获取用户信息
+      store.getAuthButtonList()  //在登录的时候获取按钮级别权限
       window.localStorage.setItem("token", "an31742")
       router.push({
         path: "/",

@@ -1,45 +1,21 @@
+/*
+ * @Author: an31742 2234170284@qq.com
+ * @Date: 2023-11-14 11:30:56
+ * @LastEditors: an31742 2234170284@qq.com
+ * @LastEditTime: 2025-06-30 18:44:59
+ * @FilePath: /vite/src/router/index.ts
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 import { createRouter, createWebHashHistory } from "vue-router"
-import { markRaw } from "vue"
-import { Box, Flag } from "@element-plus/icons-vue"
-import Error from "./modules/error.ts"
-import Demo from "./modules/demo.ts"
-import FeInterview from "./modules/feInterview.ts"
+
 import { checkRole } from "@/utils/permission.ts"
 import { ElMessage } from "element-plus"
 import NProgress from "nprogress"
 import { useCounter } from "@/store/index.ts"
-
+import routes from "@/router/modules/constRoute.ts"
 import "nprogress/nprogress.css"
 
 NProgress.configure({ showSpinner: false })
-const routes: any = [
-  {
-    path: "/login",
-    name: "login",
-    hidde: true,
-    component: () => import("@/views/login/login.vue"),
-  },
-  {
-    path: "/",
-    redirect: "layout",
-  },
-  {
-    path: "/layout",
-    name: "layout",
-    hidde: false,
-    component: () => import("@/views/layout/index.vue"),
-    asideVisible: false,
-    meta: {
-      title: "首页",
-      icon: markRaw(Box),
-      activeMenu: "layout",
-    },
-    children: [Demo, FeInterview],
-  },
-  // Demo,
-  // FeInterview,
-  Error,
-]
 
 const router = createRouter({
   history: createWebHashHistory(),
