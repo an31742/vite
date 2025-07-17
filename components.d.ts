@@ -7,6 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    ApiTest: typeof import('./src/components/ApiTest.vue')['default']
     'Base-': typeof import('./src/components/base/draggableComponents/base-.vue')['default']
     BaseInput: typeof import('./src/components/base/draggableComponents/base-input.vue')['default']
     BaseInputEdit: typeof import('./src/components/base/draggableComponentsEdit/base-input-edit.vue')['default']
