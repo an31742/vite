@@ -59,7 +59,7 @@ const routes = {
         activeMenu: "vue3",
         anchors: "admin", //设计前端权限
       },
-     
+
       children: [
         {
           path: "/demo/vue3/authTable",
@@ -86,6 +86,19 @@ const routes = {
         title: "cascader",
         icon: markRaw(Box),
         activeMenu: "cascader",
+        anchors: "admin",
+      },
+    },
+    {
+      path: "/demo/globalPopup",
+      name: "globalPopup",
+      hidde: false,
+      component: () => import("@/views/demo/globalPopup/index.vue"),
+      asideVisible: false,
+      meta: {
+        title: "globalPopup",
+        icon: markRaw(Box),
+        activeMenu: "globalPopup",
         anchors: "admin",
       },
     },

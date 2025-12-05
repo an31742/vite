@@ -6,12 +6,15 @@
  * @FilePath: /vite/src/router/index.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
+
+declare const window:any
 import { createRouter, createWebHashHistory } from "vue-router"
 
 import { checkRole } from "@/utils/permission.ts"
 import { ElMessage } from "element-plus"
 import NProgress from "nprogress"
 import { useCounter } from "@/store/index.ts"
+import { queryToModalStack } from '@/components/com/Modal/modalUtils';
 import routes from "@/router/modules/constRoute.ts"
 import "nprogress/nprogress.css"
 
@@ -81,10 +84,26 @@ router.beforeEach((to, from, next) => {
       next() //如果匹配到正确跳转
     }
   }
-  return next()
 })
 
-router.afterEach(() => {
+router.afterEach((to) => {
+   const modalStack = queryToModalStack(to.query);
+  // 超出最大长度则截断（仅保留前5个）
+  if (modalStack.length > 5) {
+    const newStack = modalStack.slice(0, 5);
+    const newQuery = {
+      ...to.query,
+      modals: encodeURIComponent(JSON.stringify(newStack))
+    };
+    router.replace({ query: newQuery }).catch(() => {});
+  }
   NProgress.done()
 })
+// 捕获路由重复跳转错误（避免控制台报错）
+router.onError((err) => {
+  if (err.message.includes('Navigation cancelled') || err.message.includes('Duplicate Navigation')) {
+    return;
+  }
+  console.error('【路由错误】：', err);
+});
 export default router
