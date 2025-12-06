@@ -45,7 +45,7 @@ export default defineConfig({
     //自定义代理规则
     proxy: {
       "/api": {
-        target: "http://localhost:3094", //要代理的本地api地址，也可以换成线上测试地址
+        target: "http://localhost:9527", //要代理的本地api地址，也可以换成线上测试地址
         changeOrigin: true, //跨域
         rewrite: (path) => path.replace("", ""),
       },

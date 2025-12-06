@@ -48,5 +48,10 @@
     "vue-svg-icon": "^1.2.9",
     "vue-tsc": "^1.8.5",
     "vuex": "^4.1.0"
-  }
+  },
+  "description": "基于 Vite 构建的 Vue3 + TypeScript 前端项目，集成了 Element Plus、Pinia、Vue Router 等现代化开发工具。",
+  "main": ".eslintrc.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

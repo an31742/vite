@@ -103,6 +103,19 @@ const routes = {
       },
     },
     {
+      path: "/demo/Ai",
+      name: "Ai",
+      hidde: false,
+      component: () => import("@/views/demo/AI/index.vue"),
+      asideVisible: false,
+      meta: {
+        title: "AI",
+        icon: markRaw(Box),
+        activeMenu: "AI",
+        anchors: "admin",
+      },
+    },
+    {
       path: "/demo/pcDrag",
       name: "pcDrag",
       hidde: false,
