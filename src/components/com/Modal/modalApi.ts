@@ -3,7 +3,6 @@
 declare const window:any
 // src/components/Modal/modalApi.ts
 import { getCurrentInstance, ComponentInternalInstance } from 'vue';
-import { queryToModalStack } from './modalUtils';
 
 // 定义弹窗选项接口
 interface ModalOptions {
@@ -85,7 +84,7 @@ const modalApi = {
       return '';
     }
 
-    // 推入栈并返回唯一ID
+    // 当调用open的方法的时候  使用这个全局的方法 推入栈并返回唯一ID
     return modalStackInstance.push({
       name: options.name,
       title: options.title || '',

@@ -107,7 +107,7 @@ const loadModalComponent = async (modalItem) => {
  */
 const initModalStack = () => {
   const stackFromRoute = queryToModalStack(route.query);
-  // 栈长度限制：超出则截断
+  // 栈长度限制：超出则截断 弹窗最多5层
   const limitedStack = stackFromRoute.slice(0, MAX_STACK_LENGTH);
   // 标准化栈项（补充默认值 + 唯一ID + 状态）
   const normalizedStack = limitedStack.map(item => ({

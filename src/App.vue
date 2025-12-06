@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted ,nextTick} from "vue";
 import axios from "axios";
-import Modal from "@/components/com/Modal/index.vue";
+import Modal from "@/components/com/Modal/index.vue"; //使用基础公共弹窗将公共弹窗挂载到全局上
 import { initModalInstance } from "@/components/com/Modal/modalApi";
 const response = ref("");
-const modalRef = ref(null)
+const modalRef = ref(null);
 onMounted(async () => {
   try {
     const res = await axios.get("/health");
@@ -13,8 +13,9 @@ onMounted(async () => {
   } catch (error) {
     console.error(error);
   }
-  console.log("🚀 ~ modalRef.value:", modalRef.value)
+  await nextTick()
   if (modalRef.value) {
+    //将组建复制给initModalInstance
     initModalInstance(modalRef.value);
   }
 });
