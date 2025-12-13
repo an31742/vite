@@ -51,7 +51,7 @@ const isStreaming = ref(false);
 const showLoading = ref(false);
 const chatContainer = ref<HTMLElement>();
 let sessionChunk = ""; // 缓冲区
-let loadingTimer: number | null = null;
+let loadingTimer: any = null;
 
 // 防抖显示 loading
 const showLoadingWithDebounce = () => {
@@ -90,17 +90,18 @@ const scrollToBottom = () => {
 // 发送消息
 const sendMessage = async () => {
   if (!inputText.value.trim() || isStreaming.value) return;
-
+  //创建消息
   const userMessage: Message = {
     id: Date.now().toString(),
     role: "user",
     content: inputText.value,
   };
-
+  //添加展示消息
   messages.value.push(userMessage);
+  //获取提问的内容
   const question = inputText.value;
   inputText.value = "";
-
+  //在获取消息的时候禁用
   isStreaming.value = true;
   showLoadingWithDebounce();
   scrollToBottom();
@@ -145,11 +146,15 @@ const streamResponse = async (question:any, assistantMessage:any) => {
 
     const chunk = decoder.decode(value)
     const lines = chunk.split('\n')
+    console.log("🚀 ~ streamResponse ~ lines:", lines)
 
     for (const line of lines) {
+      console.log("🚀 ~ streamResponse ~ line:", line)
+      console.log("🚀 ~ streamResponse ~ ine.startsWith('data: '):", line.startsWith('data: '))
       if (line.startsWith('data: ')) {
         try {
-          const data = JSON.parse(line.slice(6))
+          const data = JSON.parse(line.slice(6)) //Q去掉data前缀
+          console.log("🚀 ~ streamResponse ~ data:", data)
 
           // 处理错误消息
           if (data.error) {
