@@ -25,14 +25,8 @@ const router = createRouter({
   routes,
 })
 
-for (let i = 0; i < 100; i++) {
-  // 添加二级路由对象
-  router.addRoute("fe_interview", {
-    path: `/fe_interview3+1/${i + 1 < 100 ? "0" + i : i}`,
-    name: JSON.stringify(i + 1 < 100 ? "0" + i : i),
-    component: () => import(`@/views/fe_interview/${i + 1 < 100 ? "0" + i : 1}.vue`),
-  })
-}
+// 前端面经路由已改为JS文件结构，不再需要动态生成Vue路由
+// 所有面经内容现在通过 /fe_interview 路由的单页面应用形式展示
 // 导航守卫beforeEach
 let counter = 0
 // to: Route对象, 即将跳转到的Route对象

@@ -1,30 +1,40 @@
 /*
  * @Author: maxiangan
  * @Date: 2023-09-19 16:10:42
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-10-25 16:16:37
- * @Description: 请填写简
+ * @LastEditors: an31742 2234170284@qq.com
+ * @LastEditTime: 2025-01-13 15:30:00
+ * @Description: 前端面经路由配置 - 适配JS文件结构
  */
-import { createRouter, createWebHashHistory } from "vue-router";
 import { markRaw } from "vue";
 import { Box } from "@element-plus/icons-vue";
 
-const routes = 
-{
-  path: "/fe_interview3+1",
+const routes = {
+  path: "/fe_interview",
   name: "fe_interview",
   component: () => import("@/views/fe_interview/index.vue"),
-  asideVisible: false,
+  asideVisible: true,
   hidde: false,
   meta: {
-    title: "fe_interview",
+    title: "前端面经",
     icon: markRaw(Box),
-    anchors: "super-management",
+    anchors: "admin",
+    description: "JavaScript版本的前端面经学习系统"
   },
-}
+  children: [
+    {
+      path: "/fe_interview/js",
+      name: "fe_interview_js",
+      component: () => import("@/views/fe_interview/index.vue"),
+      asideVisible: false,
+      hidde: false,
+      meta: {
+        title: "JS面经文件",
+        icon: markRaw(Box),
+        anchors: "admin",
+        description: "可执行的JavaScript面经文件集合"
+      }
+    }
+  ]
+};
 
-
-
-
-
-export default  routes
+export default routes;

@@ -1,0 +1,79 @@
+{
+  "files": [
+    {
+      "name": "01.js",
+      "title": "面经01：CSS样式导入、布局、递归算法",
+      "description": "学习link和@import的区别、圣杯布局和双飞翼布局、递归算法实现",
+      "topics": ["CSS样式导入", "布局技术", "递归算法", "随机数生成"],
+      "difficulty": "初级"
+    },
+    {
+      "name": "02.js", 
+      "title": "面经02：HTML元素、CSS3特性、字符串处理",
+      "description": "HTML元素分类、CSS3新增特性、字符串空格处理方法",
+      "topics": ["HTML元素", "CSS3特性", "字符串处理", "正则表达式"],
+      "difficulty": "初级"
+    },
+    {
+      "name": "03.js",
+      "title": "面经03：HTML全局属性、元素隐藏、字符串操作",
+      "description": "HTML全局属性详解、元素隐藏方法、字符串最后字符删除",
+      "topics": ["HTML全局属性", "CSS隐藏技术", "字符串操作", "substring方法"],
+      "difficulty": "初级"
+    },
+    {
+      "name": "04.js",
+      "title": "面经04：HTML5离线存储、CSS选择器、命名转换",
+      "description": "HTML5离线存储原理、CSS选择器类型、下划线转驼峰命名",
+      "topics": ["离线存储", "CSS选择器", "命名转换", "正则表达式"],
+      "difficulty": "中级"
+    },
+    {
+      "name": "05.js",
+      "title": "面经05：超链接target属性、CSS3伪类、字符串大小写切换",
+      "description": "target属性详解、CSS3新增伪类、字符串大小写转换方法",
+      "topics": ["超链接属性", "CSS3伪类", "字符串处理", "大小写转换"],
+      "difficulty": "初级"
+    },
+    {
+      "name": "06.js",
+      "title": "面经06：label标签、CSS三角形、去除制表符和换行符",
+      "description": "label标签作用、CSS绘制三角形、正则处理特殊字符",
+      "topics": ["label标签", "CSS绘图", "正则表达式", "字符处理"],
+      "difficulty": "中级"
+    },
+    {
+      "name": "07.js",
+      "title": "面经07：iframe框架、BFC规范、字符串统计",
+      "description": "iframe优缺点、BFC规范理解、字符串出现次数统计方法",
+      "topics": ["iframe", "BFC规范", "字符串统计", "正则匹配"],
+      "difficulty": "中级"
+    },
+    {
+      "name": "08.js",
+      "title": "面经08：HTML5离线存储、清除浮动、字符串加密",
+      "description": "离线存储详解、浮动清除方法、字符串加密算法",
+      "topics": ["离线存储", "清除浮动", "字符串加密", "Base64编码"],
+      "difficulty": "中级"
+    },
+    {
+      "name": "09.js",
+      "title": "面经09：多标签页通信、优雅降级和渐进增强、数据类型判断",
+      "description": "标签页通信方式、前端开发策略、精确的数据类型检测",
+      "topics": ["标签页通信", "开发策略", "数据类型", "toString方法"],
+      "difficulty": "高级"
+    },
+    {
+      "name": "010.js",
+      "title": "面经010：viewport设置、px/em/rem对比、回调函数",
+      "description": "移动端viewport配置、CSS单位对比、回调函数应用",
+      "topics": ["viewport", "CSS单位", "回调函数", "异步编程"],
+      "difficulty": "中级"
+    }
+  ],
+  "usage": {
+    "terminal": "node src/views/fe_interview/js/[filename]",
+    "batch": "node src/views/fe_interview/js/run-all.js all",
+    "range": "node src/views/fe_interview/js/run-all.js 1-5"
+  }
+}
