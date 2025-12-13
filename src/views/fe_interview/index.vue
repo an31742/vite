@@ -13,15 +13,7 @@
             <span class="toggle-icon">{{ file.expanded ? "▼" : "▶" }}</span>
           </div>
           <div v-if="file.expanded" class="file-content">
-            <p class="file-description">{{ file.description }}</p>
             <div class="file-actions">
-              <el-button
-                size="small"
-                type="primary"
-                @click="runJSFile(file.name)"
-              >
-                运行代码
-              </el-button>
               <el-button size="small" @click="viewCode(file.name)">
                 查看代码
               </el-button>
@@ -35,10 +27,25 @@
         <router-link to="/home" style="float: right">返回首页</router-link>
         <h2>前端面经学习</h2>
       </div>
-      <div class="output-container">
+      <div v-if="currentOutput" class="output-container">
         <div class="output-section">
           <h3>{{ currentFile }} 运行结果：</h3>
           <pre class="output-content">{{ currentOutput }}</pre>
+        </div>
+      </div>
+      <div v-else class="welcome-section">
+        <div class="welcome-icon">📚</div>
+        <h3>选择一个 JS 文件查看代码</h3>
+        <p>点击左侧文件列表中的"查看代码"按钮来显示代码内容</p>
+        <div class="welcome-tips">
+          <div class="tip-item">
+            <span class="tip-icon">💡</span>
+            <span>包含前端面试常见知识点</span>
+          </div>
+          <div class="tip-item">
+            <span class="tip-icon">🚀</span>
+            <span>可直接运行的 JavaScript 代码</span>
+          </div>
         </div>
       </div>
     </el-main>
@@ -53,104 +60,23 @@ export default defineComponent({
   setup() {
     const currentOutput = ref("");
     const currentFile = ref("");
-
-    const jsFiles = reactive([
-      {
-        name: "01.js",
-        description: "CSS样式导入、布局、递归算法",
-        expanded: false,
-      },
-      {
-        name: "02.js",
-        description: "HTML元素、CSS3特性、字符串处理",
-        expanded: false,
-      },
-      {
-        name: "03.js",
-        description: "HTML全局属性、元素隐藏、字符串操作",
-        expanded: false,
-      },
-      {
-        name: "04.js",
-        description: "HTML5离线存储、CSS选择器、命名转换",
-        expanded: false,
-      },
-      {
-        name: "05.js",
-        description: "超链接target属性、CSS3伪类、字符串大小写切换",
-        expanded: false,
-      },
-      {
-        name: "06.js",
-        description: "label标签、CSS三角形、去除制表符和换行符",
-        expanded: false,
-      },
-      {
-        name: "07.js",
-        description: "iframe框架、BFC规范、字符串统计",
-        expanded: false,
-      },
-      {
-        name: "08.js",
-        description: "HTML5离线存储、清除浮动、字符串加密",
-        expanded: false,
-      },
-      {
-        name: "09.js",
-        description: "多标签页通信、优雅降级和渐进增强、数据类型判断",
-        expanded: false,
-      },
-      {
-        name: "010.js",
-        description: "viewport设置、px/em/rem对比、回调函数",
-        expanded: false,
-      },
-    ]);
-
+    const jsFiles = ref([]);
+    const loadFileList = async () => {
+      const modules = import.meta.glob("./js/*.js", { as: "raw" });
+      const fileList = Object.keys(modules).map((path) => {
+        const fileName = path.replace("./js/", "");
+        return {
+          name: fileName,
+          expanded: false,
+        };
+      });
+      jsFiles.value = fileList.sort((a, b) => a.name.localeCompare(b.name));
+    };
+    loadFileList();
     const toggleFile = (fileName) => {
-      const file = jsFiles.find((f) => f.name === fileName);
+      const file = jsFiles.value.find((f) => f.name === fileName);
       if (file) {
         file.expanded = !file.expanded;
-      }
-    };
-
-    const runJSFile = async (fileName) => {
-      try {
-        currentFile.value = fileName;
-        currentOutput.value = "正在加载...";
-
-        // 直接显示运行说明和代码内容
-        const fileInfo = getFileInfo(fileName);
-        const runInstructions = `▶️ 运行 ${fileName}
-
-📝 文件说明：
-${fileInfo.description}
-
-💻 运行方法：
-
-1. 终端运行：
-   node src/views/fe_interview/js/${fileName}
-
-2. VS Code Code Runner：
-   - 打开文件 src/views/fe_interview/js/${fileName}
-   - 按 Ctrl+Alt+N 或点击右上角播放按钮
-
-3. 浏览器控制台（部分代码）：
-   - 按 F12 打开开发者工具
-   - 在 Console 中粘贴代码运行
-
-🔍 主要学习内容：
-${fileInfo.topics.map((topic) => `• ${topic}`).join("\n")}
-
-🎯 难度级别：${fileInfo.difficulty}
-
-点击“查看代码”按钮可以查看完整的源代码。`;
-
-        currentOutput.value = runInstructions;
-        ElMessage.success(`${fileName} 说明已加载`);
-      } catch (error) {
-        currentOutput.value = `加载 ${fileName} 时出错: ${error.message}`;
-        ElMessage.error("加载失败");
       }
     };
 
@@ -162,12 +88,13 @@ ${fileInfo.topics.map((topic) => `• ${topic}`).join("\n")}
         // 使用 import.meta.glob 批量导入
 
         const modules = import.meta.glob("./js/*.js", { as: "raw" });
+        console.log("🚀 ~ viewCode ~ modules:", modules.name);
         const moduleKey = `./js/${fileName}`;
 
         if (modules[moduleKey]) {
           const codeContent = await modules[moduleKey]();
           currentOutput.value = codeContent;
-          console.log("🚀 ~ viewCode ~ codeContent:", codeContent)
+          console.log("🚀 ~ viewCode ~ codeContent:", codeContent);
           ElMessage.success("代码已加载");
         } else {
           currentOutput.value = "// 文件未找到";
@@ -179,131 +106,12 @@ ${fileInfo.topics.map((topic) => `• ${topic}`).join("\n")}
       }
     };
 
-    // 获取文件信息
-    const getFileInfo = (fileName) => {
-      const fileMap = {
-        "01.js": {
-          description: "CSS样式导入、布局、递归算法",
-          topics: [
-            "link和@import的区别",
-            "圣杯布局和双飞翼布局",
-            "递归算法实现",
-            "随机数生成",
-          ],
-          difficulty: "初级",
-        },
-        "02.js": {
-          description: "HTML元素、CSS3特性、字符串处理",
-          topics: [
-            "HTML元素分类",
-            "CSS3新增特性",
-            "字符串空格处理",
-            "split和join方法",
-          ],
-          difficulty: "初级",
-        },
-        "03.js": {
-          description: "HTML全局属性、元素隐藏、字符串操作",
-          topics: [
-            "HTML全局属性",
-            "元素隐藏方法",
-            "字符串操作",
-            "substring方法",
-          ],
-          difficulty: "初级",
-        },
-        "04.js": {
-          description: "HTML5离线存储、CSS选择器、命名转换",
-          topics: [
-            "离线存储原理",
-            "CSS选择器类型",
-            "下划线转驼峰命名",
-            "正则表达式",
-          ],
-          difficulty: "中级",
-        },
-        "05.js": {
-          description: "超链接target属性、CSS3伪类、字符串大小写切换",
-          topics: [
-            "target属性详解",
-            "CSS3新增伪类",
-            "字符串处理",
-            "大小写转换",
-          ],
-          difficulty: "初级",
-        },
-        "06.js": {
-          description: "label标签、CSS三角形、去除制表符和换行符",
-          topics: [
-            "label标签作用",
-            "CSS绘制三角形",
-            "正则处理特殊字符",
-            "字符处理",
-          ],
-          difficulty: "中级",
-        },
-        "07.js": {
-          description: "iframe框架、BFC规范、字符串统计",
-          topics: ["iframe优缺点", "BFC规范理解", "字符串统计", "正则匹配"],
-          difficulty: "中级",
-        },
-        "08.js": {
-          description: "HTML5离线存储、清除浮动、字符串加密",
-          topics: ["离线存储详解", "浮动清除方法", "字符串加密", "Base64编码"],
-          difficulty: "中级",
-        },
-        "09.js": {
-          description: "多标签页通信、优雅降级和渐进增强、数据类型判断",
-          topics: [
-            "标签页通信方式",
-            "开发策略",
-            "数据类型检测",
-            "toString方法",
-          ],
-          difficulty: "高级",
-        },
-        "010.js": {
-          description: "viewport设置、px/em/rem对比、回调函数",
-          topics: [
-            "移动端viewport配置",
-            "CSS单位对比",
-            "回调函数应用",
-            "异步编程",
-          ],
-          difficulty: "中级",
-        },
-      };
-      return (
-        fileMap[fileName] || {
-          description: "未知文件",
-          topics: [],
-          difficulty: "未知",
-        }
-      );
-    };
-
-    // 获取代码预览
-    const getCodePreview = (fileName) => {
-      return `// 文件位置: src/views/fe_interview/js/${fileName}
-// 请在终端中运行: node src/views/fe_interview/js/${fileName}
-
-此处显示代码预览。
-
-要查看完整代码，请直接打开文件：
-src/views/fe_interview/js/${fileName}
-
-或者在 VS Code 中使用 Ctrl+P 快速打开文件。`;
-    };
-
     return {
-      jsFiles,
       currentOutput,
       currentFile,
       toggleFile,
-      runJSFile,
       viewCode,
-      getFileInfo,
-      getCodePreview,
+      jsFiles
     };
   },
 });
@@ -510,5 +318,54 @@ src/views/fe_interview/js/${fileName}
 .el-aside::-webkit-scrollbar-thumb:hover,
 .output-container::-webkit-scrollbar-thumb:hover {
   background: #a8a8a8;
+}
+
+.welcome-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  text-align: center;
+  color: #64748b;
+}
+
+.welcome-icon {
+  font-size: 64px;
+  margin-bottom: 24px;
+  opacity: 0.8;
+}
+
+.welcome-section h3 {
+  color: #334155;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.welcome-section p {
+  color: #64748b;
+  font-size: 16px;
+  margin-bottom: 32px;
+}
+
+.welcome-tips {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tip-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+}
+
+.tip-icon {
+  font-size: 20px;
 }
 </style>
