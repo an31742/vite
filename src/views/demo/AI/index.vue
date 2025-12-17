@@ -128,23 +128,32 @@ const sendMessage = async () => {
 
 // SSE 流式响应处理
 const streamResponse = async (question:any, assistantMessage:any) => {
+  // 模拟 SSE 流式请求
+
+  //通过fetch 请求
   const response = await fetch("http://localhost:9527/api/ai/chat/stream", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ message: question }),
   })
-
+ //获取到response.body?.getReader()
   const reader:any = response.body?.getReader()
+  //通过new TextDecoder() 获取到解析二进制格式
   const decoder = new TextDecoder()
 
   hideLoading()
-  messages.value.push(assistantMessage)
 
+
+  messages.value.push(assistantMessage)
+  //使用while循环获取数据
   while (true) {
+    //使用reader read()读取流
     const { done, value } = await reader.read()
     if (done) break
-
+    //通过new TextDecoder() 获取到解析二进制格式
+    const decoder = new TextDecoder()
     const chunk = decoder.decode(value)
+    //通过split处理返回的流式块
     const lines = chunk.split('\n')
     console.log("🚀 ~ streamResponse ~ lines:", lines)
 
@@ -153,6 +162,7 @@ const streamResponse = async (question:any, assistantMessage:any) => {
       console.log("🚀 ~ streamResponse ~ ine.startsWith('data: '):", line.startsWith('data: '))
       if (line.startsWith('data: ')) {
         try {
+          //通过json parse 处理数据转化为json对象
           const data = JSON.parse(line.slice(6)) //Q去掉data前缀
           console.log("🚀 ~ streamResponse ~ data:", data)
 
