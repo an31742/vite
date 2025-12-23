@@ -11,7 +11,6 @@
 
 <script setup>
 import { Warning } from '@element-plus/icons-vue';
-import { emit } from 'vue';
 
 const emit = defineEmits(['confirm', 'cancel']);
 
