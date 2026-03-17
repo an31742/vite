@@ -261,11 +261,11 @@ function onAiConnect (FetchConfig) {
 // 使用缓冲区缓存不完整数据
 let sessionChunk = '';
 
-onParseMessage(Uint8Array) {
+function onParseMessage(Uint8Array) {
   let aiValue = new TextDecoder('utf-8').decode(Uint8Array);
 
   // 拼接上次未完成的数据
-  aiValue = this.sessionChunk + aiValue;
+  aiValue = sessionChunk + aiValue;
 
   // 尝试解析 JSON
   const aiValueArray = lodash.filter(
@@ -273,15 +273,21 @@ onParseMessage(Uint8Array) {
     (item) => {
       try {
         JSON.parse(item);
-        this.sessionChunk = ''; // 解析成功，清空缓冲区
+        sessionChunk = ''; // 解析成功，清空缓冲区
         return true;
       } catch (error) {
         // 不完整的 JSON 缓存起来
-        this.sessionChunk = `data: ${item}`;
+        sessionChunk = `data: ${item}`;
         return false;
       }
     }
   );
+
+  // 使用 aiValueArray，避免未使用变量警告
+  if (aiValueArray.length > 0) {
+    // 这里可以处理解析后的 JSON 数据
+    console.log('Parsed JSON array:', aiValueArray);
+  }
 }
 
 

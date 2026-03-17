@@ -2,6 +2,9 @@
 
 基于 Vite 构建的 Vue3 + TypeScript 前端项目，集成了 Element Plus、Pinia、Vue Router 等现代化开发工具。
 
+## 待办
+完成全栈项目 把面经更新到其他博客   部署到vercel
+
 ## 🚀 技术栈
 
 - **框架**: Vue 3.3.4 + TypeScript 5.2.2
