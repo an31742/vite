@@ -14,7 +14,9 @@
           </div>
           <div v-if="file.expanded" class="file-content">
             <div class="file-actions">
-              <el-button size="small" @click="viewCode(file.name)"> 查看代码 </el-button>
+              <el-button size="small" @click="viewCode(file.name)">
+                查看代码
+              </el-button>
             </div>
           </div>
         </div>
@@ -51,56 +53,79 @@
 </template>
 
 <script>
-import { defineComponent, ref, reactive } from "vue"
-import { ElMessage } from "element-plus"
+import { defineComponent, ref, reactive } from "vue";
+import { ElMessage } from "element-plus";
 
 export default defineComponent({
   setup() {
-    const currentOutput = ref("")
-    const currentFile = ref("")
-    const jsFiles = ref([])
+    const currentOutput = ref("");
+    const currentFile = ref("");
+    const jsFiles = ref([]);
     const loadFileList = async () => {
       // 直接硬编码文件列表，避免使用 import.meta.glob
-      const fileList = ["开源中国一面.js", "开源中国二面.js", "手写面试题.js", "滴滴一面.js", "牛客网哈罗一面.js", "牛客网美团一面.js", "牛客网美团一面2.js", "百图生科.js", "联想一面.js", "联想消费者团队一面.js", "联想消费者团队二面.js", "车晓科技一面.js", "铁科院.js"].map((fileName) => ({
+      const fileList = [
+        "开源中国一面.js",
+        "开源中国二面.js",
+        "手写面试题.js",
+        "滴滴一面.js",
+        "牛客网哈罗一面.js",
+        "牛客网美团一面.js",
+        "牛客网美团一面2.js",
+        "百图生科.js",
+        "联想一面.js",
+        "联想消费者团队一面.js",
+        "联想消费者团队二面.js",
+        "车晓科技一面.js",
+        "铁科院.js"
+      ].map(fileName => ({
         name: fileName,
-        expanded: false,
-      }))
-      jsFiles.value = fileList.sort((a, b) => a.name.localeCompare(b.name))
-    }
-    loadFileList()
+        expanded: false
+      }));
+      jsFiles.value = fileList.sort((a, b) => a.name.localeCompare(b.name));
+    };
+    loadFileList();
     const toggleFile = (fileName) => {
-      const file = jsFiles.value.find((f) => f.name === fileName)
+      const file = jsFiles.value.find((f) => f.name === fileName);
       if (file) {
-        file.expanded = !file.expanded
+        file.expanded = !file.expanded;
       }
-    }
+    };
 
     const viewCode = async (fileName) => {
       try {
-        currentFile.value = fileName
-        currentOutput.value = "正在加载代码..."
+        currentFile.value = fileName;
+        currentOutput.value = "正在加载代码...";
 
-        // 使用动态导入加载文件
-        const moduleKey = `./js/${fileName}`
-        const codeContent = await import(moduleKey)
-        currentOutput.value = codeContent.default
-        console.log("🚀 ~ viewCode ~ codeContent:", codeContent)
-        ElMessage.success("代码已加载")
+        // 使用 import.meta.glob 批量导入
+
+        const modules = import.meta.glob("./js/*.js", { as: "raw" });
+        console.log("🚀 ~ viewCode ~ modules:", modules.name);
+        const moduleKey = `./js/${fileName}`;
+
+        if (modules[moduleKey]) {
+          const codeContent = await modules[moduleKey]();
+          currentOutput.value = codeContent;
+          console.log("🚀 ~ viewCode ~ codeContent:", codeContent);
+          ElMessage.success("代码已加载");
+        } else {
+          currentOutput.value = "// 文件未找到";
+          ElMessage.error("文件未找到");
+        }
       } catch (error) {
-        currentOutput.value = `加载失败: ${error.message}`
-        ElMessage.error("加载失败")
+        currentOutput.value = `加载失败: ${error.message}`;
+        ElMessage.error("加载失败");
       }
-    }
+    };
 
     return {
       currentOutput,
       currentFile,
       toggleFile,
       viewCode,
-      jsFiles,
-    }
+      jsFiles
+    };
   },
-})
+});
 </script>
 
 <style scoped>

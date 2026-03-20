@@ -27,23 +27,19 @@ export default defineConfig({
   build: {
     // 配置 rollup 选项
     rollupOptions: {
-      // 明确指定构建入口
-      input: {
-        main: join(__dirname, "index.html")
-      },
       // 配置插件
       plugins: [
         // 处理非 JavaScript 文件
         {
-          name: 'ignore-non-js',
+          name: "ignore-non-js",
           resolveId(source) {
-            if (source.endsWith('.md') || source.endsWith('.html')) {
-              return { id: source, external: true };
+            if (source.endsWith(".md") || source.endsWith(".html")) {
+              return { id: source, external: true }
             }
-          }
-        }
-      ]
-    }
+          },
+        },
+      ],
+    },
   },
   //配置跨域代理
   server: {
