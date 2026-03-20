@@ -1,18 +1,19 @@
 {
   "version": 2,
+  "outputDirectory": "apps/web/dist",
   "builds": [
     {
       "src": "apps/web/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist"
+        "buildCommand": "pnpm build"
       }
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "apps/web/dist/$1",
+      "dest": "$1",
       "status": 200
     }
   ]
