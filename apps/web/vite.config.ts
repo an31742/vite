@@ -43,13 +43,20 @@ export default defineConfig({
       },
       // 配置手动分块
       output: {
-        manualChunks: {
+        manualChunks: (id) => {
           // 第三方依赖
-          vendor: ["vue", "vue-router", "pinia"],
-          // Element Plus 组件库
-          element: ["element-plus", "@element-plus/icons-vue"],
-          // 工具库
-          utils: ["axios", "lodash-es", "dayjs"],
+          if (id.includes("node_modules")) {
+            if (id.includes("vue") || id.includes("vue-router") || id.includes("pinia")) {
+              return "vendor"
+            }
+            if (id.includes("element-plus") || id.includes("@element-plus")) {
+              return "element"
+            }
+            if (id.includes("axios") || id.includes("lodash") || id.includes("dayjs")) {
+              return "utils"
+            }
+            return "vendor"
+          }
         },
       },
       // 配置插件
