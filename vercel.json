@@ -1,13 +1,5 @@
 {
-  "builds": [
-    {
-      "src": "apps/web/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "dist": "dist"
-      }
-    }
-  ],
-  "installCommand": "pnpm install",
-  "buildCommand": "pnpm --filter web build"
+  "buildCommand": "pnpm --filter web build",
+  "outputDirectory": "web/dist",
+  "installCommand": "pnpm install"
 }
