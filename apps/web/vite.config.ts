@@ -25,7 +25,6 @@ export default defineConfig({
   },
   // 配置构建选项
   build: {
-    outDir: "../../dist",
     // 调整 chunk 大小警告限制
     chunkSizeWarningLimit: 1000,
     // 配置 rollup 选项
