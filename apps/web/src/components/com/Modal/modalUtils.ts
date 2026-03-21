@@ -13,7 +13,7 @@ export const queryToModalStack = (query: any) => {
       (item: any) =>
         item?.name &&
         typeof item.name === "string" &&
-        (item.modalProps === undefined || typeof item.modalProps === "object")
+        (item.modalProps === undefined || typeof item.modalProps === "object"),
     );
   } catch (error) {
     console.log("路由弹窗解析失败", error);
@@ -54,6 +54,6 @@ export const modalStackToQuery = (stack: any, originQuery: any) => {
  * @returns {String} 唯一ID
  **/
 
-export const generateModalId=()=>{
+export const generateModalId = () => {
   return `modal-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-}
+};

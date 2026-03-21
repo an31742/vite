@@ -1,11 +1,10 @@
 // antd是基础类组件库还是业务类
-console.log("🚀 ~ antd是基础类组件库还是业务类:")
+console.log("🚀 ~ antd是基础类组件库还是业务类:");
 
 // Ant Design (antd) 是基础类组件库
 
-
 // 的适用范围，支持服务端渲染吗，它的css方案选型
-console.log("🚀 ~ 的适用范围，支持服务端渲染吗，它的css方案选型:")
+console.log("🚀 ~ 的适用范围，支持服务端渲染吗，它的css方案选型:");
 
 // 中后台系统: 管理后台、数据看板、企业内部系统
 
@@ -24,19 +23,17 @@ console.log("🚀 ~ 的适用范围，支持服务端渲染吗，它的css方案
 
 // 支持 Next.js、Nuxt.js 等 SSR 框架
 
-
 // Less: 预处理器
 
 // CSS-in-JS: 部分组件使用
 
 // less相比普通css增加了什么功能
-console.log("🚀 ~ less相比普通css增加了什么功能:")
+console.log("🚀 ~ less相比普通css增加了什么功能:");
 
 //嵌套 变量  函数  混入 导入  混入  条件语句  运算
 
-
 // webpack是如何运行打包的
-console.log("🚀 ~ webpack是如何运行打包的:")
+console.log("🚀 ~ webpack是如何运行打包的:");
 
 // 1、初始化阶段
 // 读取配置文件
@@ -95,13 +92,12 @@ console.log("🚀 ~ webpack是如何运行打包的:")
 
 // Webpack 将所有资源视为模块，通过依赖分析构建模块图，最终打包成浏览器可执行的 JavaScript 文件
 
-
 // 重要: 读取配置文件，从入口entry开始初始化编译将所有文件都视为模块进行模块解析  es6模块 css模块 js模块，然后进行loader转换 jsloader css loader fileloader 生成builde 这个bundle是可以直接运行的在浏览器  将bundle导出到dist生成打包文件
 
 // 核心: 浏览器执行 bundle.js 中的 IIFE，通过 Webpack 运行时的模块加载器按需执行各个模块，最终渲染页面
 
 //webpack热更新的原理
-console.log("🚀 ~ webpack热更新的原理:")
+console.log("🚀 ~ webpack热更新的原理:");
 
 // 1、核心组件 就是HotModuleReplacementPlugin 热更新插件
 // webpack-dev-server + HotModuleReplacementPlugin
@@ -126,7 +122,6 @@ console.log("🚀 ~ webpack热更新的原理:")
 // 浏览器请求 update.json 和 update.js
 // 5. 模块替换
 // HMR Runtime 替换旧模块
-
 
 // WebSocket 连接
 // const ws = new WebSocket('ws://localhost:8080/sockjs-node');
@@ -159,7 +154,6 @@ console.log("🚀 ~ webpack热更新的原理:")
 //   });
 // }
 
-
 // hash.hot-update.json - 更新清单
 // {
 //   "h": "abc123",  // 新 hash
@@ -174,24 +168,18 @@ console.log("🚀 ~ webpack热更新的原理:")
 //   }
 // });
 
-
-
 //总结：webpack-dev-serve 监听文件变化，找到变化的文件，生成变化的模块 update chunk.js 通过webSocket通知浏览器进行文件更新，浏览器请求更新的js 和json，HMR Runtime 替换旧模块
 
-
-
-
-
-
-
 // vite 是如何打包运行 vite和webpack 有什么区别
-console.log("🚀 ~ vite 是如何打包运行 vite和webpack 有什么区别:")
+console.log("🚀 ~ vite 是如何打包运行 vite和webpack 有什么区别:");
 
 // 开发模式
 // vite利用浏览器原生ES模块 (import导入 和 export导出 )
 // Vite 利用浏览器原生 ES 模块
 // index.html
-{/* <script type="module" src="/src/main.js"></script> */ }
+{
+  /* <script type="module" src="/src/main.js"></script> */
+}
 
 // 浏览器直接请求模块
 // import { createApp } from 'vue'  // → /node_modules/vue/...
@@ -215,7 +203,6 @@ console.log("🚀 ~ vite 是如何打包运行 vite和webpack 有什么区别:")
 //vite 重写
 // import {creatApp} from '/@modules/vue' //重写npm 包路径
 // import App from './src/App.vue'  //保持相对路径
-
 
 // 3.实时编译
 //浏览器请求 GET /src/App.vue
@@ -250,11 +237,8 @@ console.log("🚀 ~ vite 是如何打包运行 vite和webpack 有什么区别:")
 
 // 总结 vite运行服务的时候 浏览器请求的时候vite实时拦截浏览器的的请求，将所有的依赖重写编译  返回ES模块就是import 这中模块是浏览器可以接受的，所以浏览器可以直接执行就会进行浏览器渲染
 
-
 // vite 和webpack有啥区别吗
-console.log("🚀 ~ vite 和webpack有啥区别吗:")
-
-
+console.log("🚀 ~ vite 和webpack有啥区别吗:");
 
 //vite 启动速度毫秒级别 webpack 是几秒几十秒
 //vite 精准更新单个模块 webpack 重新编译相关模块
@@ -266,7 +250,6 @@ console.log("🚀 ~ vite 和webpack有啥区别吗:")
 // vite 没有多少配置  可以直接启动   webpack需要额外排至loader 插件
 
 //vite 是按需编译  webpack是预打包模式
-
 
 // 启动流程
 // npm run dev
@@ -284,7 +267,6 @@ console.log("🚀 ~ vite 和webpack有啥区别吗:")
 // 1. 直接启动开发服务器
 // 2. 浏览器请求模块时才编译
 // 3. 实时返回编译结果
-
 
 // 启动时就要处理所有文件
 // entry: './src/main.js'
@@ -323,8 +305,6 @@ console.log("🚀 ~ vite 和webpack有啥区别吗:")
 // const arr = [1, [2, 3], [4, [5, 6]], 2, 3];
 // console.log(flattenAndUnique(arr));
 
-
-
 // function flattenAndUnique (arr) {
 //   const result = []
 //   const seen = new Set()
@@ -343,23 +323,23 @@ console.log("🚀 ~ vite 和webpack有啥区别吗:")
 //   return result
 // }
 
-function flatcopy (arr) {
-  let res = []
-  arr.forEach(element => {
-    if (Object.prototype.toString.cell === '[object Array]') {
-      res = res.concat(flatcopy(element))
+function flatcopy(arr) {
+  let res = [];
+  arr.forEach((element) => {
+    if (Object.prototype.toString.cell === "[object Array]") {
+      res = res.concat(flatcopy(element));
     } else {
-      res.push(element)
+      res.push(element);
     }
   });
 }
 
-function uni (arr) {
-  let res = []
-  arr.forEach(element => {
+function uni(arr) {
+  let res = [];
+  arr.forEach((element) => {
     if (!res.includes(element)) {
-      res.push(element)
+      res.push(element);
     }
-  })
-  return res
+  });
+  return res;
 }

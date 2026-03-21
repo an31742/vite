@@ -18,7 +18,7 @@ const routes = {
     title: "前端面经",
     icon: markRaw(Box),
     anchors: "admin",
-    description: "JavaScript版本的前端面经学习系统"
+    description: "JavaScript版本的前端面经学习系统",
   },
   children: [
     {
@@ -31,10 +31,10 @@ const routes = {
         title: "JS面经文件",
         icon: markRaw(Box),
         anchors: "admin",
-        description: "可执行的JavaScript面经文件集合"
-      }
-    }
-  ]
+        description: "可执行的JavaScript面经文件集合",
+      },
+    },
+  ],
 };
 
 export default routes;

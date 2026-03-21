@@ -14,7 +14,12 @@
 	•	绑定的函数：handleTouchEnd：当触摸结束时，调用 handleTouchEnd 函数。通常用于在滑动操作结束后进行某些处理，比如触发刷新操作或者重置下拉的界面状态
     -->
   <!-- touchstart 手指触摸屏幕开始触发    touchmove 手指触摸屏幕连续触发   touchend 手指触摸屏幕结束触发 -->
-  <div class="pull-to-refresh" @touchstart="handleTouchStart" @touchmove="handleTouchMove" @touchend="handleTouchEnd">
+  <div
+        class="pull-to-refresh"
+        @touchstart="handleTouchStart"
+        @touchmove="handleTouchMove"
+        @touchend="handleTouchEnd"
+    >
     <!-- 下拉刷新提示区域 -->
     <!-- 设置下拉加载提示区域 -->
     <!-- 刷新高度大于0那么就是开始下拉刷新  进入刷新中 -->
@@ -32,37 +37,37 @@
 </template>
 
 <script>
-import { ref } from "vue"
+import { ref } from "vue";
 
 export default {
   setup() {
     // 内容加载数据
-    const items = ref([])
-    const refreshHeight = ref(0) // 下拉的高度
-    const isRefreshing = ref(false) // 刷新状态
-    const startY = ref(0) // 触摸开始的位置
-    const maxPullDownHeight = 100 // 最大下拉高度
-    const isPullingDown = ref(false) // 是否在下拉
+    const items = ref([]);
+    const refreshHeight = ref(0); // 下拉的高度
+    const isRefreshing = ref(false); // 刷新状态
+    const startY = ref(0); // 触摸开始的位置
+    const maxPullDownHeight = 100; // 最大下拉高度
+    const isPullingDown = ref(false); // 是否在下拉
 
     // 模拟加载数据
     const loadData = () => {
       items.value = Array.from({ length: 10 }, (_, index) => ({
         id: index,
         text: `Item ${index + 1}`,
-      }))
-    }
+      }));
+    };
 
     // 处理触摸开始
     const handleTouchStart = (event) => {
-      console.log("🚀 ~ handleTouchStart ~ event:", event)
+      console.log("🚀 ~ handleTouchStart ~ event:", event);
       if (window.scrollY === 0) {
         //从顶部开始
         // 仅在页面滚动到顶部时记录触摸点
-        startY.value = event.touches[0].clientY //当前的下拉刷新的
+        startY.value = event.touches[0].clientY; //当前的下拉刷新的
         // 开始进行下拉刷新
-        isPullingDown.value = true
+        isPullingDown.value = true;
       }
-    }
+    };
 
     // window.scrollY 是一个 JavaScript 属性，它返回当前页面垂直方向（Y 轴）上已经滚动的像素值。
 
@@ -83,45 +88,45 @@ export default {
 
     // 处理触摸移动
     const handleTouchMove = (event) => {
-      console.log("🚀 ~ handleTouchMove ~ event:", event) // 如果下拉的距离消失就不进行下拉刷新
-      if (!isPullingDown.value || isRefreshing.value) return
+      console.log("🚀 ~ handleTouchMove ~ event:", event); // 如果下拉的距离消失就不进行下拉刷新
+      if (!isPullingDown.value || isRefreshing.value) return;
       // 当前下拉刷新的距离
-      const currentY = event.touches[0].clientY
+      const currentY = event.touches[0].clientY;
       //  当前的的距离和开始差值
-      const diff = currentY - startY.value
+      const diff = currentY - startY.value;
 
       if (diff > 0) {
         // 仅在向下滑动时更新高度
-        refreshHeight.value = Math.min(diff, maxPullDownHeight)
+        refreshHeight.value = Math.min(diff, maxPullDownHeight);
       }
-    }
+    };
 
     // 处理触摸结束
     const handleTouchEnd = () => {
-      if (!isPullingDown.value) return
+      if (!isPullingDown.value) return;
 
-      isPullingDown.value = false
+      isPullingDown.value = false;
 
       if (refreshHeight.value === maxPullDownHeight) {
-        startRefresh()
+        startRefresh();
       } else {
-        refreshHeight.value = 0 // 未达到阈值时恢复初始状态
+        refreshHeight.value = 0; // 未达到阈值时恢复初始状态
       }
-    }
+    };
 
     // 执行刷新操作
     const startRefresh = () => {
-      isRefreshing.value = true
+      isRefreshing.value = true;
 
       // 模拟刷新操作
       setTimeout(() => {
-        isRefreshing.value = false
-        refreshHeight.value = 0 // 刷新完成后重置下拉高度
-        loadData() // 模拟重新加载数据
-      }, 2000)
-    }
+        isRefreshing.value = false;
+        refreshHeight.value = 0; // 刷新完成后重置下拉高度
+        loadData(); // 模拟重新加载数据
+      }, 2000);
+    };
 
-    loadData() // 初始加载数据
+    loadData(); // 初始加载数据
 
     return {
       items,
@@ -130,9 +135,9 @@ export default {
       handleTouchStart,
       handleTouchMove,
       handleTouchEnd,
-    }
+    };
   },
-}
+};
 </script>
 
 <style scoped>

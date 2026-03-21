@@ -1,5 +1,5 @@
-import http from "@/service/http.ts"
-import * as T from "./types"
+import http from "@/service/http.ts";
+import * as T from "./types";
 const getAuthButtonListData = {
   code: 200,
   data: {
@@ -8,16 +8,16 @@ const getAuthButtonListData = {
     authTable: ["delete", "edit"],
   },
   msg: "成功",
-}
+};
 
 const loginApi: T.ILoginApi = {
   login(params) {
-    return http.post("/login", params)
+    return http.post("/login", params);
   },
-}
-export default loginApi
+};
+export default loginApi;
 
 // 获取按钮权限
 export const getAuthButtonListApi = () => {
-  return getAuthButtonListData
-}
+  return getAuthButtonListData;
+};

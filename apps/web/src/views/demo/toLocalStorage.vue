@@ -2,9 +2,10 @@
   <div class="show-viewcom">
     <p>评论:</p>
     <div class="context">
-      <ul v-for="item, index in content" :key="item.id">
-        <li style="display: block">{{ item.data }}
-          <el-icon style="float: right;" @click="handleDelete(index)">
+      <ul v-for="(item, index) in content" :key="item.id">
+        <li style="display: block">
+                    {{ item.data }}
+          <el-icon style="float: right" @click="handleDelete(index)">
             <DeleteFilled />
           </el-icon>
         </li>
@@ -12,86 +13,82 @@
     </div>
   </div>
   <div class="show-viewcom cont">
-    <input class="input-use" type="textarea" v-model="contentWrite" />
+    <input v-model="contentWrite" class="input-use" type="textarea" />
     <el-button class="button" @click="handlerAdd">发表</el-button>
   </div>
 </template>
 
-<script  lang="ts">
-
+<script lang="ts">
 import { defineComponent, reactive, ref, nextTick } from "vue";
 export default defineComponent({
   setup() {
     let content = ref([
       {
         id: 1,
-        data: '文章很好!'
+        data: "文章很好!",
       },
       {
         id: 2,
-        data: '哈哈哈哈哈'
+        data: "哈哈哈哈哈",
       },
-    ])
+    ]);
 
-    let contentData: string = JSON.stringify(content.value)
-    localStorage.setItem('ts-demo1', contentData)
+    let contentData: string = JSON.stringify(content.value);
+    localStorage.setItem("ts-demo1", contentData);
 
-
-    let jsonKey = ref('ts-demo1')
-    let contId = ref('')
-    let contentWrite = ref('')
+    let jsonKey = ref("ts-demo1");
+    let contId = ref("");
+    let contentWrite = ref("");
     const handleDelete = (id: number | string) => {
-      let arr: any = readData()
+      let arr: any = readData();
       //  使用aplice
-      arr.splice(id, 1)
+      arr.splice(id, 1);
       // content.value=arr.filter((item,index)=>index !== id)
       //使用slice
-      content.value = arr
-      setData(arr)
-    }
-
+      content.value = arr;
+      setData(arr);
+    };
 
     //取值
     const readData = () => {
-      let localJson: string | null = localStorage.getItem(jsonKey.value)
+      let localJson: string | null = localStorage.getItem(jsonKey.value);
       if (localJson !== null) {
-        content.value = JSON.parse(localJson)
-        return JSON.parse(localJson)
+        content.value = JSON.parse(localJson);
+        return JSON.parse(localJson);
       }
-    }
+    };
 
     //存值
     const setData = (arrData: object[]): void => {
-      let localJson: string | null = JSON.stringify(arrData)
-      localStorage.setItem(jsonKey.value, localJson)
-    }
-
+      let localJson: string | null = JSON.stringify(arrData);
+      localStorage.setItem(jsonKey.value, localJson);
+    };
 
     const handlerAdd = () => {
       //1.拿到本地数据
-      let arr: any = readData()
+      let arr: any = readData();
       //3自动生成主键id
-      let newId = arr.length > 0 ? arr.length + 1 : 1
+      let newId = arr.length > 0 ? arr.length + 1 : 1;
       let newObj: any = {
-        "data": contentWrite.value,
-        'id': newId
-      }
+        data: contentWrite.value,
+        id: newId,
+      };
       //4将对象新增到数组中
-      arr.push(newObj)
+      arr.push(newObj);
       //5 保存新的数组
-      setData(arr)
+      setData(arr);
 
       nextTick(() => {
-        readData()
-      })
-      contentWrite.value = ''
-    }
+        readData();
+      });
+      contentWrite.value = "";
+    };
 
     return {
       content,
       contentWrite,
       handlerAdd,
-      handleDelete
+      handleDelete,
     };
   },
 });

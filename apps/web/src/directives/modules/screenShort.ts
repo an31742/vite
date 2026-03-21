@@ -11,11 +11,23 @@ import html2canvas from "html2canvas";
 import type { Directive, DirectiveBinding } from "vue";
 const screenShort = {
   mounted(el: HTMLElement, binding: DirectiveBinding) {
-    console.log("🚀 ~ mounted ~ el: HTMLElement, binding: DirectiveBinding:", el, binding);
+    console.log(
+      "🚀 ~ mounted ~ el: HTMLElement, binding: DirectiveBinding:",
+      el,
+      binding,
+    );
     el.addEventListener("click", async () => {
-      console.log("🚀 ~ el.addEventListener ~ binding.value?.target:", binding.value?.target);
-      const target = binding.value?.target ? document.getElementById(binding.value.target) : el;
-      console.log("🚀 ~ el.addEventListener ~ document.querySelector(binding.value.target):", document.querySelector(binding.value.target))
+      console.log(
+        "🚀 ~ el.addEventListener ~ binding.value?.target:",
+        binding.value?.target,
+      );
+      const target = binding.value?.target
+        ? document.getElementById(binding.value.target)
+        : el;
+      console.log(
+        "🚀 ~ el.addEventListener ~ document.querySelector(binding.value.target):",
+        document.querySelector(binding.value.target),
+      );
       console.log("🚀 ~ el.addEventListener ~ target:", target);
 
       if (target) {
@@ -28,7 +40,7 @@ const screenShort = {
           const link = document.createElement("a");
           link.href = dataURL;
           link.download = binding.value?.fileName || "screenshot.png";
-          console.log("🚀 ~ el.addEventListener ~ link:", link)
+          console.log("🚀 ~ el.addEventListener ~ link:", link);
           link.click();
         } catch (err) {
           console.error("截图失败:", err);
@@ -37,7 +49,7 @@ const screenShort = {
         console.error("未找到目标元素进行截图");
       }
     });
-  }
+  },
 };
 
 export default screenShort;

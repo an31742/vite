@@ -1,8 +1,8 @@
-import { defineStore } from "pinia"
+import { defineStore } from "pinia";
 
 interface DraggableObjStore {
-  inputObj: any
-  switchObj: any
+  inputObj: any;
+  switchObj: any;
 }
 
 export const draggableObj = defineStore("draggAbleObj", {
@@ -21,10 +21,10 @@ export const draggableObj = defineStore("draggAbleObj", {
   actions: {
     // 定义 actions 的方法
     getInputObj(payload: any) {
-      this.inputObj = payload
+      this.inputObj = payload;
     },
     getSwitchObj(payload: any) {
-      this.switchObj = payload
+      this.switchObj = payload;
     },
   },
   //增加本地持久化
@@ -32,4 +32,4 @@ export const draggableObj = defineStore("draggAbleObj", {
     key: "draggAbleObj",
     storage: localStorage,
   },
-})
+});

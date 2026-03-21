@@ -1,25 +1,27 @@
 <template>
   <el-container>
-    <el-aside width="250px">
-      <div class="sidebar-header">
-        <h3>前端面经集合</h3>
-        <p>JavaScript 版本</p>
-      </div>
-      <div class="js-files-list">
-        <div v-for="file in jsFiles" :key="file.name" class="file-item">
-          <div class="file-header" @click="toggleFile(file.name)">
-            <span class="file-icon">📄</span>
-            <span class="file-name">{{ file.name }}</span>
-            <span class="toggle-icon">{{ file.expanded ? "▼" : "▶" }}</span>
-          </div>
-          <div v-if="file.expanded" class="file-content">
-            <div class="file-actions">
-              <el-button size="small" @click="viewCode(file.name)"> 查看代码 </el-button>
+    <ElAside width="250px">
+            <div class="sidebar-header">
+                <h3>前端面经集合</h3>
+                <p>JavaScript 版本</p>
             </div>
-          </div>
-        </div>
-      </div>
-    </el-aside>
+            <div class="js-files-list">
+                <div v-for="file in jsFiles" :key="file.name" class="file-item">
+                    <div class="file-header" @click="toggleFile(file.name)">
+                        <span class="file-icon">📄</span>
+                        <span class="file-name">{{ file.name }}</span>
+                        <span class="toggle-icon">{{ file.expanded ? "▼" : "▶" }}</span>
+                    </div>
+                    <div v-if="file.expanded" class="file-content">
+                        <div class="file-actions">
+                            <el-button size="small" @click="viewCode(file.name)">
+                查看代码
+              </el-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ElAside>
     <el-main>
       <div class="main-header">
         <router-link to="/home" style="float: right">返回首页</router-link>
@@ -51,46 +53,59 @@
 </template>
 
 <script>
-import { defineComponent, ref, reactive } from "vue"
-
+import { defineComponent, ref, reactive } from "vue";
 
 export default defineComponent({
   setup() {
-    const currentOutput = ref("")
-    const currentFile = ref("")
-    const jsFiles = ref([])
+    const currentOutput = ref("");
+    const currentFile = ref("");
+    const jsFiles = ref([]);
     const loadFileList = async () => {
       // 直接硬编码文件列表，避免使用 import.meta.glob
-      const fileList = ["开源中国一面.js", "开源中国二面.js", "手写面试题.js", "滴滴一面.js", "牛客网哈罗一面.js", "牛客网美团一面.js", "牛客网美团一面2.js", "百图生科.js", "联想一面.js", "联想消费者团队一面.js", "联想消费者团队二面.js", "车晓科技一面.js", "铁科院.js"].map((fileName) => ({
+      const fileList = [
+        "开源中国一面.js",
+        "开源中国二面.js",
+        "手写面试题.js",
+        "滴滴一面.js",
+        "牛客网哈罗一面.js",
+        "牛客网美团一面.js",
+        "牛客网美团一面2.js",
+        "百图生科.js",
+        "联想一面.js",
+        "联想消费者团队一面.js",
+        "联想消费者团队二面.js",
+        "车晓科技一面.js",
+        "铁科院.js",
+      ].map((fileName) => ({
         name: fileName,
         expanded: false,
-      }))
-      jsFiles.value = fileList.sort((a, b) => a.name.localeCompare(b.name))
-    }
-    loadFileList()
+      }));
+      jsFiles.value = fileList.sort((a, b) => a.name.localeCompare(b.name));
+    };
+    loadFileList();
     const toggleFile = (fileName) => {
-      const file = jsFiles.value.find((f) => f.name === fileName)
+      const file = jsFiles.value.find((f) => f.name === fileName);
       if (file) {
-        file.expanded = !file.expanded
+        file.expanded = !file.expanded;
       }
-    }
+    };
 
     const viewCode = async (fileName) => {
       try {
-        currentFile.value = fileName
-        currentOutput.value = "正在加载代码..."
+        currentFile.value = fileName;
+        currentOutput.value = "正在加载代码...";
 
         // 使用动态导入加载文件
-        const moduleKey = `./js/${fileName}`
-        const codeContent = await import(moduleKey)
-        currentOutput.value = codeContent.default
-        console.log("🚀 ~ viewCode ~ codeContent:", codeContent)
-        ElMessage.success("代码已加载")
+        const moduleKey = `./js/${fileName}`;
+        const codeContent = await import(moduleKey);
+        currentOutput.value = codeContent.default;
+        console.log("🚀 ~ viewCode ~ codeContent:", codeContent);
+        ElMessage.success("代码已加载");
       } catch (error) {
-        currentOutput.value = `加载失败: ${error.message}`
-        ElMessage.error("加载失败")
+        currentOutput.value = `加载失败: ${error.message}`;
+        ElMessage.error("加载失败");
       }
-    }
+    };
 
     return {
       currentOutput,
@@ -98,9 +113,9 @@ export default defineComponent({
       toggleFile,
       viewCode,
       jsFiles,
-    }
+    };
   },
-})
+});
 </script>
 
 <style scoped>

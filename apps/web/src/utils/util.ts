@@ -51,7 +51,7 @@ export function deepCopy<T>(obj: any): T {
   } catch (error) {
     newObj = {};
   }
-  for (let attr in obj) {
+  for (const attr in obj) {
     if (typeof obj[attr] === "object") {
       newObj[attr] = deepCopy(obj[attr]);
     } else {
@@ -80,7 +80,7 @@ export function isType(val: any) {
  * @return number
  */
 export function randomNum(min: number, max: number): number {
-  let num = Math.floor(Math.random() * (min - max) + max);
+  const num = Math.floor(Math.random() * (min - max) + max);
   return num;
 }
 /**
@@ -91,7 +91,7 @@ export function randomNum(min: number, max: number): number {
  */
 export function getTabPane<T, U>(menuList: any[], path: U): T {
   let result: any;
-  for (let item of menuList || []) {
+  for (const item of menuList || []) {
     if (item.path === path) result = item;
     const res = getTabPane(item.children, path);
     if (res) result = res;
@@ -166,7 +166,7 @@ export function filterEnum(
   callValue: any,
   enumData: any,
   searchProps?: { [key: string]: any },
-  type?: string
+  type?: string,
 ): string {
   const value = searchProps?.value ?? "value";
   const label = searchProps?.label ?? "label";

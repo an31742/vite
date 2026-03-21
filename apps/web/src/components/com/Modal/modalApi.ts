@@ -1,8 +1,8 @@
 /// <reference lib="dom" />
 // 显式声明 window（兜底方案）
-declare const window:any
+declare const window: any;
 // src/components/Modal/modalApi.ts
-import { getCurrentInstance, ComponentInternalInstance } from 'vue';
+import { getCurrentInstance, ComponentInternalInstance } from "vue";
 
 // 定义弹窗选项接口
 interface ModalOptions {
@@ -27,7 +27,7 @@ interface ModalStackItem extends ModalOptions {
 interface ModalStackInstance {
   modalStack: ModalStackItem[];
   componentCache: Record<string, any>;
-  push(options: Omit<ModalStackItem, 'id'>): string;
+  push(options: Omit<ModalStackItem, "id">): string;
   close(modalId: string): void;
   closeTop(): void;
   closeAll(): void;
@@ -49,8 +49,8 @@ export const initModalInstance = (instance: ModalStackInstance): void => {
   modalStackInstance = instance;
 
   // 全局错误监听：弹窗加载失败时兜底
-  window.removeEventListener('error', handleModalGlobalError);
-  window.addEventListener('error', handleModalGlobalError);
+  window.removeEventListener("error", handleModalGlobalError);
+  window.addEventListener("error", handleModalGlobalError);
 };
 
 /**
@@ -58,8 +58,8 @@ export const initModalInstance = (instance: ModalStackInstance): void => {
  * @param e - 错误事件
  */
 const handleModalGlobalError = (e: ErrorEvent): void => {
-  if (e.message.includes('modal') || e.message.includes('Modal')) {
-    console.error('【弹窗全局错误】：', e);
+  if (e.message.includes("modal") || e.message.includes("Modal")) {
+    console.error("【弹窗全局错误】：", e);
     modalStackInstance?.closeAll();
   }
 };
@@ -75,21 +75,23 @@ const modalApi = {
    */
   open(options: ModalOptions): string {
     if (!modalStackInstance) {
-      console.error('【弹窗API】弹窗实例未初始化，请先在App.vue中挂载Modal组件');
-      return '';
+      console.error(
+        "【弹窗API】弹窗实例未初始化，请先在App.vue中挂载Modal组件",
+      );
+      return "";
     }
     // 必传项校验
     if (!options?.name) {
-      console.error('【弹窗API】弹窗名称（name）为必填项');
-      return '';
+      console.error("【弹窗API】弹窗名称（name）为必填项");
+      return "";
     }
 
     // 当调用open的方法的时候  使用这个全局的方法 推入栈并返回唯一ID
     return modalStackInstance.push({
       name: options.name,
-      title: options.title || '',
-      width: options.width || '500px',
-      top: options.top || '20vh',
+      title: options.title || "",
+      width: options.width || "500px",
+      top: options.top || "20vh",
       closeOnClickModal: options.closeOnClickModal ?? true,
       closeOnPressEscape: options.closeOnPressEscape ?? true,
       modalProps: options.modalProps || {},
@@ -160,9 +162,9 @@ const modalApi = {
     if (modalStackInstance) {
       modalStackInstance.closeAll();
       modalStackInstance = null;
-      window.removeEventListener('error', handleModalGlobalError);
+      window.removeEventListener("error", handleModalGlobalError);
     }
-  }
+  },
 };
 
 /**

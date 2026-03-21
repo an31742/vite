@@ -1,5 +1,5 @@
 // Vue3项目封装过hook吗
-console.log("🚀 ~ Vue3项目封装过hook吗:")
+console.log("🚀 ~ Vue3项目封装过hook吗:");
 
 //useDebouse  hook就是方法封装好的方法
 // import { ref, watch } from 'vue'
@@ -16,9 +16,8 @@ console.log("🚀 ~ Vue3项目封装过hook吗:")
 // }
 
 //hook有什么作用
-console.log("🚀 ~ hook有什么作用:")
+console.log("🚀 ~ hook有什么作用:");
 // 可以让代码更加模块化可用易测试
-
 
 // Vue2和Vue3的响应式区别
 //       vue2   vue3
@@ -47,28 +46,21 @@ console.log("🚀 ~ hook有什么作用:")
 
 // type和interface的区别
 
-
-
-
-
 // 本质是：type 是“类型组合工具”，interface 是“结构契约”
 // 	•	type：给任意类型表达式起别名
 // 	•	interface：专门描述对象/类的结构规范
 
-
 // type 更灵活，interface 更规整
 
-	// 1.	语言规则
-	// •	interface ⊣ 联合类型
-	// •	type → 支持联合 / 交叉 / 条件类型
-	// 2.	可扩展性
-	// •	interface → 可多次声明自动合并
-	// •	type ⊣ 重复声明
-	// 3.	使用场景
-	// •	interface → API / 数据结构规范
-	// •	type → 复杂类型运算
-
-
+// 1.	语言规则
+// •	interface ⊣ 联合类型
+// •	type → 支持联合 / 交叉 / 条件类型
+// 2.	可扩展性
+// •	interface → 可多次声明自动合并
+// •	type ⊣ 重复声明
+// 3.	使用场景
+// •	interface → API / 数据结构规范
+// •	type → 复杂类型运算
 
 // ① 定义对象结构 → 用 interface ✅
 
@@ -76,8 +68,6 @@ console.log("🚀 ~ hook有什么作用:")
 //   id: number
 //   name: string
 // }
-
-
 
 // ② 需要扩展 / 继承 → interface 更稳
 
@@ -106,7 +96,6 @@ console.log("🚀 ~ hook有什么作用:")
 
 // type ID = string | number
 
-
 // ⸻
 
 // ⑤ 类实现接口 → interface 语义更强
@@ -130,7 +119,6 @@ console.log("🚀 ~ hook有什么作用:")
 // 	•	编译期约束，运行时零成本
 // 	3.	类型推导
 // 	•	调用点决定 T，而不是实现者猜
-
 
 // 四、🧩 步骤拆解器（怎么用）
 
@@ -214,8 +202,6 @@ console.log("🚀 ~ hook有什么作用:")
 
 // 👉 类型层面的“if 判断”
 
-
-
 // pnpm、npm、yarn有什么区别
 
 // 本质是：三者都解决「依赖下载 + 版本解析 + 脚本执行」问题，但底层模型不同
@@ -242,7 +228,6 @@ console.log("🚀 ~ hook有什么作用:")
 // 项目A node_modules
 // └─ .pnpm (硬链接)
 
-
 // 维度	npm	yarn	pnpm
 // 官方支持	✅	❌	❌
 // 安装速度	中	快	最快
@@ -251,8 +236,3 @@ console.log("🚀 ~ hook有什么作用:")
 // Monorepo	一般	好	极强
 // CI 友好	一般	好	最好
 // 学习成本	最低	中	中
-
-
-
-
-

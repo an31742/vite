@@ -86,5 +86,5 @@ console.log("🚀 ~ strCount:", strCount("abcdabcdabcd", "a"));
 //方法2通过split 获取到数组因为以target分隔这样Length会多出来一个需要减去1
 console.log(
   "🚀 ~  'abcdabcdabcd'.split(target).length - 1;:",
-  "abcdabcdabcd".split('a').length - 1
+  "abcdabcdabcd".split("a").length - 1,
 );

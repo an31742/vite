@@ -95,10 +95,7 @@ export default defineComponent({
     };
     //当大于某个点就符合某个条件再调用就停止了
     const stop = watchEffect((onInvalidate) => {
-  
-
-      const timer = setTimeout(() => {
-      }, 200);
+      const timer = setTimeout(() => {}, 200);
       //可以使用stop清楚副作用
       // 根据name和age两个变量发送网络请求
       onInvalidate(() => {
@@ -114,7 +111,7 @@ export default defineComponent({
       () => info.name,
       (newValue, oldValue) => {
         console.log("newValue", newValue, "oldValue", oldValue);
-      }
+      },
     );
 
     const changeNameData = () => {

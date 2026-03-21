@@ -211,7 +211,6 @@ if (import.meta.hot) {
 // 限流	防止恶意请求和 DDoS	limit_req_zone
 // 重写	URL 重写和重定向	rewrite 规则
 
-
 //虚拟dom的原理
 
 //虚拟dom就是JavaScript 对象   Vue 通过虚拟 DOM 实现高效的声明式渲染和差异化更新。

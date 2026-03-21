@@ -5,8 +5,8 @@
  * @LastEditTime: 2025-06-30 20:02:49
  * @Description: 请填写简介
  */
-import { markRaw } from "vue"
-import { Box } from "@element-plus/icons-vue"
+import { markRaw } from "vue";
+import { Box } from "@element-plus/icons-vue";
 
 const routes = {
   path: "/demo",
@@ -170,6 +170,6 @@ const routes = {
       ],
     },
   ],
-}
+};
 
-export default routes
+export default routes;

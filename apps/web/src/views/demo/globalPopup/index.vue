@@ -2,24 +2,24 @@
 <template>
   <div class="home-page" style="padding: 40px">
     <h1>全局弹窗解决方案测试</h1>
-    <div class="btn-group" style="margin: 20px 0;display: flex;">
+    <div class="btn-group" style="margin: 20px 0; display: flex">
       <el-button type="primary" @click="openUserForm"
         >1. 打开用户表单弹窗</el-button
       >
-      <el-button type="primary" @click="openEditUserForm"
-        >2. 打开编辑用户弹窗</el-button
+      <ElButton type="primary" @click="openEditUserForm"
+            >2. 打开编辑用户弹窗</ElButton
       >
-      <el-button type="warning" @click="openDeleteConfirm"
-        >3. 打开删除确认弹窗（叠加）</el-button
+      <ElButton type="warning" @click="openDeleteConfirm"
+            >3. 打开删除确认弹窗（叠加）</ElButton
       >
       <el-button type="info" @click="openOrderDetail"
         >4. 打开订单详情弹窗（分块打包）</el-button
       >
-      <el-button type="info" @click="openNote">5.打开笔记</el-button>
+      <ElButton type="info" @click="openNote">5.打开笔记</ElButton>
     </div>
-    <div class="btn-group" style="margin: 20px 0;display: flex;">
+    <div class="btn-group" style="margin: 20px 0; display: flex">
       <el-button @click="closeTopModal">5. 关闭栈顶弹窗</el-button>
-      <el-button @click="closeAllModal">6. 关闭所有弹窗</el-button>
+      <ElButton @click="closeAllModal">6. 关闭所有弹窗</ElButton>
       <el-button @click="updateTopModal">7. 更新栈顶弹窗标题</el-button>
       <el-button @click="clearCache">8. 清理组件缓存</el-button>
     </div>

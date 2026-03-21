@@ -16,15 +16,15 @@
       @open="handleStackItemOpen(modalItem)"
       destroy-on-close
     >
-    <!-- Element Plus内置：关闭时销毁DOM -->
+      <!-- Element Plus内置：关闭时销毁DOM -->
       <!-- 加载中状态 -->
       <div v-if="modalItem.loading" class="modal-loading">
-        <el-icon><loading /></el-icon>
+        <ElIcon><Loading /></ElIcon>
         <p>弹窗加载中...</p>
       </div>
       <!-- 加载失败/兜底 -->
       <div v-else-if="!modalItem.component" class="modal-error">
-        <el-icon color="#f56c6c"><warning /></el-icon>
+        <el-icon color="#f56c6c"><Warning /></el-icon>
         <p>弹窗组件加载失败，请重试</p>
       </div>
       <!-- 业务弹窗组件 -->
@@ -40,12 +40,16 @@
 </template>
 
 <script setup>
-import { ref, watch, onUnmounted, shallowRef, markRaw } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import { debounce } from 'lodash-es';
-import { Loading, Warning } from '@element-plus/icons-vue';
-import modalMap from './modalMap';
-import { queryToModalStack, modalStackToQuery, generateModalId } from './modalUtils';
+import { ref, watch, onUnmounted, shallowRef, markRaw } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { debounce } from "lodash-es";
+import { Loading, Warning } from "@element-plus/icons-vue";
+import modalMap from "./modalMap";
+import {
+  queryToModalStack,
+  modalStackToQuery,
+  generateModalId,
+} from "./modalUtils";
 
 // 路由实例
 const route = useRoute();
@@ -65,9 +69,9 @@ const MAX_STACK_LENGTH = 5;
 const debounceUpdateRoute = debounce((newStack) => {
   const newQuery = modalStackToQuery(newStack, route.query);
   // 避免路由重复跳转报错
-  router.replace({ query: newQuery }).catch(err => {
-    if (!err.message.includes('Navigation cancelled')) {
-      console.error('【弹窗路由】更新失败：', err);
+  router.replace({ query: newQuery }).catch((err) => {
+    if (!err.message.includes("Navigation cancelled")) {
+      console.error("【弹窗路由】更新失败：", err);
     }
   });
 }, 100);
@@ -86,7 +90,7 @@ const loadModalComponent = async (modalItem) => {
       return;
     }
     // 未注册的弹窗指向兜底组件
-    const loader = modalMap[modalItem.name] || modalMap['*'];
+    const loader = modalMap[modalItem.name] || modalMap["*"];
     const compModule = await loader();
     const comp = compModule.default;
     // 缓存组件（markRaw避免响应式包装，提升性能）
@@ -95,7 +99,7 @@ const loadModalComponent = async (modalItem) => {
   } catch (e) {
     console.error(`【弹窗加载】${modalItem.name}加载失败：`, e);
     // 加载失败时指向兜底组件
-    const fallbackComp = await modalMap['*']();
+    const fallbackComp = await modalMap["*"]();
     modalItem.component = markRaw(fallbackComp.default);
   } finally {
     modalItem.loading = false;
@@ -110,12 +114,12 @@ const initModalStack = () => {
   // 栈长度限制：超出则截断 弹窗最多5层
   const limitedStack = stackFromRoute.slice(0, MAX_STACK_LENGTH);
   // 标准化栈项（补充默认值 + 唯一ID + 状态）
-  const normalizedStack = limitedStack.map(item => ({
+  const normalizedStack = limitedStack.map((item) => ({
     id: generateModalId(),
     name: item.name,
-    title: item.title || '',
-    width: item.width || '500px',
-    top: item.top || '20vh',
+    title: item.title || "",
+    width: item.width || "500px",
+    top: item.top || "20vh",
     closeOnClickModal: item.closeOnClickModal ?? true,
     closeOnPressEscape: item.closeOnPressEscape ?? true,
     modalProps: item.modalProps || {},
@@ -127,8 +131,8 @@ const initModalStack = () => {
       confirm: null,
       cancel: null,
       close: null,
-      open: null
-    }
+      open: null,
+    },
   }));
   modalStack.value = normalizedStack;
   // 预加载所有栈项组件
@@ -141,16 +145,23 @@ const initModalStack = () => {
  */
 const handleStackItemClose = (modalItem) => {
   // 1. 解绑所有回调（防止闭包内存泄漏）
-  modalItem.callbacks = { confirm: null, cancel: null, close: null, open: null };
+  modalItem.callbacks = {
+    confirm: null,
+    cancel: null,
+    close: null,
+    open: null,
+  };
   // 2. 从栈中移除
-  const index = modalStack.value.findIndex(item => item.id === modalItem.id);
+  const index = modalStack.value.findIndex((item) => item.id === modalItem.id);
   if (index > -1) {
     modalStack.value.splice(index, 1);
   }
   // 3. 同步路由（防抖）
   debounceUpdateRoute(modalStack.value);
   // 4. 按需清理缓存（弹窗不再使用时清理）
-  const isModalUsed = modalStack.value.some(item => item.name === modalItem.name);
+  const isModalUsed = modalStack.value.some(
+    (item) => item.name === modalItem.name,
+  );
   if (!isModalUsed) {
     delete componentCache.value[modalItem.name];
   }
@@ -209,8 +220,8 @@ const push = (options) => {
       confirm: options.onConfirm,
       cancel: options.onCancel,
       close: options.onClose,
-      open: options.onOpen
-    }
+      open: options.onOpen,
+    },
   };
   // 推入栈顶
   modalStack.value.push(newModalItem);
@@ -226,7 +237,7 @@ const push = (options) => {
  * @param {String} modalId - 弹窗ID
  */
 const close = (modalId) => {
-  const modalItem = modalStack.value.find(item => item.id === modalId);
+  const modalItem = modalStack.value.find((item) => item.id === modalId);
   if (modalItem) {
     modalItem.visible = false; // 触发el-dialog的close事件
   }
@@ -245,7 +256,7 @@ const closeTop = () => {
  * 关闭所有弹窗（暴露给API）
  */
 const closeAll = () => {
-  modalStack.value.forEach(item => {
+  modalStack.value.forEach((item) => {
     item.visible = false;
     item.callbacks = { confirm: null, cancel: null, close: null, open: null };
   });
@@ -259,11 +270,18 @@ const closeAll = () => {
  * @param {Object} newProps - 新属性
  */
 const update = (modalId, newProps) => {
-  const modalItem = modalStack.value.find(item => item.id === modalId);
+  const modalItem = modalStack.value.find((item) => item.id === modalId);
   if (modalItem) {
     // 仅更新允许的属性，防止恶意修改
-    const allowProps = ['title', 'width', 'top', 'closeOnClickModal', 'closeOnPressEscape', 'modalProps'];
-    allowProps.forEach(prop => {
+    const allowProps = [
+      "title",
+      "width",
+      "top",
+      "closeOnClickModal",
+      "closeOnPressEscape",
+      "modalProps",
+    ];
+    allowProps.forEach((prop) => {
       if (newProps[prop] !== undefined) {
         modalItem[prop] = newProps[prop];
       }
@@ -281,17 +299,17 @@ const routeWatcher = watch(
   () => {
     // 避免循环更新：仅当路由栈与本地栈不一致时同步
     const routeStack = queryToModalStack(route.query);
-    const localStack = modalStack.value.map(item => ({
+    const localStack = modalStack.value.map((item) => ({
       name: item.name,
       modalProps: item.modalProps,
       title: item.title,
-      width: item.width
+      width: item.width,
     }));
     if (JSON.stringify(routeStack) !== JSON.stringify(localStack)) {
       initModalStack();
     }
   },
-  { immediate: true, deep: true }
+  { immediate: true, deep: true },
 );
 
 // 组件卸载：内存回收核心逻辑
@@ -317,7 +335,7 @@ defineExpose({
   close,
   closeTop,
   closeAll,
-  update
+  update,
 });
 </script>
 
@@ -336,13 +354,15 @@ defineExpose({
   pointer-events: auto; /* 恢复弹窗交互 */
 }
 
-.modal-loading, .modal-error {
+.modal-loading,
+.modal-error {
   text-align: center;
   padding: 40px 20px;
   color: #666;
 }
 
-.modal-loading el-icon, .modal-error el-icon {
+.modal-loading el-icon,
+.modal-error el-icon {
   font-size: 24px;
   margin-bottom: 8px;
   display: block;

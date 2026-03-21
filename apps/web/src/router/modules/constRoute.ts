@@ -7,11 +7,11 @@
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 
-import { markRaw } from "vue"
-import { Box, Flag } from "@element-plus/icons-vue"
-import Error from "./error.ts"
-import Demo from "./demo.ts"
-import FeInterview from "./feInterview.ts"
+import { markRaw } from "vue";
+import { Box, Flag } from "@element-plus/icons-vue";
+import Error from "./error.ts";
+import Demo from "./demo.ts";
+import FeInterview from "./feInterview.ts";
 const routes: any = [
   {
     path: "/login",
@@ -51,6 +51,6 @@ const routes: any = [
     ],
   },
   Error,
-]
+];
 
-export default routes
+export default routes;

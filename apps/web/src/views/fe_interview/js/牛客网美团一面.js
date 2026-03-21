@@ -1,7 +1,7 @@
 /**
  * 手写节流
-*/
-console.log("🚀 ~ 手写节流:")
+ */
+console.log("🚀 ~ 手写节流:");
 
 /**
  *
@@ -12,7 +12,7 @@ console.log("🚀 ~ 手写节流:")
  * throttle 是因为测试setTimeout循环触发有延迟 是宏任务有1ms的误差
  * throttle2 是因为测试setTimeout循环触发有延迟
  */
-function throttle (fn, delay) {
+function throttle(fn, delay) {
   let timer = null;
   return function (...args) {
     if (!timer) {
@@ -24,32 +24,29 @@ function throttle (fn, delay) {
   };
 }
 
-function throttle2 (fn, delay) {
-  let lastTime = 0
+function throttle2(fn, delay) {
+  let lastTime = 0;
   return function () {
-    let args = arguments
-    let contxt = this
-    let currTime = Date.now()
+    let args = arguments;
+    let contxt = this;
+    let currTime = Date.now();
     if (currTime - lastTime >= delay) {
-      lastTime = currTime
-      return fn.apply(contxt, args)
+      lastTime = currTime;
+      return fn.apply(contxt, args);
     }
-  }
+  };
 }
-
-
 
 // const fn = throttle2(console.log, 1000);
 const fn2 = throttle((v) => {
-  console.log(v, Date.now())
-}, 1000)
+  console.log(v, Date.now());
+}, 1000);
 //使用for加setTimeOut调用有bug 只打印a1 a3
 // for (let index = 1; index < 5; index++) {
 //   setTimeout(() => {
 //     fn2('a' + index);
 //   }, 1000 * index); // 关键：第0次0ms、第1次1000ms、第2次2000ms
 // }
-
 
 /**
  *
@@ -59,21 +56,19 @@ const fn2 = throttle((v) => {
  * 当使用1秒循环调用防抖可以
  */
 
-
-function debounce (fn, delay) {
-  let timer = null
+function debounce(fn, delay) {
+  let timer = null;
   return function (...args) {
     if (timer) {
-      clearTimeout(timer)
+      clearTimeout(timer);
     }
     timer = setTimeout(() => {
-      fn.apply(this, args)
+      fn.apply(this, args);
     }, delay);
-  }
+  };
 }
 
-
-const fn3 = debounce(console.log, 1000)
+const fn3 = debounce(console.log, 1000);
 
 // fn3('A') // 1秒后输出 'A'
 // fn3('B') // 被忽略，不会输出
@@ -81,25 +76,22 @@ const fn3 = debounce(console.log, 1000)
 
 for (let index = 1; index < 5; index++) {
   setTimeout(() => {
-    fn3('a' + index);
+    fn3("a" + index);
   }, 1000 * index); // 关键：第0次0ms、第1次1000ms、第2次2000ms
 }
 
-
 /**
  *  v-if和v-show的区别
-*/
-console.log("🚀 ~ v-if和v-show的区别:")
+ */
+console.log("🚀 ~ v-if和v-show的区别:");
 
 //v-if 是并没有创建Dom v-show是创建了Dom 触发了css样式使用display:none隐藏
 
-
 /**
  * 流式渲染是如何实现的
-*/
+ */
 
-console.log("🚀 ~ 流式渲染师如何实现的:")
-
+console.log("🚀 ~ 流式渲染师如何实现的:");
 
 //通过fetch 调用接口
 // 前端通通过请求头（如Accept: text/event-stream）声明需要流式响应， 本项目是后端直接返回json
@@ -109,7 +101,6 @@ console.log("🚀 ~ 流式渲染师如何实现的:")
 // 再通过JSON.parse 获取json对象   这样能边收边渲染，提升体验。
 //如果出现网络中断或者请求不完整通过设置一个变量buffer 作为缓冲区，等待下一个chunk到来拼接， 如果done为true 关闭加载状态展示全部数据
 
-
 // 使用fetch 发送post请求 带body 获取response.body的ReadableStream 通过递归读取 循环读取流中每一个chunk
 
 // 这是现代浏览器处理任意 HTTP 流式响应的通用方式，不限于 SSE。可以用于：
@@ -118,9 +109,8 @@ console.log("🚀 ~ 流式渲染师如何实现的:")
 // 纯文本流
 // 自定义 chunked JSON（如 OpenAI 的 Chat Completions API）
 
-
 //SSE返回的数据格式是什么
-console.log('SSE返回的数据格式是什么');
+console.log("SSE返回的数据格式是什么");
 // SSE 返回的数据格式是固定的纯文本格式  SSE 不是 JSON 格式，而是基于文本的事件流格式，但 data 字段内容可以是 JSON 字符串
 
 // const eventSource = new EventSource('/api/stream');
@@ -139,10 +129,8 @@ console.log('SSE返回的数据格式是什么');
 
 // SSE 的返回数据是基于纯文本的流式事件格式（text/event-stream），必须 UTF-8 编码。数据不是 JSON 或二进制，而是以事件为单位的文本流，每个事件由键值对组成，用冒号分隔字段。 核心规则
 
-
-
 //除了websocket和sse还有其他方式吗
-console.log('除了websocket和sse还有其他方式吗');
+console.log("除了websocket和sse还有其他方式吗");
 
 // 方式	调用方式	请求方法	服务器行为	网络开销	返回数据类型	实时性
 // 短轮询	axios/fetch + setInterval	GET/POST	立即返回	高	JSON	差
@@ -150,7 +138,6 @@ console.log('除了websocket和sse还有其他方式吗');
 // WebSocket	new WebSocket	WS协议	双向实时通信	低	任意类型	优
 // SSE	EventSource	GET	服务器推送	低	UTF-8纯文本	优
 // fetch Stream	fetch + ReadableStream	GET/POST	流式响应	低	二进制/文本	优
-
 
 // WebSocket：
 
@@ -182,8 +169,6 @@ console.log('除了websocket和sse还有其他方式吗');
 // 服务器压力	大	中	小
 // 自动重连	无需手动处理	无需手动处理	有
 // 实现复杂度	简单	中等	简单
-
-
 
 //简写
 // 前端在请求的时候添加对应的流式请求头 text/event-stream
@@ -221,12 +206,12 @@ console.log('除了websocket和sse还有其他方式吗');
 /**
  * AI 流式对话核心实现
  */
-function onAiConnect (FetchConfig) {
+function onAiConnect(FetchConfig) {
   const requestOptions = {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'text/event-stream', // SSE 格式
+      "Content-Type": "application/json",
+      Accept: "text/event-stream", // SSE 格式
     },
     signal: this.signal, // 支持中断
     body: JSON.stringify(FetchConfig.body),
@@ -236,11 +221,10 @@ function onAiConnect (FetchConfig) {
 
   fetch(FetchConfig.url, requestOptions)
     .then((response) => {
-
       const reader = response.body.getReader(); // 获取流读取器
 
       // 递归读取流数据
-      return reader.read().then(function processResult ({ done, value }) {
+      return reader.read().then(function processResult({ done, value }) {
         if (done) {
           _that.onToggleLoading(false);
           observer.complete();
@@ -255,44 +239,39 @@ function onAiConnect (FetchConfig) {
       _that.onToggleLoading(false);
       observer.error(error);
     });
-
 }
 
 // 使用缓冲区缓存不完整数据
-let sessionChunk = '';
+let sessionChunk = "";
 
 function onParseMessage(Uint8Array) {
-  let aiValue = new TextDecoder('utf-8').decode(Uint8Array);
+  let aiValue = new TextDecoder("utf-8").decode(Uint8Array);
 
   // 拼接上次未完成的数据
   aiValue = sessionChunk + aiValue;
 
   // 尝试解析 JSON
-  const aiValueArray = lodash.filter(
-    lodash.split(aiValue, 'data:'),
-    (item) => {
-      try {
-        JSON.parse(item);
-        sessionChunk = ''; // 解析成功，清空缓冲区
-        return true;
-      } catch (error) {
-        // 不完整的 JSON 缓存起来
-        sessionChunk = `data: ${item}`;
-        return false;
-      }
+  const aiValueArray = lodash.filter(lodash.split(aiValue, "data:"), (item) => {
+    try {
+      JSON.parse(item);
+      sessionChunk = ""; // 解析成功，清空缓冲区
+      return true;
+    } catch (error) {
+      // 不完整的 JSON 缓存起来
+      sessionChunk = `data: ${item}`;
+      return false;
     }
-  );
+  });
 
   // 使用 aiValueArray，避免未使用变量警告
   if (aiValueArray.length > 0) {
     // 这里可以处理解析后的 JSON 数据
-    console.log('Parsed JSON array:', aiValueArray);
+    console.log("Parsed JSON array:", aiValueArray);
   }
 }
 
-
 //http2和http1的区别
-console.log('http2和http1的区别');
+console.log("http2和http1的区别");
 
 // 特性	HTTP/1.1	HTTP/2
 // 协议格式	文本协议	二进制协议
@@ -300,7 +279,6 @@ console.log('http2和http1的区别');
 // 头部压缩	无压缩	HPACK 压缩
 // 服务器推送	不支持	支持 Server Push
 // 流控制	无	有流量控制
-
 
 // http2的服务端推送是干什么的
 
@@ -318,9 +296,6 @@ console.log('http2和http1的区别');
 // </head>
 // </html>
 
-
-
-
 // HTTP/1.1 流程:
 // 1. 请求 HTML → 等待响应
 // 2. 解析 HTML → 发现需要 CSS
@@ -334,7 +309,7 @@ console.log('http2和http1的区别');
 // HTTP/2 服务端推送的核心价值是预判客户端需求，提前推送依赖资源，减少网络往返次数，尤其适合优化首屏加载速度
 
 // requestAnimationFrame和setInterval的区别
-console.log('requestAnimationFrame和setInterval的区别');
+console.log("requestAnimationFrame和setInterval的区别");
 // 特性	setInterval	requestAnimationFrame
 // 执行频率	固定间隔	与屏幕刷新率同步
 // 性能优化	无	浏览器自动优化
@@ -360,7 +335,6 @@ console.log('requestAnimationFrame和setInterval的区别');
 //   }
 // });
 
-
 // 创建底部哨兵元素
 // const sentinel = document.createElement('div');
 // document.body.appendChild(sentinel);
@@ -375,6 +349,6 @@ console.log('requestAnimationFrame和setInterval的区别');
 // observer.observe(sentinel);
 
 // 滚动触底加载导致dom元素过多卡顿如何优化
-console.log('滚动触底加载导致dom元素过多卡顿如何优化');
+console.log("滚动触底加载导致dom元素过多卡顿如何优化");
 
 // 核心思路: 只渲染用户能看到的内容，其余内容用占位符或回收机制处理。

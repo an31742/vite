@@ -62,7 +62,7 @@ console.log(undefined instanceof Object); // false
 // 3. Object.prototype.toString.call
 console.log(
   "🚀 ~ Object.prototype.toString.call:",
-  Object.prototype.toString.call
+  Object.prototype.toString.call,
 );
 
 let a = Object.prototype.toString;
@@ -97,9 +97,9 @@ console.log({}.constructor === Object); // true
 
 function Fn() {}
 
-Fn.prototype = new Array();
+Fn.prototype = [];
 
-var f = new Fn();
+let f = new Fn();
 
 console.log(f.constructor === Fn); // false
 console.log(f.constructor === Array); // true
@@ -509,7 +509,7 @@ const mockRequest = () => {
   });
 };
 // mockRequest 函数：
-console.log("🚀 ~ mockRequest 函数：:")
+console.log("🚀 ~ mockRequest 函数：:");
 
 // 模拟一个异步请求，500ms 后 reject（失败）
 // 用于测试 retry 功能
@@ -718,7 +718,6 @@ function throttle2(fn, delay) {
   };
 }
 
-
 /**
  *首次触发发 间隔delay时间一开始就直接执行函数 并且清空定时器
  *第二次触发 也是继续创建定时器在间隔delay时间之后执行函数
@@ -727,13 +726,12 @@ function throttle2(fn, delay) {
  * 多次调用节流每次都会在规定时间内触发一次
  */
 
-
- // 防抖：连续触发5次
-debounce(() => console.log('防抖'), 1000);
+// 防抖：连续触发5次
+debounce(() => console.log("防抖"), 1000);
 // 结果：只执行1次（最后一次）
 // 需要 clearTimeout 取消前4次
 
 // 节流：连续触发5次
-throttle2(() => console.log('节流'), 1000);
+throttle2(() => console.log("节流"), 1000);
 // 结果：执行1次（第一次），忽略后4次
 // 只需要 timer = null 重置状态

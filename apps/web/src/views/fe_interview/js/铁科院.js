@@ -1,5 +1,5 @@
 // ● vue2和vue3的区别
-console.log("🚀 ~ vue2和vue3的区别:")
+console.log("🚀 ~ vue2和vue3的区别:");
 
 // 1. 响应式原理
 // Vue2: Object.defineProperty —— 无法检测对象属性新增/删除、数组索引变更，需要 $set
@@ -86,9 +86,8 @@ console.log("🚀 ~ vue2和vue3的区别:")
 // Vue3: v-model 支持多个，自定义参数名
 // <MyComp v-model:title="title" v-model:content="content" />
 
-
 // ● ref 与 reactive 的区别
-console.log("🚀 ~ ref 与 reactive 的区别:")
+console.log("🚀 ~ ref 与 reactive 的区别:");
 
 // 1. 数据类型
 // ref: 可用于基本类型（string、number、boolean）和对象
@@ -145,9 +144,8 @@ console.log("🚀 ~ ref 与 reactive 的区别:")
 // 复杂对象且不需要替换 → ref 或 reactive 均可
 // 团队统一规范 → 推荐统一使用 ref（Vue 官方也推荐）
 
-
 // ● 大文件上传应该如何处理
-console.log("🚀 ~ 大文件上传应该如何处理:")
+console.log("🚀 ~ 大文件上传应该如何处理:");
 
 // 核心方案：分片上传 + 断点续传 + 并发控制
 
@@ -228,9 +226,8 @@ console.log("🚀 ~ 大文件上传应该如何处理:")
 // 完整流程：
 // 选择文件 → 计算 Hash → 询问已上传分片 → 并发上传剩余分片 → 通知合并
 
-
 // ● 十万级数据应该如何处理
-console.log("🚀 ~ 十万级数据应该如何处理:")
+console.log("🚀 ~ 十万级数据应该如何处理:");
 
 // 核心思路：不要一次性渲染所有数据
 
@@ -309,9 +306,8 @@ console.log("🚀 ~ 十万级数据应该如何处理:")
 // Web Worker    复杂数据计算          不阻塞主线程      通信有开销
 // Object.freeze 纯展示数据（Vue）     节省响应式开销    数据不可变
 
-
 // ● webpack 配置
-console.log("🚀 ~ webpack 配置:")
+console.log("🚀 ~ webpack 配置:");
 
 // const path = require('path')
 // const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -380,9 +376,8 @@ console.log("🚀 ~ webpack 配置:")
 //   mode: process.env.NODE_ENV || 'development',
 // }
 
-
 // ● vite 配置
-console.log("🚀 ~ vite 配置:")
+console.log("🚀 ~ vite 配置:");
 
 // import { defineConfig, loadEnv } from 'vite'
 // import vue from '@vitejs/plugin-vue'
@@ -461,9 +456,8 @@ console.log("🚀 ~ vite 配置:")
 //   }
 // })
 
-
 // ● 如何封装高复用组件
-console.log("🚀 ~ 如何封装高复用组件:")
+console.log("🚀 ~ 如何封装高复用组件:");
 
 // 核心原则：单一职责、开放封闭、高内聚低耦合
 

@@ -2,23 +2,29 @@
 <template>
   <div class="block">
     <span class="demonstration">默认 click 触发子菜单</span>
-    <el-cascader ref="refCascader" v-model="value" :options="options" @change="handleChange" :props="{
-      multiple: true,
-      checkStrictly: true,
-      value: 'value',
-      label: 'label',
-      children: 'children',
-    }">
+    <ElCascader
+      ref="refCascader"
+      v-model="value"
+      :options="options"
+      :props="{
+                multiple: true,
+                checkStrictly: true,
+                value: 'value',
+                label: 'label',
+                children: 'children',
+      }"
+      @change="handleChange"
+    >
       <template #default="{ node, data }">
         <span>{{ data.label }}</span>
       </template>
-    </el-cascader>
+    </ElCascader>
   </div>
 </template>
 <script>
 export default {
   components: {},
-  data () {
+  data() {
     return {
       first: [],
       value: [],
@@ -95,14 +101,14 @@ export default {
     };
   },
   methods: {
-    getCheckedNodes (data) {
+    getCheckedNodes(data) {
       console.log("data", data);
     },
 
-    handleChange (v) {
+    handleChange(v) {
       let selectValue;
       if (v.length === 1) {
-        selectValue = v[0][0]
+        selectValue = v[0][0];
         this.options.forEach((item, index) => {
           if (item.value === selectValue) {
             item.disabled = false;
@@ -111,11 +117,11 @@ export default {
               item2.disabled = true;
               item2.children?.forEach((item3, index3) => {
                 item3.disabled = true;
-              })
-            })
+              });
+            });
             item.disabled = true;
           }
-        })
+        });
       } else if (v.length === 0) {
         this.options.forEach((item, index) => {
           item.disabled = false;
@@ -124,36 +130,35 @@ export default {
             item2.disabled = false;
             item2.children?.forEach((item3, index3) => {
               item3.disabled = false;
-            })
-          })
-        })
-
+            });
+          });
+        });
       }
       const arr = this.$refs["refCascader"].getCheckedNodes();
-      this.value = []
-      arr.map(item => {
-        let newDat = item.pathValues
+      this.value = [];
+      arr.map((item) => {
+        let newDat = item.pathValues;
         if (item.children.length > 0) {
           if (newDat.length === 2) {
-            item.children.map(v => {
+            item.children.map((v) => {
               const tempArray = [...newDat, v.value];
               this.value.push(tempArray);
-            })
-            this.value.push(item.pathValues)
+            });
+            this.value.push(item.pathValues);
           } else if (newDat.length === 1) {
-            this.value.push(item.pathValues)
+            this.value.push(item.pathValues);
           }
         } else {
           if (newDat.length === 3) {
           } else if (newDat.length === 2) {
-            this.value.push(item.pathValues)
+            this.value.push(item.pathValues);
           } else {
-            this.value.push(item.pathValues)
+            this.value.push(item.pathValues);
           }
         }
-      })
+      });
     },
-  }
+  },
 };
 </script>
 <style lang="less" scoped></style>

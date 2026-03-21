@@ -1,18 +1,18 @@
 <!-- src/components/Modal/FallbackModal.vue -->
 <template>
   <div class="fallback-modal">
-    <el-icon color="#f56c6c" size="32"><warning /></el-icon>
+    <ElIcon color="#f56c6c" size="32"><Warning /></ElIcon>
     <h3>弹窗加载失败</h3>
     <p>请检查弹窗组件是否注册或网络是否正常</p>
-    <el-button type="primary" @click="handleRetry">重试</el-button>
+    <ElButton type="primary" @click="handleRetry">重试</ElButton>
     <el-button @click="handleCancel">关闭</el-button>
   </div>
 </template>
 
 <script setup>
-import { Warning } from '@element-plus/icons-vue';
+import { Warning } from "@element-plus/icons-vue";
 
-const emit = defineEmits(['confirm', 'cancel']);
+const emit = defineEmits(["confirm", "cancel"]);
 
 const handleRetry = () => {
   // 刷新当前页面（简单重试策略，可根据业务调整）
@@ -20,7 +20,7 @@ const handleRetry = () => {
 };
 
 const handleCancel = () => {
-  emit('cancel');
+  emit("cancel");
 };
 </script>
 

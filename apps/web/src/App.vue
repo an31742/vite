@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted ,nextTick} from "vue";
+import { ref, onMounted, nextTick } from "vue";
 import axios from "axios";
 import Modal from "@/components/com/Modal/index.vue"; //使用基础公共弹窗将公共弹窗挂载到全局上
 import { initModalInstance } from "@/components/com/Modal/modalApi";
@@ -13,7 +13,7 @@ onMounted(async () => {
   } catch (error) {
     console.error(error);
   }
-  await nextTick()
+  await nextTick();
   if (modalRef.value) {
     //将组建复制给initModalInstance
     initModalInstance(modalRef.value);
@@ -23,7 +23,7 @@ onMounted(async () => {
 
 <template>
   <div>
-    <router-view />
+    <RouterView />
     <Modal ref="modalRef" />
   </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
   <div class="ai-chat">
-    <div class="chat-container" ref="chatContainer">
+    <div ref="chatContainer" class="chat-container">
       <div
         v-for="message in messages"
         :key="message.id"
@@ -29,8 +29,8 @@
         @keyup.enter="sendMessage"
         :disabled="isStreaming"
       />
-      <el-button @click="sendMessage" :loading="isStreaming" type="primary"
-        >发送</el-button
+      <ElButton :loading="isStreaming" type="primary" @click="sendMessage"
+            >发送</ElButton
       >
     </div>
   </div>
@@ -74,7 +74,7 @@ const formatMessage = (content: string) => {
   const urlRegex = /(https?:\/\/[^\s]+)/g;
   return content.replace(
     urlRegex,
-    '<a href="$1" target="_blank" class="link">$1</a>'
+    '<a href="$1" target="_blank" class="link">$1</a>',
   );
 };
 
@@ -127,7 +127,7 @@ const sendMessage = async () => {
 };
 
 // SSE 流式响应处理
-const streamResponse = async (question:any, assistantMessage:any) => {
+const streamResponse = async (question: any, assistantMessage: any) => {
   // 模拟 SSE 流式请求
 
   //通过fetch 请求
@@ -135,59 +135,58 @@ const streamResponse = async (question:any, assistantMessage:any) => {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ message: question }),
-  })
- //获取到response.body?.getReader()
-  const reader:any = response.body?.getReader()
+  });
+  //获取到response.body?.getReader()
+  const reader: any = response.body?.getReader();
   //通过new TextDecoder() 获取到解析二进制格式
-  const decoder = new TextDecoder()
+  const decoder = new TextDecoder();
 
-  hideLoading()
+  hideLoading();
 
-
-  messages.value.push(assistantMessage)
+  messages.value.push(assistantMessage);
   //使用while循环获取数据
   while (true) {
     //使用reader read()读取流
-    const { done, value } = await reader.read()
-    if (done) break
+    const { done, value } = await reader.read();
+    if (done) break;
     //通过new TextDecoder() 获取到解析二进制格式
-    const decoder = new TextDecoder()
-    const chunk = decoder.decode(value)
+    const decoder = new TextDecoder();
+    const chunk = decoder.decode(value);
     //通过split处理返回的流式块
-    const lines = chunk.split('\n')
-    console.log("🚀 ~ streamResponse ~ lines:", lines)
+    const lines = chunk.split("\n");
+    console.log("🚀 ~ streamResponse ~ lines:", lines);
 
     for (const line of lines) {
-      console.log("🚀 ~ streamResponse ~ line:", line)
-      console.log("🚀 ~ streamResponse ~ ine.startsWith('data: '):", line.startsWith('data: '))
-      if (line.startsWith('data: ')) {
+      console.log("🚀 ~ streamResponse ~ line:", line);
+      console.log(
+        "🚀 ~ streamResponse ~ ine.startsWith('data: '):",
+        line.startsWith("data: "),
+      );
+      if (line.startsWith("data: ")) {
         try {
           //通过json parse 处理数据转化为json对象
-          const data = JSON.parse(line.slice(6)) //Q去掉data前缀
-          console.log("🚀 ~ streamResponse ~ data:", data)
+          const data = JSON.parse(line.slice(6)); //Q去掉data前缀
+          console.log("🚀 ~ streamResponse ~ data:", data);
 
           // 处理错误消息
           if (data.error) {
-            assistantMessage.content = `错误: ${data.error}`
-            return
+            assistantMessage.content = `错误: ${data.error}`;
+            return;
           }
 
           if (data.content) {
-            assistantMessage.content += data.content
-            scrollToBottom()
+            assistantMessage.content += data.content;
+            scrollToBottom();
           }
 
-          if (data.done) return
+          if (data.done) return;
         } catch (e) {
-          console.log('解析错误:', e, line)
+          console.log("解析错误:", e, line);
         }
       }
     }
   }
-}
-
-
-
+};
 
 onMounted(() => {
   // 初始欢迎消息

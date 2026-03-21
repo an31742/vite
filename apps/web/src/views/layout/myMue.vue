@@ -7,7 +7,10 @@
 -->
 <template>
   <div v-for="firstRoute in routesData" :key="firstRoute.path">
-    <template v-for="item in firstRoute.children?.filter(Boolean)" :key="item.path">
+    <template
+            v-for="item in firstRoute.children?.filter(Boolean)"
+            :key="item.path"
+        >
       <div v-if="item">
         <el-menu
           active-text-color="#ffd04b"
@@ -16,18 +19,18 @@
           :default-active="item.path"
           text-color="#fff"
           @open="handleOpen"
-          @close="handleClose"
           router
+                    @close="handleClose"
           v-if="!item.hidde"
         >
           <!-- 二级节有子集 -->
           <el-sub-menu
-            :index="item.path"
             v-if="
-              item.asideVisible === true &&
-              !item.hidde &&
-              checkRole(item.meta.anchors)
-            "
+                            item.asideVisible === true &&
+                                !item.hidde &&
+                                checkRole(item.meta.anchors)
+                        "
+                        :index="item.path"
           >
             <template #title>
               <el-icon>
@@ -39,23 +42,23 @@
               v-for="routeChild in item.children"
               :key="routeChild.path"
             >
-              <el-menu-item-group
-                v-if="
-                  routeChild.children === 0 ||
-                  (routeChild.children === undefined &&
-                    !routeChild.hidde &&
-                    checkRole(routeChild.meta.anchors))
-                "
-              >
-                <el-menu-item :index="routeChild.path">
-                  {{ routeChild.meta.title }}</el-menu-item
-                >
-              </el-menu-item-group>
+              <ElMenuItemGroup
+                                v-if="
+                                    routeChild.children === 0 ||
+                                        (routeChild.children === undefined &&
+                                            !routeChild.hidde &&
+                                            checkRole(routeChild.meta.anchors))
+                                "
+                            >
+                                <ElMenuItem :index="routeChild.path">
+                  {{ routeChild.meta.title }}</ElMenuItem
+                                >
+                            </ElMenuItemGroup>
 
               <el-sub-menu
                 v-else
-                :index="routeChild.path"
                 v-show="!routeChild.hidde && checkRole(routeChild.meta.anchors)"
+                                :index="routeChild.path"
               >
                 <template #title>{{ routeChild.meta.title }}</template>
 
@@ -63,16 +66,16 @@
                   v-for="routeRject in routeChild.children"
                   :key="routeRject.path"
                 >
-                  <el-menu-item-group>
-                    <el-menu-item
-                      :index="routeRject.path"
-                      v-if="
-                        !routeRject.hidde && checkRole(routeRject.meta.anchors)
-                      "
-                    >
-                      {{ routeRject.meta.title }}
-                    </el-menu-item>
-                  </el-menu-item-group>
+                  <ElMenuItemGroup>
+                                        <el-menu-item
+                                            :index="routeRject.path"
+                                            v-if="
+                                                !routeRject.hidde && checkRole(routeRject.meta.anchors)
+                                            "
+                                        >
+                                            {{ routeRject.meta.title }}
+                                        </el-menu-item>
+                                    </ElMenuItemGroup>
                 </template>
               </el-sub-menu>
             </template>
@@ -80,19 +83,19 @@
 
           <!-- 二级节点没有子集 -->
           <!-- 在这个菜单加一个公用方法这个公用方法是判断菜单是否展示，不展示代表没有权限 -->
-          <el-menu-item
-            :index="item.path"
-            v-if="
-              item.asideVisible === false &&
-              !item.hidde &&
-              checkRole(item.meta.anchors)
-            "
-          >
-            <el-icon>
-              <setting />
-            </el-icon>
-            <span>{{ item.meta.title }}</span>
-          </el-menu-item>
+          <ElMenuItem
+                        :index="item.path"
+                        v-if="
+                            item.asideVisible === false &&
+                                !item.hidde &&
+                                checkRole(item.meta.anchors)
+                        "
+                    >
+                        <el-icon>
+                            <Setting />
+                        </el-icon>
+                        <span>{{ item.meta.title }}</span>
+                    </ElMenuItem>
         </el-menu>
       </div>
     </template>
