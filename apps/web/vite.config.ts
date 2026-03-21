@@ -18,7 +18,7 @@ export default defineConfig({
     Components({
       resolvers: [
         ElementPlusResolver({
-          importStyle: "css",
+          importStyle: false, // 禁用自动导入样式，因为我们手动导入
         }),
       ],
       dts: "components.d.ts",
