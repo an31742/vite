@@ -3,10 +3,10 @@
     <div class="mar">
       <span class="input-name">{{ form.inputName }}</span>
       <el-input
-                v-model="form.inputValue"
-                style="width: 240px"
-                placeholder="Please input"
-            />
+        v-model="form.inputValue"
+        style="width: 240px"
+        placeholder="Please input"
+      />
     </div>
   </div>
 </template>

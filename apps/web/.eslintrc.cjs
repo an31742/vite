@@ -9,7 +9,10 @@ module.exports = {
   // https://eslint.bootcss.com/docs/user-guide/configuring#specifying-globals
   globals: {
     Nullable: true,
+    ElMessage: "readonly",
+    ElMessageBox: "readonly",
   },
+  ignorePatterns: ["src/views/fe_interview/js/**/*.js", "src/views/fe_interview/**/*.js", "src/views/demo/vue3/**/*.vue"],
   extends: [
     // add more generic rulesets here, such as:
     // 'eslint:recommended',
@@ -34,28 +37,22 @@ module.exports = {
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/ban-types": "off",
     "@typescript-eslint/no-unused-vars": "off",
-    "vue/html-indent": [
-      "error",
-      4,
-      {
-        attribute: 1,
-        baseIndent: 1,
-        closeBracket: 0,
-        alignAttributesVertically: true,
-        ignores: [],
-      },
-    ],
+    // 关闭HTML缩进规则，让prettier处理
+    "vue/html-indent": "off",
     // 关闭此规则 使用 prettier 的格式化规则， 感觉prettier 更加合理，
     // 而且一起使用会有冲突
     "vue/max-attributes-per-line": ["off"],
-    // 强制使用驼峰命名
-    "vue/component-name-in-template-casing": [
-      "error",
-      "PascalCase",
-      {
-        registeredComponentsOnly: false,
-        ignores: [],
-      },
-    ],
+    // 关闭组件命名规则，Element Plus组件名是kebab-case
+    "vue/component-name-in-template-casing": "off",
+    // 关闭多词组件名规则
+    "vue/multi-word-component-names": "off",
+    // 关闭属性顺序规则
+    "vue/attributes-order": "off",
+    // 关闭常量条件检查
+    "no-constant-condition": "off",
+    // 关闭v-html警告
+    "vue/no-v-html": "off",
+    // 关闭@ts-ignore警告
+    "@typescript-eslint/ban-ts-comment": "off",
   },
 }

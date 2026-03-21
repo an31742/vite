@@ -4,7 +4,7 @@
     <div class="context">
       <ul v-for="(item, index) in content" :key="item.id">
         <li style="display: block">
-                    {{ item.data }}
+          {{ item.data }}
           <el-icon style="float: right" @click="handleDelete(index)">
             <DeleteFilled />
           </el-icon>

@@ -5,6 +5,8 @@
 <script lang="tsx" setup>
 import { ref } from "vue"
 import dayjs from "dayjs"
+import { ElTooltip, ElIcon, ElTag, ElButton } from "element-plus"
+import { Timer } from "@element-plus/icons-vue"
 
 let id = 0
 
@@ -23,14 +25,12 @@ const columns = [
     fixed: "left",
     cellRenderer: ({ cellData: date }) => (
       <ElTooltip content={dayjs(date).format("YYYY/MM/DD")}>
-        {
-          <span class="flex items-center">
-            <ElIcon class="mr-3">
-              <Timer />
-            </ElIcon>
-            {dayjs(date).format("YYYY/MM/DD")}
-          </span>
-        }
+        <span class="flex items-center">
+          <ElIcon class="mr-3">
+            <Timer />
+          </ElIcon>
+          {dayjs(date).format("YYYY/MM/DD")}
+        </span>
       </ElTooltip>
     ),
   },

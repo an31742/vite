@@ -7,15 +7,15 @@
       v-model="value"
       :options="options"
       :props="{
-                multiple: true,
-                checkStrictly: true,
-                value: 'value',
-                label: 'label',
-                children: 'children',
+        multiple: true,
+        checkStrictly: true,
+        value: 'value',
+        label: 'label',
+        children: 'children',
       }"
       @change="handleChange"
     >
-      <template #default="{ node, data }">
+      <template #default="{ data }">
         <span>{{ data.label }}</span>
       </template>
     </ElCascader>
@@ -136,27 +136,25 @@ export default {
       }
       const arr = this.$refs["refCascader"].getCheckedNodes();
       this.value = [];
-      arr.map((item) => {
-        let newDat = item.pathValues;
-        if (item.children.length > 0) {
-          if (newDat.length === 2) {
-            item.children.map((v) => {
-              const tempArray = [...newDat, v.value];
-              this.value.push(tempArray);
-            });
-            this.value.push(item.pathValues);
-          } else if (newDat.length === 1) {
-            this.value.push(item.pathValues);
-          }
-        } else {
-          if (newDat.length === 3) {
-          } else if (newDat.length === 2) {
-            this.value.push(item.pathValues);
-          } else {
-            this.value.push(item.pathValues);
-          }
+      const collectAllPaths = (node, currentPath) => {
+        const path = [...currentPath, node.value];
+        if (!node.children || node.children.length === 0) {
+          return [path];
         }
+        let paths = [path];
+        node.children.forEach((child) => {
+          paths = paths.concat(collectAllPaths(child, path));
+        });
+        return paths;
+      };
+      const allPaths = new Set();
+      arr.forEach((item) => {
+        const paths = collectAllPaths(item, []);
+        paths.forEach((p) => {
+          allPaths.add(JSON.stringify(p));
+        });
       });
+      this.value = Array.from(allPaths).map((p) => JSON.parse(p));
     },
   },
 };

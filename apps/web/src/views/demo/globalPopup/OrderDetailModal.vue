@@ -7,21 +7,21 @@
     <el-table-column prop="total" label="小计" />
   </el-table>
   <ElForm :model="orderInfo" label-width="80px">
-        <el-form-item label="订单编号">
-            <span>{{ orderInfo.orderNo }}</span>
-        </el-form-item>
-        <ElFormItem label="下单时间">
+    <el-form-item label="订单编号">
+      <span>{{ orderInfo.orderNo }}</span>
+    </el-form-item>
+    <ElFormItem label="下单时间">
       <span>{{ orderInfo.createTime }}</span>
     </ElFormItem>
-        <ElFormItem label="订单金额">
+    <ElFormItem label="订单金额">
       <span style="color: #f56c6c; font-weight: bold">{{
-                orderInfo.totalAmount
-            }}</span>
+        orderInfo.totalAmount
+      }}</span>
     </ElFormItem>
-    </ElForm>
+  </ElForm>
   <ElFormItem align="right">
-        <el-button @click="handleCancel">关闭</el-button>
-    </ElFormItem>
+    <el-button @click="handleCancel">关闭</el-button>
+  </ElFormItem>
 </template>
 
 <script setup>

@@ -3,10 +3,10 @@
     <div class="mar">
       <span class="switch-name">{{ form.switchName }}</span>
       <el-switch
-                v-model="form.switchValue"
-                style="width: 240px"
-                placeholder="Please switch"
-            />
+        v-model="form.switchValue"
+        style="width: 240px"
+        placeholder="Please switch"
+      />
     </div>
   </div>
 </template>

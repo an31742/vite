@@ -7,10 +7,10 @@
         >1. 打开用户表单弹窗</el-button
       >
       <ElButton type="primary" @click="openEditUserForm"
-            >2. 打开编辑用户弹窗</ElButton
+        >2. 打开编辑用户弹窗</ElButton
       >
       <ElButton type="warning" @click="openDeleteConfirm"
-            >3. 打开删除确认弹窗（叠加）</ElButton
+        >3. 打开删除确认弹窗（叠加）</ElButton
       >
       <el-button type="info" @click="openOrderDetail"
         >4. 打开订单详情弹窗（分块打包）</el-button

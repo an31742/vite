@@ -1,16 +1,16 @@
 <template>
   <el-form
-        ref="ruleFormRef"
-        :model="ruleForm"
-        label-width="120px"
-        class="demo-ruleForm"
-    >
+    ref="ruleFormRef"
+    :model="ruleForm"
+    label-width="120px"
+    class="demo-ruleForm"
+  >
     <el-form-item label="Confirm">
       <ElInput v-model="ruleForm.name" />
     </el-form-item>
     <ElFormItem label="Password">
-            <el-input v-model="ruleForm.password" />
-        </ElFormItem>
+      <el-input v-model="ruleForm.password" />
+    </ElFormItem>
     <el-form-item>
       <ElButton type="primary" @click="submitForm">Submit</ElButton>
       <!-- <el-button @click="resetForm(ruleFormRef)">Reset</el-button> -->

@@ -5,15 +5,15 @@
       <el-input v-model="form.username" placeholder="请输入用户名" />
     </el-form-item>
     <ElFormItem label="手机号" prop="phone">
-            <el-input v-model="form.phone" placeholder="请输入手机号" />
-        </ElFormItem>
+      <el-input v-model="form.phone" placeholder="请输入手机号" />
+    </ElFormItem>
     <ElFormItem label="备注">
-            <ElInput v-model="form.remark" type="textarea" rows="3" />
-        </ElFormItem>
+      <ElInput v-model="form.remark" type="textarea" rows="3" />
+    </ElFormItem>
     <ElFormItem align="right">
-            <ElButton @click="handleCancel">取消</ElButton>
-            <ElButton type="primary" @click="handleConfirm">确认</ElButton>
-        </ElFormItem>
+      <ElButton @click="handleCancel">取消</ElButton>
+      <ElButton type="primary" @click="handleConfirm">确认</ElButton>
+    </ElFormItem>
   </el-form>
 </template>
 

@@ -7,12 +7,12 @@
         @change="log"
         item-key="elementKey"
       >
-                <template #item="{ element }">
-                    <ElButton style="margin: 10px; width: 80%">{{
-                        element.baseKey
-                    }}</ElButton>
-                </template>
-            </Draggable>
+        <template #item="{ element }">
+          <ElButton style="margin: 10px; width: 80%">{{
+            element.baseKey
+          }}</ElButton>
+        </template>
+      </Draggable>
     </div>
     <Draggable
       class="canvas"
@@ -22,15 +22,15 @@
       @end="onEnd"
       item-key="elementKey"
     >
-            <template #item="{ element, index }">
-                <div class="canvas-item" @click="handleCanvas(element, index)">
-                    <component :is="element.baseKey"></component>
+      <template #item="{ element, index }">
+        <div class="canvas-item" @click="handleCanvas(element, index)">
+          <component :is="element.baseKey"></component>
           <el-icon style="margin-left: 10px"
             ><Delete v-if="index === clickFlag" @click="handleDelete(index)"
           /></el-icon>
-                </div>
-            </template>
-        </Draggable>
+        </div>
+      </template>
+    </Draggable>
     <div class="attribute">
       <p style="margin-top: 15px">组件属性</p>
       <div class="attribute-item">
@@ -39,10 +39,10 @@
     </div>
   </main>
   <RawDisplayer
-        style="margin-top: 40px"
-        :value="dragBaseView"
-        :title="`json`"
-    />
+    style="margin-top: 40px"
+    :value="dragBaseView"
+    :title="`json`"
+  />
 </template>
 
 <script setup lang="ts">

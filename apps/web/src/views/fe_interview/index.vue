@@ -1,27 +1,27 @@
 <template>
   <el-container>
     <ElAside width="250px">
-            <div class="sidebar-header">
-                <h3>前端面经集合</h3>
-                <p>JavaScript 版本</p>
-            </div>
-            <div class="js-files-list">
-                <div v-for="file in jsFiles" :key="file.name" class="file-item">
-                    <div class="file-header" @click="toggleFile(file.name)">
-                        <span class="file-icon">📄</span>
-                        <span class="file-name">{{ file.name }}</span>
-                        <span class="toggle-icon">{{ file.expanded ? "▼" : "▶" }}</span>
-                    </div>
-                    <div v-if="file.expanded" class="file-content">
-                        <div class="file-actions">
-                            <el-button size="small" @click="viewCode(file.name)">
+      <div class="sidebar-header">
+        <h3>前端面经集合</h3>
+        <p>JavaScript 版本</p>
+      </div>
+      <div class="js-files-list">
+        <div v-for="file in jsFiles" :key="file.name" class="file-item">
+          <div class="file-header" @click="toggleFile(file.name)">
+            <span class="file-icon">📄</span>
+            <span class="file-name">{{ file.name }}</span>
+            <span class="toggle-icon">{{ file.expanded ? "▼" : "▶" }}</span>
+          </div>
+          <div v-if="file.expanded" class="file-content">
+            <div class="file-actions">
+              <el-button size="small" @click="viewCode(file.name)">
                 查看代码
               </el-button>
-                        </div>
-                    </div>
-                </div>
             </div>
-        </ElAside>
+          </div>
+        </div>
+      </div>
+    </ElAside>
     <el-main>
       <div class="main-header">
         <router-link to="/home" style="float: right">返回首页</router-link>

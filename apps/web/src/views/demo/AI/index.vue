@@ -30,7 +30,7 @@
         :disabled="isStreaming"
       />
       <ElButton :loading="isStreaming" type="primary" @click="sendMessage"
-            >发送</ElButton
+        >发送</ElButton
       >
     </div>
   </div>

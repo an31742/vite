@@ -8,31 +8,31 @@
         <div>
           <span style="color: &quot;#fff&quot;">切换主题</span>
           <ElSwitch
-                        @change="changeDark"
-                        v-model="dark"
-                        class="mt-2"
-                        style="margin-left: 24px"
-                        inline-prompt
-                        active-icon="MoonNight"
-                        inactive-icon="Sunny"
-                    />
-                </div>
+            @change="changeDark"
+            v-model="dark"
+            class="mt-2"
+            style="margin-left: 24px"
+            inline-prompt
+            active-icon="MoonNight"
+            inactive-icon="Sunny"
+          />
+        </div>
         <div>
           <ElDropdown @command="handleCommand">
-                        <el-image :src="obj.url" :fit="fit" />
-                        <template #dropdown>
-                            <el-dropdown-menu>
-                                <el-dropdown-item command="user">个人中心</el-dropdown-item>
-                                <el-dropdown-item command="loginOut">退出</el-dropdown-item>
-                            </el-dropdown-menu>
-                        </template>
-                    </ElDropdown>
+            <el-image :src="obj.url" :fit="fit" />
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item command="user">个人中心</el-dropdown-item>
+                <el-dropdown-item command="loginOut">退出</el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </ElDropdown>
         </div>
       </el-header>
       <el-container>
         <ElAside width="200px">
-                    <Mymue></Mymue>
-                </ElAside>
+          <Mymue></Mymue>
+        </ElAside>
         <el-main>
           <Home> </Home>
         </el-main>

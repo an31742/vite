@@ -15,11 +15,11 @@
     -->
   <!-- touchstart 手指触摸屏幕开始触发    touchmove 手指触摸屏幕连续触发   touchend 手指触摸屏幕结束触发 -->
   <div
-        class="pull-to-refresh"
-        @touchstart="handleTouchStart"
-        @touchmove="handleTouchMove"
-        @touchend="handleTouchEnd"
-    >
+    class="pull-to-refresh"
+    @touchstart="handleTouchStart"
+    @touchmove="handleTouchMove"
+    @touchend="handleTouchEnd"
+  >
     <!-- 下拉刷新提示区域 -->
     <!-- 设置下拉加载提示区域 -->
     <!-- 刷新高度大于0那么就是开始下拉刷新  进入刷新中 -->

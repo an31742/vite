@@ -6,7 +6,7 @@
   </div>
 </template>
 <script setup lang="ts">
-const props = defineProps(["value"]);
+const props = defineProps<{ value: any }>();
 </script>
 <style lang="less" scoped>
 .raw-displayer {

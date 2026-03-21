@@ -1,13 +1,13 @@
 <template>
   <h4 style="margin-bottom: 20px">输入框属性编辑</h4>
   <ElForm :model="form" label-width="auto" style="max-width: 600px">
-        <el-form-item label="输入框名称">
-            <el-input v-model="form.inputName" />
-        </el-form-item>
-        <el-form-item label="输入框的值">
-            <el-input v-model="form.inputValue" />
-        </el-form-item>
-    </ElForm>
+    <el-form-item label="输入框名称">
+      <el-input v-model="form.inputName" />
+    </el-form-item>
+    <el-form-item label="输入框的值">
+      <el-input v-model="form.inputValue" />
+    </el-form-item>
+  </ElForm>
 </template>
 
 <script lang="ts" setup>
