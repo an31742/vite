@@ -2,4 +2,5 @@
 import BaseInputViewEdit from "./base-input-edit.vue"
 import BaseSwitchViewEdit from "./base-switch-edit.vue"
 
-export { BaseInputViewEdit, BaseSwitchViewEdit }
+export const BaseInputEdit = BaseInputViewEdit
+export const BaseSwitchEdit = BaseSwitchViewEdit
