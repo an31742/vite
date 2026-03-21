@@ -5,10 +5,6 @@
 <script lang="tsx" setup>
 import { ref } from "vue"
 import dayjs from "dayjs"
-import { ElButton, ElIcon, ElTag, ElTooltip, TableV2FixedDir } from "element-plus"
-import { Timer } from "@element-plus/icons-vue"
-
-import type { Column } from "element-plus"
 
 let id = 0
 
@@ -18,13 +14,13 @@ const dataGenerator = () => ({
   date: "2020-10-1",
 })
 
-const columns: Column<any>[] = [
+const columns = [
   {
     key: "date",
     title: "Date",
     dataKey: "date",
     width: 150,
-    fixed: TableV2FixedDir.LEFT,
+    fixed: "left",
     cellRenderer: ({ cellData: date }) => (
       <ElTooltip content={dayjs(date).format("YYYY/MM/DD")}>
         {

@@ -37,7 +37,7 @@
 <script lang="ts" setup>
 import Home from "../home.vue";
 import Mymue from "./myMue.vue";
-import { ElMessage, ElMessageBox } from "element-plus";
+
 import { reactive,ref } from "vue";
 import { useRouter } from "vue-router";
 // import useCurrentInstance from "@/utils/useCurrentInstance";
