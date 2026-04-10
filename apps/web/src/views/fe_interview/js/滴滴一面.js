@@ -248,7 +248,7 @@ console.log("🚀 ~ 异步任务:");
 
 /**
  * javascript 事件运行机制是事件循环，他是处理JavaScript异步操作的核心机制
- * 组成部分 1.调用栈(call stack) 3.任务队列(task queue) 4.微任务队列(micro task queue)
+ * 组成部分 1.调用栈(call stack) 2. Web APIs：浏览器提供的异步能力（setTimeout、fetch、DOM事件等）， 3.宏任务队列(task queue) 4.微任务队列(micro task queue)
  */
 
 //调用栈(call stack)
