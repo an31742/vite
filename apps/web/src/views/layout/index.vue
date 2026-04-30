@@ -19,7 +19,7 @@
         </div>
         <div>
           <ElDropdown @command="handleCommand">
-            <el-image :src="obj.url" :fit="fit" />
+            <el-image :src="obj.url" fit="cover" />
             <template #dropdown>
               <el-dropdown-menu>
                 <el-dropdown-item command="user">个人中心</el-dropdown-item>

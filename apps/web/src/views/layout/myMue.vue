@@ -105,6 +105,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { Location, Setting } from "@element-plus/icons-vue";
 import { useCounter } from "@/store/index.ts";
 import { checkRole } from "@/utils/permission.ts";
 

@@ -4,7 +4,6 @@
       <Draggable
         :list="dragBaseData"
         :group="{ name: 'elementKey', pull: 'clone', put: false }"
-        @change="log"
         item-key="elementKey"
       >
         <template #item="{ element }">
@@ -47,8 +46,11 @@
 
 <script setup lang="ts">
 import { DRAG_BASE_COMPONENT, DRAG_BASE_VIEW } from "@/components/base/base";
-import { ref, reactive } from "vue";
+import { ref } from "vue";
 import draggable from "vuedraggable";
+import { Delete } from "@element-plus/icons-vue";
+
+const Draggable = draggable;
 
 // 基础组件数据
 const dragBaseData = ref(DRAG_BASE_COMPONENT);
@@ -90,8 +92,9 @@ const handleDelete = (index: number) => {
   dragBaseView.value.splice(index, 1);
 };
 const log = (evt: any) => {
-  console.log(898888, evt.added.element.baseKey);
-  baseEditKey.value = `${evt.added.element.baseKey}Edit`;
+  if (evt.added) {
+    baseEditKey.value = `${evt.added.element.baseKey}Edit`;
+  }
 };
 </script>
 <style>
