@@ -1,6 +1,6 @@
 export const DRAG_BASE_COMPONENT = [
-  { baseKey: "BaseInputView", value: 1 },
-  { baseKey: "BaseSwitchView", value: 2 },
+  { baseKey: "BaseInput", value: 1 },
+  { baseKey: "BaseSwitch", value: 2 },
 ];
 
 export const DRAG_BASE_VIEW = [];
