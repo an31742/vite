@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, nextTick } from "vue";
+import { ref, onMounted, nextTick } from "vue";
 import Modal from "@/components/com/Modal/index.vue";
 import { initModalInstance } from "@/components/com/Modal/modalApi";
 

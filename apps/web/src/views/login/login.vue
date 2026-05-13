@@ -4,7 +4,8 @@
       <p class="eyebrow">Vue3 + Vite + TypeScript</p>
       <h1>数智化前端实践平台</h1>
       <p class="summary">
-        覆盖权限路由、低代码拖拽、全局弹窗、AI 流式交互、移动端刷新与前端面经知识库，适合面试时展示工程化和业务落地能力。
+        覆盖权限路由、低代码拖拽、全局弹窗、AI
+        流式交互、移动端刷新与前端面经知识库，适合面试时展示工程化和业务落地能力。
       </p>
       <div class="feature-grid">
         <span>权限控制</span>

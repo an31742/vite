@@ -155,7 +155,15 @@ import {
 } from "echarts/components";
 import VChart from "vue-echarts";
 import screenfull from "screenfull";
-import { FullScreen, Crop, Loading, TrendCharts, Money, ShoppingCart, User } from "@element-plus/icons-vue";
+import {
+  FullScreen,
+  Crop,
+  Loading,
+  TrendCharts,
+  Money,
+  ShoppingCart,
+  User,
+} from "@element-plus/icons-vue";
 import { Vue3SeamlessScroll } from "vue3-seamless-scroll";
 
 const SeamlessScroll = Vue3SeamlessScroll as any;
@@ -567,7 +575,12 @@ const mapChartOption = computed(() => ({
       encode: { value: 2 },
       showEffectOn: "render",
       rippleEffect: { brushType: "stroke", scale: 3 },
-      label: { formatter: "{b}", position: "right", show: false, color: "#fff" },
+      label: {
+        formatter: "{b}",
+        position: "right",
+        show: false,
+        color: "#fff",
+      },
       itemStyle: { color: "#fff", shadowBlur: 10, shadowColor: "#fff" },
       emphasis: { scale: true },
     },
@@ -874,7 +887,7 @@ onUnmounted(() => {
   .card-body {
     height: 500px;
   }
-.map-chart {
+  .map-chart {
     width: 100%;
     height: 100%;
   }
@@ -893,7 +906,7 @@ onUnmounted(() => {
       font-size: 32px;
     }
   }
-}/* 右列布局 */
+} /* 右列布局 */
 .main-right {
   display: flex;
   flex-direction: column;
