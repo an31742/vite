@@ -3,10 +3,10 @@
     <el-container>
       <el-header>
         <div class="project-name">
-          <h4>an的个人小天地</h4>
+          <h4>数智化前端实践平台</h4>
         </div>
         <div>
-          <span style="color: &quot;#fff&quot;">切换主题</span>
+          <span class="theme-label">切换主题</span>
           <ElSwitch
             @change="changeDark"
             v-model="dark"
@@ -57,9 +57,7 @@ const obj = reactive({
 });
 
 const handleCommand = (command: string | number | object) => {
-  // ElMessage(`click on item ${command}`);
   if (command === "loginOut") {
-    // ElMessage.warning(`是否退出登录吗`);
     ElMessageBox.confirm("您确定要退出登录吗?", "提示", {
       confirmButtonText: "确定",
       cancelButtonText: "取消",
@@ -81,36 +79,48 @@ const handleCommand = (command: string | number | object) => {
       });
   }
 };
-//switch开关的chang事件进行暗黑模式的切换
 const changeDark = () => {
-  //获取HTML根节点
-  let html = document.documentElement;
-  //判断HTML标签是否有类名dark
+  const html = document.documentElement;
   dark.value ? (html.className = "dark") : (html.className = "");
 };
 </script>
 
 <style scoped>
+.common-layout {
+  min-height: 100vh;
+  background: #f4f7fb;
+}
 .el-header {
   display: flex;
   justify-content: space-between;
-  background-color: #333;
+  background: #172033;
   align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 .el-aside {
-  background-color: #545c64;
+  background-color: #202b3d;
   height: calc(100vh - 60px);
 }
 .el-main {
-  padding: 10px;
+  padding: 0;
   height: calc(100vh - 60px);
+  overflow: auto;
 }
 .project-name {
   display: flex;
   justify-content: start;
   align-items: center;
   color: #fff;
-  font-family: "Courier New", Courier, monospace;
+  letter-spacing: 0;
+}
+.project-name h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 650;
+}
+.theme-label {
+  color: #dbe6f5;
+  font-size: 14px;
 }
 
 .el-image {

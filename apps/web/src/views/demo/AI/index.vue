@@ -50,8 +50,8 @@ const inputText = ref("");
 const isStreaming = ref(false);
 const showLoading = ref(false);
 const chatContainer = ref<HTMLElement>();
-let sessionChunk = ""; // 缓冲区
 let loadingTimer: any = null;
+const streamApiUrl = "/api/ai/chat/stream";
 
 // 防抖显示 loading
 const showLoadingWithDebounce = () => {
@@ -69,12 +69,19 @@ const hideLoading = () => {
   showLoading.value = false;
 };
 
-// 链接识别和转换
+const escapeHtml = (content: string) =>
+  content
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+
 const formatMessage = (content: string) => {
   const urlRegex = /(https?:\/\/[^\s]+)/g;
-  return content.replace(
+  return escapeHtml(content).replace(
     urlRegex,
-    '<a href="$1" target="_blank" class="link">$1</a>',
+    '<a href="$1" target="_blank" rel="noopener noreferrer" class="link">$1</a>',
   );
 };
 
@@ -119,56 +126,44 @@ const sendMessage = async () => {
   } catch (error) {
     console.error("Stream error:", error);
     assistantMessage.content = "抱歉，发生了错误，请稍后重试。";
+    if (!messages.value.some((message) => message.id === assistantMessage.id)) {
+      messages.value.push(assistantMessage);
+    }
   } finally {
     isStreaming.value = false;
     hideLoading();
-    sessionChunk = "";
   }
 };
 
-// SSE 流式响应处理
 const streamResponse = async (question: any, assistantMessage: any) => {
-  // 模拟 SSE 流式请求
-
-  //通过fetch 请求
-  const response = await fetch("http://localhost:9527/api/ai/chat/stream", {
+  const response = await fetch(streamApiUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ message: question }),
   });
-  //获取到response.body?.getReader()
+
+  if (!response.ok || !response.body) {
+    throw new Error(`AI stream failed: ${response.status}`);
+  }
+
   const reader: any = response.body?.getReader();
-  //通过new TextDecoder() 获取到解析二进制格式
   const decoder = new TextDecoder();
 
   hideLoading();
 
   messages.value.push(assistantMessage);
-  //使用while循环获取数据
+
   while (true) {
-    //使用reader read()读取流
     const { done, value } = await reader.read();
     if (done) break;
-    //通过new TextDecoder() 获取到解析二进制格式
-    const decoder = new TextDecoder();
     const chunk = decoder.decode(value);
-    //通过split处理返回的流式块
     const lines = chunk.split("\n");
-    console.log("🚀 ~ streamResponse ~ lines:", lines);
 
     for (const line of lines) {
-      console.log("🚀 ~ streamResponse ~ line:", line);
-      console.log(
-        "🚀 ~ streamResponse ~ ine.startsWith('data: '):",
-        line.startsWith("data: "),
-      );
       if (line.startsWith("data: ")) {
         try {
-          //通过json parse 处理数据转化为json对象
-          const data = JSON.parse(line.slice(6)); //Q去掉data前缀
-          console.log("🚀 ~ streamResponse ~ data:", data);
+          const data = JSON.parse(line.slice(6));
 
-          // 处理错误消息
           if (data.error) {
             assistantMessage.content = `错误: ${data.error}`;
             return;
@@ -181,7 +176,7 @@ const streamResponse = async (question: any, assistantMessage: any) => {
 
           if (data.done) return;
         } catch (e) {
-          console.log("解析错误:", e, line);
+          console.error("SSE parse error:", e, line);
         }
       }
     }

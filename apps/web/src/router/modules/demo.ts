@@ -16,7 +16,7 @@ const routes = {
   hidde: false,
   redirect: "/demo/toLocalStorage",
   meta: {
-    title: "demo",
+    title: "项目演示",
     icon: markRaw(Box),
     activeMenu: "demo",
     anchors: "admin",
@@ -29,7 +29,7 @@ const routes = {
       asideVisible: false,
       hidde: false,
       meta: {
-        title: "toLocalStorage",
+        title: "本地缓存",
         icon: markRaw(Box),
         activeMenu: "toLocalStorage",
         anchors: "admin",
@@ -42,7 +42,7 @@ const routes = {
       asideVisible: false,
       hidde: false,
       meta: {
-        title: "demoLayOut",
+        title: "布局示例",
         icon: markRaw(Box),
         activeMenu: "demoLayOut",
         anchors: "admin",
@@ -68,7 +68,7 @@ const routes = {
           component: () => import("@/views/demo/vue3/authTable.vue"),
           asideVisible: false,
           meta: {
-            title: "authTable",
+            title: "权限表格",
             icon: markRaw(Box),
             activeMenu: "authTable",
             anchors: "admin", //设计前端权限
@@ -83,7 +83,7 @@ const routes = {
       component: () => import("@/views/demo/cascader.vue"),
       asideVisible: false,
       meta: {
-        title: "cascader",
+        title: "级联选择",
         icon: markRaw(Box),
         activeMenu: "cascader",
         anchors: "admin",
@@ -96,7 +96,7 @@ const routes = {
       component: () => import("@/views/demo/globalPopup/index.vue"),
       asideVisible: false,
       meta: {
-        title: "globalPopup",
+        title: "全局弹窗",
         icon: markRaw(Box),
         activeMenu: "globalPopup",
         anchors: "admin",
@@ -109,7 +109,7 @@ const routes = {
       component: () => import("@/views/demo/AI/index.vue"),
       asideVisible: false,
       meta: {
-        title: "AI",
+        title: "AI 流式问答",
         icon: markRaw(Box),
         activeMenu: "AI",
         anchors: "admin",
@@ -122,7 +122,7 @@ const routes = {
       component: () => import("@/views/demo/pcDrag/index.vue"),
       asideVisible: false,
       meta: {
-        title: "pcDrag",
+        title: "低代码拖拽",
         icon: markRaw(Box),
         activeMenu: "pcDrag",
         anchors: "admin", //设计前端权限
@@ -148,7 +148,7 @@ const routes = {
           component: () => import("@/views/demo/jsLearn/top-pull-refresh.vue"),
           asideVisible: false,
           meta: {
-            title: "downPullRefresh",
+            title: "下拉刷新",
             icon: markRaw(Box),
             activeMenu: "downPullRefresh",
             anchors: "admin", //设计前端权限
@@ -161,7 +161,7 @@ const routes = {
           component: () => import("@/views/demo/jsLearn/down-pull-refresh.vue"),
           asideVisible: false,
           meta: {
-            title: "topPullRefresh",
+            title: "上拉加载",
             icon: markRaw(Box),
             activeMenu: "topPullRefresh",
             anchors: "admin", //设计前端权限
