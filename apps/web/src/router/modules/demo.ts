@@ -129,6 +129,19 @@ const routes = {
       },
     },
     {
+      path: "/demo/cockpit",
+      name: "cockpit",
+      hidde: false,
+      component: () => import("@/views/demo/cockpit/index.vue"),
+      asideVisible: false,
+      meta: {
+        title: "数据驾驶舱",
+        icon: markRaw(Box),
+        activeMenu: "cockpit",
+        anchors: "admin",
+      },
+    },
+    {
       path: "/demo/jsLearn",
       name: "jsLearn",
       hidde: false,

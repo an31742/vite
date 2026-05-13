@@ -34,6 +34,7 @@ declare module 'vue' {
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTableV2: typeof import('element-plus/es')['ElTableV2']
+    ElTag: typeof import('element-plus/es')['ElTag']
     FallbackModal: typeof import('./src/components/com/Modal/FallbackModal.vue')['default']
     Modal: typeof import('./src/components/com/Modal/index.vue')['default']
     RawDisplayer: typeof import('./src/components/infra/raw-displayer.vue')['default']
