@@ -10,10 +10,10 @@
           流式问答和性能分包等可复用能力。
         </p>
       </div>
-      <div class="hero-panel">
+      <!-- <div class="hero-panel">
         <span>建议演示路径</span>
         <strong>首页 → 低代码拖拽 → 全局弹窗 → AI 流式 → 权限控制</strong>
-      </div>
+      </div> -->
     </section>
 
     <section class="metrics">
@@ -25,7 +25,7 @@
 
     <section class="content-grid">
       <article class="panel">
-        <h2>岗位匹配点</h2>
+        <h2>技术栈</h2>
         <ul>
           <li>Vue3 + TypeScript + Vite 工程化，路由模块化与按需加载。</li>
           <li>Element Plus 组件体系，自定义指令覆盖防抖、节流、复制、水印、权限。</li>
@@ -35,7 +35,7 @@
       </article>
 
       <article class="panel">
-        <h2>重点展示模块</h2>
+        <h2>重要模块</h2>
         <div class="module-list">
           <button
             v-for="module in modules"
@@ -50,7 +50,7 @@
       </article>
 
       <article class="panel wide">
-        <h2>可讲述的技术方案</h2>
+        <h2>技术方案</h2>
         <div class="solution-grid">
           <div v-for="item in solutions" :key="item.title">
             <h3>{{ item.title }}</h3>
