@@ -72,7 +72,12 @@
             <span class="card-subtitle">Regional Distribution</span>
           </div>
           <div class="card-body">
+            <div v-if="!mapLoaded" class="map-loading">
+              <el-icon class="is-loading"><Loading /></el-icon>
+              <span>地图数据加载中...</span>
+            </div>
             <v-chart
+              v-else
               class="chart map-chart"
               :option="mapChartOption"
               autoresize
@@ -100,10 +105,10 @@
           </div>
           <div class="card-body">
             <div class="scroll-list">
-              <Vue3SeamlessScroll
-                :list="transactionListComputed"
+              <SeamlessScroll
+                :list="transactionList"
                 class="seamless-wrap"
-                :step="scrollStep"
+                :step="0.5"
               >
                 <div
                   class="scroll-item"
@@ -119,7 +124,7 @@
                   }}</span>
                   <span class="item-time">{{ item.time }}</span>
                 </div>
-              </Vue3SeamlessScroll>
+              </SeamlessScroll>
             </div>
           </div>
         </div>
@@ -150,8 +155,10 @@ import {
 } from "echarts/components";
 import VChart from "vue-echarts";
 import screenfull from "screenfull";
-import { FullScreen, Crop } from "@element-plus/icons-vue";
+import { FullScreen, Crop, Loading, TrendCharts, Money, ShoppingCart, User } from "@element-plus/icons-vue";
 import { Vue3SeamlessScroll } from "vue3-seamless-scroll";
+
+const SeamlessScroll = Vue3SeamlessScroll as any;
 
 // 注册 ECharts 组件
 use([
@@ -185,32 +192,32 @@ let timeTimer: number | null = null;
 const mapLoaded = ref(false);
 
 // 概览数据
-const overviewData = ref([
+const overviewData = [
   {
-    icon: "TrendCharts",
+    icon: TrendCharts,
     label: "总销售额",
     value: "¥ 2,345,678",
     gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
   },
   {
-    icon: "Money",
+    icon: Money,
     label: "今日收入",
     value: "¥ 128,456",
     gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
   },
   {
-    icon: "ShoppingCart",
+    icon: ShoppingCart,
     label: "订单数量",
     value: "8,456",
     gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
   },
   {
-    icon: "User",
+    icon: User,
     label: "活跃用户",
     value: "12,345",
     gradient: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)",
   },
-]);
+];
 
 // 交易动态数据
 interface TransactionItem {
@@ -293,10 +300,6 @@ const transactionList = ref<TransactionItem[]>([
     time: "10:11:45",
   },
 ]);
-
-// 为 Vue3SeamlessScroll 创建计算属性
-const transactionListComputed = computed(() => transactionList.value);
-const scrollStep = computed(() => 0.5);
 
 // 折线图配置
 const lineChartOption = computed(() => ({
@@ -476,7 +479,7 @@ const barChartOption = computed(() => ({
   ],
 }));
 
-// 地图配置（使用散点图模拟）
+// 地图配置
 const mapChartOption = computed(() => ({
   backgroundColor: "transparent",
   tooltip: {
@@ -485,7 +488,28 @@ const mapChartOption = computed(() => ({
     borderColor: "#00d4ff",
     textStyle: { color: "#fff" },
     formatter: (params: any) => {
-      return `${params.name}<br/>销售额: ¥${params.value[2]}万`;
+      if (params.seriesType === "effectScatter") {
+        return `${params.name}<br/>销售额: ¥${params.value[2]}万`;
+      }
+      return `${params.name}<br/>销售额: ¥${params.value || 0}万`;
+    },
+  },
+  visualMap: {
+    min: 0,
+    max: 600,
+    left: "5%",
+    bottom: "5%",
+    text: ["高", "低"],
+    calculable: true,
+    inRange: {
+      color: [
+        "rgba(0, 212, 255, 0.2)",
+        "rgba(0, 212, 255, 0.5)",
+        "rgba(255, 107, 107, 0.8)",
+      ],
+    },
+    textStyle: {
+      color: "#fff",
     },
   },
   geo: {
@@ -505,7 +529,26 @@ const mapChartOption = computed(() => ({
   },
   series: [
     {
-      name: "销售热力",
+      name: "销售热力-区域",
+      type: "map",
+      map: "china",
+      geoIndex: 0,
+      data: [
+        { name: "北京", value: 450 },
+        { name: "上海", value: 520 },
+        { name: "广东", value: 480 },
+        { name: "浙江", value: 350 },
+        { name: "四川", value: 280 },
+        { name: "湖北", value: 260 },
+        { name: "陕西", value: 220 },
+        { name: "江苏", value: 290 },
+        { name: "重庆", value: 310 },
+        { name: "山东", value: 240 },
+        { name: "福建", value: 210 },
+      ],
+    },
+    {
+      name: "销售热力-城市",
       type: "effectScatter",
       coordinateSystem: "geo",
       data: [
@@ -524,8 +567,8 @@ const mapChartOption = computed(() => ({
       encode: { value: 2 },
       showEffectOn: "render",
       rippleEffect: { brushType: "stroke", scale: 3 },
-      label: { formatter: "{b}", position: "right", show: true, color: "#fff" },
-      itemStyle: { color: "#ff6b6b", shadowBlur: 10, shadowColor: "#ff6b6b" },
+      label: { formatter: "{b}", position: "right", show: false, color: "#fff" },
+      itemStyle: { color: "#fff", shadowBlur: 10, shadowColor: "#fff" },
       emphasis: { scale: true },
     },
   ],
@@ -567,7 +610,7 @@ onMounted(async () => {
   // 加载中国地图数据
   try {
     const response = await fetch(
-      "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json",
+      "https://geo.datav.aliyun.com/areas_v3/bound/100000.json",
     );
     if (!response.ok) throw new Error("Network response was not ok");
     const chinaJson = await response.json();
@@ -575,8 +618,20 @@ onMounted(async () => {
     echarts.registerMap("china", chinaJson);
     mapLoaded.value = true;
   } catch (error) {
-    console.error("地图数据加载失败:", error);
-    mapLoaded.value = false;
+    console.error("地图数据加载失败，尝试备用地址:", error);
+    try {
+      const response = await fetch(
+        "https://cdn.jsdelivr.net/gh/apache/echarts-website@asf-site/examples/data/asset/geo/china.json",
+      );
+      if (!response.ok) throw new Error("Fallback failed");
+      const chinaJson = await response.json();
+      const echarts = await import("echarts/core");
+      echarts.registerMap("china", chinaJson);
+      mapLoaded.value = true;
+    } catch (fallbackError) {
+      console.error("所有地图数据加载失败:", fallbackError);
+      mapLoaded.value = false;
+    }
   }
 });
 
@@ -819,14 +874,26 @@ onUnmounted(() => {
   .card-body {
     height: 500px;
   }
-}
-
 .map-chart {
-  width: 100%;
-  height: 100%;
-}
+    width: 100%;
+    height: 100%;
+  }
 
-/* 右列布局 */
+  .map-loading {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: #00d4ff;
+    font-size: 14px;
+
+    .el-icon {
+      font-size: 32px;
+    }
+  }
+}/* 右列布局 */
 .main-right {
   display: flex;
   flex-direction: column;
