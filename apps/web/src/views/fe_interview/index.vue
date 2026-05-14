@@ -21,7 +21,7 @@
           <el-tab-pane label="JS 面经" name="js">
             <div class="js-files-list">
               <div v-for="file in filteredJsFiles" :key="file.name" class="file-item">
-                <div class="file-header" @click="toggleFile(file, 'js')">
+                <div class="file-header" @click="toggleFile(file)">
                   <span class="file-icon">📜</span>
                   <span class="file-name">{{ file.name }}</span>
                   <span class="toggle-icon">{{ file.expanded ? "▼" : "▶" }}</span>
@@ -39,7 +39,7 @@
           <el-tab-pane label="MD 面经" name="md">
             <div class="md-files-list">
               <div v-for="file in filteredMdFiles" :key="file.name" class="file-item">
-                <div class="file-header" @click="toggleFile(file, 'md')">
+                <div class="file-header" @click="toggleFile(file)">
                   <span class="file-icon">📝</span>
                   <span class="file-name">{{ file.name }}</span>
                   <span class="toggle-icon">{{ file.expanded ? "▼" : "▶" }}</span>
@@ -87,173 +87,154 @@
   </el-container>
 </template>
 
-<script>
-import { defineComponent, ref, computed } from "vue";
+<script setup lang="ts">
+import { ref, computed, reactive } from "vue";
 import { Search, Loading } from "@element-plus/icons-vue";
 
-export default defineComponent({
-  components: {
-    Search,
-    Loading,
-  },
-  setup() {
-    const currentOutput = ref("");
-    const currentFile = ref("");
-    const jsFiles = ref([]);
-    const mdFiles = ref([]);
-    const searchQuery = ref("");
-    const activeTab = ref("js");
-    const isIndexing = ref(false);
-    const fileIndex = reactive({});
+const currentOutput = ref("");
+const currentFile = ref("");
+const jsFiles = ref<any[]>([]);
+const mdFiles = ref<any[]>([]);
+const searchQuery = ref("");
+const activeTab = ref("js");
+const isIndexing = ref(false);
+const fileIndex = reactive<Record<string, string>>({});
 
-    const loadFileList = async () => {
-      const jsFileList = [
-        "开源中国一面.js",
-        "开源中国二面.js",
-        "手写面试题.js",
-        "滴滴一面.js",
-        "牛客网哈罗一面.js",
-        "牛客网美团一面.js",
-        "牛客网美团一面2.js",
-        "百图生科.js",
-        "联想一面.js",
-        "联想消费者团队一面.js",
-        "联想消费者团队二面.js",
-        "车晓科技一面.js",
-        "铁科院.js",
-      ].map((fileName) => ({
-        name: fileName,
-        expanded: false,
-        type: "js",
-      }));
+const loadFileList = async () => {
+  const jsFileList = [
+    "开源中国一面.js",
+    "开源中国二面.js",
+    "手写面试题.js",
+    "滴滴一面.js",
+    "牛客网哈罗一面.js",
+    "牛客网美团一面.js",
+    "牛客网美团一面2.js",
+    "百图生科.js",
+    "联想一面.js",
+    "联想消费者团队一面.js",
+    "联想消费者团队二面.js",
+    "车晓科技一面.js",
+    "铁科院.js",
+  ].map((fileName) => ({
+    name: fileName,
+    expanded: false,
+    type: "js",
+  }));
 
-      const mdFileList = [
-        "京东一面.md",
-        "开源中国一面.md",
-        "开源中国二面.md",
-        "手写面试题.md",
-        "滴滴一面.md",
-        "牛客网哈罗一面.md",
-        "牛客网美团一面.md",
-        "牛客网美团一面2.md",
-        "百图生科.md",
-        "联想一面.md",
-        "联想消费者团队一面.md",
-        "联想消费者团队二面.md",
-        "荣宝斋一面.md",
-        "车晓科技一面.md",
-        "铁科院.md",
-      ].map((fileName) => ({
-        name: fileName,
-        expanded: false,
-        type: "md",
-      }));
+  const mdFileList = [
+    "京东一面.md",
+    "开源中国一面.md",
+    "开源中国二面.md",
+    "手写面试题.md",
+    "滴滴一面.md",
+    "牛客网哈罗一面.md",
+    "牛客网美团一面.md",
+    "牛客网美团一面2.md",
+    "百图生科.md",
+    "联想一面.md",
+    "联想消费者团队一面.md",
+    "联想消费者团队二面.md",
+    "荣宝斋一面.md",
+    "车晓科技一面.md",
+    "铁科院.md",
+  ].map((fileName) => ({
+    name: fileName,
+    expanded: false,
+    type: "md",
+  }));
 
-      jsFiles.value = jsFileList.sort((a, b) => a.name.localeCompare(b.name));
-      mdFiles.value = mdFileList.sort((a, b) => a.name.localeCompare(b.name));
+  jsFiles.value = jsFileList.sort((a, b) => a.name.localeCompare(b.name));
+  mdFiles.value = mdFileList.sort((a, b) => a.name.localeCompare(b.name));
 
-      // 异步建立索引
-      startIndexing();
-    };
+  // 异步建立索引
+  startIndexing();
+};
 
-    const startIndexing = async () => {
-      isIndexing.value = true;
+const startIndexing = async () => {
+  isIndexing.value = true;
+  try {
+    const indexTasks = mdFiles.value.map(async (file) => {
       try {
-        // 优先索引 MD 文件，因为它们内容更丰富
-        const indexTasks = mdFiles.value.map(async (file) => {
-          try {
-            const response = await fetch(`/src/views/fe_interview/md/${file.name}`);
-            if (response.ok) {
-              const content = await response.text();
-              fileIndex[`md_${file.name}`] = content.toLowerCase();
-            }
-          } catch (e) {
-            console.warn(`索引文件 ${file.name} 失败:`, e);
-          }
-        });
-
-        // 索引 JS 文件
-        const jsTasks = jsFiles.value.map(async (file) => {
-          try {
-            const response = await fetch(`/src/views/fe_interview/js/${file.name}`);
-            if (response.ok) {
-              const content = await response.text();
-              fileIndex[`js_${file.name}`] = content.toLowerCase();
-            }
-          } catch (e) {
-            console.warn(`索引文件 ${file.name} 失败:`, e);
-          }
-        });
-
-        await Promise.all([...indexTasks, ...jsTasks]);
-      } finally {
-        isIndexing.value = false;
-      }
-    };
-
-    loadFileList();
-
-    const filteredJsFiles = computed(() => {
-      if (!searchQuery.value) return jsFiles.value;
-      const query = searchQuery.value.toLowerCase();
-      return jsFiles.value.filter((file) => {
-        const nameMatch = file.name.toLowerCase().includes(query);
-        const contentMatch = fileIndex[`js_${file.name}`]?.includes(query);
-        return nameMatch || contentMatch;
-      });
-    });
-
-    const filteredMdFiles = computed(() => {
-      if (!searchQuery.value) return mdFiles.value;
-      const query = searchQuery.value.toLowerCase();
-      return mdFiles.value.filter((file) => {
-        const nameMatch = file.name.toLowerCase().includes(query);
-        const contentMatch = fileIndex[`md_${file.name}`]?.includes(query);
-        return nameMatch || contentMatch;
-      });
-    });
-
-    const toggleFile = (file, type) => {
-      file.expanded = !file.expanded;
-    };
-
-    const viewCode = async (fileName, type) => {
-      try {
-        currentFile.value = fileName;
-        currentOutput.value = "正在加载内容...";
-
-        let content = "";
-        const basePath = type === "js" ? "/src/views/fe_interview/js" : "/src/views/fe_interview/md";
-        const response = await fetch(`${basePath}/${fileName}`);
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+        const response = await fetch(`/src/views/fe_interview/md/${file.name}`);
+        if (response.ok) {
+          const content = await response.text();
+          fileIndex[`md_${file.name}`] = content.toLowerCase();
         }
-
-        content = await response.text();
-        currentOutput.value = content;
-        ElMessage.success("内容已加载");
-      } catch (error) {
-        console.error("加载失败:", error);
-        currentOutput.value = `加载失败: ${error.message}`;
-        ElMessage.error("加载失败");
+      } catch (e) {
+        console.warn(`索引文件 ${file.name} 失败:`, e);
       }
-    };
+    });
 
-    return {
-      currentOutput,
-      currentFile,
-      toggleFile,
-      viewCode,
-      jsFiles,
-      mdFiles,
-      searchQuery,
-      activeTab,
-      filteredJsFiles,
-      filteredMdFiles,
-    };
-  },
+    const jsTasks = jsFiles.value.map(async (file) => {
+      try {
+        const response = await fetch(`/src/views/fe_interview/js/${file.name}`);
+        if (response.ok) {
+          const content = await response.text();
+          fileIndex[`js_${file.name}`] = content.toLowerCase();
+        }
+      } catch (e) {
+        console.warn(`索引文件 ${file.name} 失败:`, e);
+      }
+    });
+
+    await Promise.all([...indexTasks, ...jsTasks]);
+  } finally {
+    isIndexing.value = false;
+  }
+};
+
+loadFileList();
+
+const filteredJsFiles = computed(() => {
+  if (!searchQuery.value) return jsFiles.value;
+  const query = searchQuery.value.toLowerCase();
+  return jsFiles.value.filter((file) => {
+    const nameMatch = file.name.toLowerCase().includes(query);
+    const contentMatch = fileIndex[`js_${file.name}`]?.includes(query);
+    return nameMatch || contentMatch;
+  });
 });
+
+const filteredMdFiles = computed(() => {
+  if (!searchQuery.value) return mdFiles.value;
+  const query = searchQuery.value.toLowerCase();
+  return mdFiles.value.filter((file) => {
+    const nameMatch = file.name.toLowerCase().includes(query);
+    const contentMatch = fileIndex[`md_${file.name}`]?.includes(query);
+    return nameMatch || contentMatch;
+  });
+});
+
+const toggleFile = (file: any) => {
+  file.expanded = !file.expanded;
+};
+
+const viewCode = async (fileName: string, type: string) => {
+  try {
+    currentFile.value = fileName;
+    currentOutput.value = "正在加载内容...";
+
+    const basePath =
+      type === "js"
+        ? "/src/views/fe_interview/js"
+        : "/src/views/fe_interview/md";
+    const response = await fetch(`${basePath}/${fileName}`);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const content = await response.text();
+    currentOutput.value = content;
+    //@ts-ignore
+    ElMessage.success("内容已加载");
+  } catch (error: any) {
+    console.error("加载失败:", error);
+    currentOutput.value = `加载失败: ${error.message}`;
+    //@ts-ignore
+    ElMessage.error("加载失败");
+  }
+};
 </script>
 
 <style scoped>
