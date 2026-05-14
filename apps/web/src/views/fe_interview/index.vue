@@ -1,25 +1,60 @@
 <template>
   <el-container>
-    <ElAside width="250px">
+    <ElAside width="300px">
       <div class="sidebar-header">
         <h3>前端面经集合</h3>
-        <p>JavaScript 版本</p>
-      </div>
-      <div class="js-files-list">
-        <div v-for="file in jsFiles" :key="file.name" class="file-item">
-          <div class="file-header" @click="toggleFile(file.name)">
-            <span class="file-icon">📄</span>
-            <span class="file-name">{{ file.name }}</span>
-            <span class="toggle-icon">{{ file.expanded ? "▼" : "▶" }}</span>
-          </div>
-          <div v-if="file.expanded" class="file-content">
-            <div class="file-actions">
-              <el-button size="small" @click="viewCode(file.name)">
-                查看代码
-              </el-button>
-            </div>
-          </div>
+        <p>JavaScript & Markdown</p>
+        <div v-if="isIndexing" class="indexing-status">
+          <el-icon class="is-loading"><Loading /></el-icon>
+          <span>正在建立全文索引...</span>
         </div>
+        <el-input
+          v-model="searchQuery"
+          placeholder="搜索面经内容或标题..."
+          prefix-icon="Search"
+          clearable
+          class="search-input"
+        />
+      </div>
+      <div class="file-list-container">
+        <el-tabs v-model="activeTab" class="file-tabs">
+          <el-tab-pane label="JS 面经" name="js">
+            <div class="js-files-list">
+              <div v-for="file in filteredJsFiles" :key="file.name" class="file-item">
+                <div class="file-header" @click="toggleFile(file, 'js')">
+                  <span class="file-icon">📜</span>
+                  <span class="file-name">{{ file.name }}</span>
+                  <span class="toggle-icon">{{ file.expanded ? "▼" : "▶" }}</span>
+                </div>
+                <div v-if="file.expanded" class="file-content">
+                  <div class="file-actions">
+                    <el-button size="small" type="primary" @click="viewCode(file.name, 'js')">
+                      查看代码
+                    </el-button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </el-tab-pane>
+          <el-tab-pane label="MD 面经" name="md">
+            <div class="md-files-list">
+              <div v-for="file in filteredMdFiles" :key="file.name" class="file-item">
+                <div class="file-header" @click="toggleFile(file, 'md')">
+                  <span class="file-icon">📝</span>
+                  <span class="file-name">{{ file.name }}</span>
+                  <span class="toggle-icon">{{ file.expanded ? "▼" : "▶" }}</span>
+                </div>
+                <div v-if="file.expanded" class="file-content">
+                  <div class="file-actions">
+                    <el-button size="small" type="success" @click="viewCode(file.name, 'md')">
+                      查看文档
+                    </el-button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </el-tab-pane>
+        </el-tabs>
       </div>
     </ElAside>
     <el-main>
@@ -53,16 +88,26 @@
 </template>
 
 <script>
-import { defineComponent, ref, reactive } from "vue";
+import { defineComponent, ref, computed } from "vue";
+import { Search, Loading } from "@element-plus/icons-vue";
 
 export default defineComponent({
+  components: {
+    Search,
+    Loading,
+  },
   setup() {
     const currentOutput = ref("");
     const currentFile = ref("");
     const jsFiles = ref([]);
+    const mdFiles = ref([]);
+    const searchQuery = ref("");
+    const activeTab = ref("js");
+    const isIndexing = ref(false);
+    const fileIndex = reactive({});
+
     const loadFileList = async () => {
-      // 直接硬编码文件列表，避免使用 import.meta.glob
-      const fileList = [
+      const jsFileList = [
         "开源中国一面.js",
         "开源中国二面.js",
         "手写面试题.js",
@@ -79,29 +124,117 @@ export default defineComponent({
       ].map((fileName) => ({
         name: fileName,
         expanded: false,
+        type: "js",
       }));
-      jsFiles.value = fileList.sort((a, b) => a.name.localeCompare(b.name));
+
+      const mdFileList = [
+        "京东一面.md",
+        "开源中国一面.md",
+        "开源中国二面.md",
+        "手写面试题.md",
+        "滴滴一面.md",
+        "牛客网哈罗一面.md",
+        "牛客网美团一面.md",
+        "牛客网美团一面2.md",
+        "百图生科.md",
+        "联想一面.md",
+        "联想消费者团队一面.md",
+        "联想消费者团队二面.md",
+        "荣宝斋一面.md",
+        "车晓科技一面.md",
+        "铁科院.md",
+      ].map((fileName) => ({
+        name: fileName,
+        expanded: false,
+        type: "md",
+      }));
+
+      jsFiles.value = jsFileList.sort((a, b) => a.name.localeCompare(b.name));
+      mdFiles.value = mdFileList.sort((a, b) => a.name.localeCompare(b.name));
+
+      // 异步建立索引
+      startIndexing();
     };
-    loadFileList();
-    const toggleFile = (fileName) => {
-      const file = jsFiles.value.find((f) => f.name === fileName);
-      if (file) {
-        file.expanded = !file.expanded;
+
+    const startIndexing = async () => {
+      isIndexing.value = true;
+      try {
+        // 优先索引 MD 文件，因为它们内容更丰富
+        const indexTasks = mdFiles.value.map(async (file) => {
+          try {
+            const response = await fetch(`/src/views/fe_interview/md/${file.name}`);
+            if (response.ok) {
+              const content = await response.text();
+              fileIndex[`md_${file.name}`] = content.toLowerCase();
+            }
+          } catch (e) {
+            console.warn(`索引文件 ${file.name} 失败:`, e);
+          }
+        });
+
+        // 索引 JS 文件
+        const jsTasks = jsFiles.value.map(async (file) => {
+          try {
+            const response = await fetch(`/src/views/fe_interview/js/${file.name}`);
+            if (response.ok) {
+              const content = await response.text();
+              fileIndex[`js_${file.name}`] = content.toLowerCase();
+            }
+          } catch (e) {
+            console.warn(`索引文件 ${file.name} 失败:`, e);
+          }
+        });
+
+        await Promise.all([...indexTasks, ...jsTasks]);
+      } finally {
+        isIndexing.value = false;
       }
     };
 
-    const viewCode = async (fileName) => {
+    loadFileList();
+
+    const filteredJsFiles = computed(() => {
+      if (!searchQuery.value) return jsFiles.value;
+      const query = searchQuery.value.toLowerCase();
+      return jsFiles.value.filter((file) => {
+        const nameMatch = file.name.toLowerCase().includes(query);
+        const contentMatch = fileIndex[`js_${file.name}`]?.includes(query);
+        return nameMatch || contentMatch;
+      });
+    });
+
+    const filteredMdFiles = computed(() => {
+      if (!searchQuery.value) return mdFiles.value;
+      const query = searchQuery.value.toLowerCase();
+      return mdFiles.value.filter((file) => {
+        const nameMatch = file.name.toLowerCase().includes(query);
+        const contentMatch = fileIndex[`md_${file.name}`]?.includes(query);
+        return nameMatch || contentMatch;
+      });
+    });
+
+    const toggleFile = (file, type) => {
+      file.expanded = !file.expanded;
+    };
+
+    const viewCode = async (fileName, type) => {
       try {
         currentFile.value = fileName;
-        currentOutput.value = "正在加载代码...";
+        currentOutput.value = "正在加载内容...";
 
-        // 使用动态导入加载文件
-        const moduleKey = `./js/${fileName}`;
-        const codeContent = await import(moduleKey);
-        currentOutput.value = codeContent.default;
-        console.log("🚀 ~ viewCode ~ codeContent:", codeContent);
-        ElMessage.success("代码已加载");
+        let content = "";
+        const basePath = type === "js" ? "/src/views/fe_interview/js" : "/src/views/fe_interview/md";
+        const response = await fetch(`${basePath}/${fileName}`);
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        content = await response.text();
+        currentOutput.value = content;
+        ElMessage.success("内容已加载");
       } catch (error) {
+        console.error("加载失败:", error);
         currentOutput.value = `加载失败: ${error.message}`;
         ElMessage.error("加载失败");
       }
@@ -113,6 +246,11 @@ export default defineComponent({
       toggleFile,
       viewCode,
       jsFiles,
+      mdFiles,
+      searchQuery,
+      activeTab,
+      filteredJsFiles,
+      filteredMdFiles,
     };
   },
 });
@@ -148,13 +286,37 @@ export default defineComponent({
 }
 
 .sidebar-header p {
-  margin: 0;
+  margin: 0 0 15px 0;
   color: #909399;
   font-size: 12px;
 }
 
-.js-files-list {
-  padding: 0 10px;
+.search-input {
+  margin-bottom: 10px;
+}
+
+.indexing-status {
+  font-size: 12px;
+  color: #409eff;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.file-list-container {
+  height: calc(100vh - 160px);
+  overflow-y: auto;
+}
+
+.file-tabs :deep(.el-tabs__nav-scroll) {
+  padding: 0 15px;
+}
+
+.js-files-list,
+.md-files-list {
+  padding: 10px;
 }
 
 .file-item {
