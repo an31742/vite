@@ -1,20 +1,19 @@
 //http.ts
 import axios, { AxiosRequestConfig } from "axios";
 import NProgress from "nprogress";
-axios.defaults.baseURL = "/api";
+axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL || "/api";
 axios.defaults.timeout = 10000;
 axios.defaults.headers.post["Content-Type"] = "application/json;charset=UTF-8";
 axios.interceptors.request.use(
-  (config): AxiosRequestConfig<any> => {
+  (config: any) => {
     const token = window.sessionStorage.getItem("token");
     if (token) {
-      //@ts-ignore
       config.headers.token = token;
     }
     return config;
   },
   (error) => {
-    return error;
+    return Promise.reject(error);
   },
 );
 // 响应拦截

@@ -51,7 +51,7 @@ const isStreaming = ref(false);
 const showLoading = ref(false);
 const chatContainer = ref<HTMLElement>();
 let loadingTimer: any = null;
-const streamApiUrl = "/api/ai/chat/stream";
+const streamApiUrl = `${import.meta.env.VITE_API_BASE_URL}/ai/chat/stream`;
 
 // 防抖显示 loading
 const showLoadingWithDebounce = () => {
