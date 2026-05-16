@@ -20,15 +20,25 @@
         <el-tabs v-model="activeTab" class="file-tabs">
           <el-tab-pane label="JS 面经" name="js">
             <div class="js-files-list">
-              <div v-for="file in filteredJsFiles" :key="file.name" class="file-item">
+              <div
+                v-for="file in filteredJsFiles"
+                :key="file.name"
+                class="file-item"
+              >
                 <div class="file-header" @click="toggleFile(file)">
                   <span class="file-icon">📜</span>
                   <span class="file-name">{{ file.name }}</span>
-                  <span class="toggle-icon">{{ file.expanded ? "▼" : "▶" }}</span>
+                  <span class="toggle-icon">{{
+                    file.expanded ? "▼" : "▶"
+                  }}</span>
                 </div>
                 <div v-if="file.expanded" class="file-content">
                   <div class="file-actions">
-                    <el-button size="small" type="primary" @click="viewCode(file.name, 'js')">
+                    <el-button
+                      size="small"
+                      type="primary"
+                      @click="viewCode(file.name, 'js')"
+                    >
                       查看代码
                     </el-button>
                   </div>
@@ -38,15 +48,25 @@
           </el-tab-pane>
           <el-tab-pane label="MD 面经" name="md">
             <div class="md-files-list">
-              <div v-for="file in filteredMdFiles" :key="file.name" class="file-item">
+              <div
+                v-for="file in filteredMdFiles"
+                :key="file.name"
+                class="file-item"
+              >
                 <div class="file-header" @click="toggleFile(file)">
                   <span class="file-icon">📝</span>
                   <span class="file-name">{{ file.name }}</span>
-                  <span class="toggle-icon">{{ file.expanded ? "▼" : "▶" }}</span>
+                  <span class="toggle-icon">{{
+                    file.expanded ? "▼" : "▶"
+                  }}</span>
                 </div>
                 <div v-if="file.expanded" class="file-content">
                   <div class="file-actions">
-                    <el-button size="small" type="success" @click="viewCode(file.name, 'md')">
+                    <el-button
+                      size="small"
+                      type="success"
+                      @click="viewCode(file.name, 'md')"
+                    >
                       查看文档
                     </el-button>
                   </div>
@@ -115,6 +135,7 @@ const loadFileList = async () => {
     "联想消费者团队二面.js",
     "车晓科技一面.js",
     "铁科院.js",
+    "字节面试题.js",
   ].map((fileName) => ({
     name: fileName,
     expanded: false,
@@ -137,6 +158,7 @@ const loadFileList = async () => {
     "荣宝斋一面.md",
     "车晓科技一面.md",
     "铁科院.md",
+    "字节面试题.md",
   ].map((fileName) => ({
     name: fileName,
     expanded: false,
