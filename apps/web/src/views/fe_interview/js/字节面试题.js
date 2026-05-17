@@ -77,7 +77,9 @@ function twoSum(nums, target) {
     map.set(nums[i], i)
   }
   return []
-}  // 这个函数用于在数组中找到两个数，使它们的和等于目标值，并返回这两个数的索引
+}
+function twoSum (nums, target) {
+// 这个函数用于在数组中找到两个数，使它们的和等于目标值，并返回这两个数的索引
   // 使用哈希表（Map）来优化查找效率，时间复杂度为O(n)
   //如果设置一个map值
   const map = new Map()
