@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+  <div id="app"></div>
+  <script src="./mini-vue.js"></script>
+  <script>
+    ; (async () => {
+      const state = reactive({ count: 0 })
+      let execCount = 0
+
+      effect(() => {
+        execCount++
+        console.log('effect 执行，count:', state.count)
+      })
+
+      // 同步连续修改
+      state.count = 1
+      state.count = 2
+      state.count = 3
+
+      // 同步代码执行完毕后，execCount 仍然为 1（说明只入队一次）
+      console.log('execCount:', execCount) // 1
+
+      // 等到微任务执行后，effect 实际运行，但队列已去重，最终只执行一次
+    })()
+  </script>
+</body>
+
+</html>
